@@ -26,7 +26,7 @@ CypressCraft is the ideal solution for development and QA teams looking to minim
 
 
 # Table of Contents
-- Introduction
+- [Introduction](#Introduction)
 - Characteristics
 - Requirements
 - Facility
@@ -40,8 +40,14 @@ CypressCraft is the ideal solution for development and QA teams looking to minim
 - Contact
 - Introduction
 
+# Introduction
+Welcome to CypressCraft, an advanced sub-framework designed to revolutionize the way E2E and API testing is performed using Cypress. Developed by a team with more than four years of experience at Cypress, this sub-framework emerges as a comprehensive solution to overcome common challenges in test automation and maximize efficiency in software development.
 
-Explica qué es el sub-framework, su origen, cómo y por qué se desarrolló. Menciona cómo mejora o complementa el uso de Cypress, especialmente para pruebas E2E y de API.
+CypressCraft extends Cypress' capabilities beyond its primary focus on E2E testing, tailoring it for optimal performance in API testing. With meticulous integration of design patterns such as the Page Object Model (POM) and Factory Pattern, CypressCraft not only simplifies the creation of automated tests but also makes them more maintainable and scalable.
+
+This sub-framework is specially designed for teams looking for agility and precision in their testing, offering advanced features such as handling multiple environments, data centralization, and flexibility to adjust to API or frontend projects. Whether you're just getting started with Cypress or are an automated testing veteran, CypressCraft is here to enrich your experience and take your testing to the next level.
+
+
 
 # Características
 Destaca las principales características y beneficios del sub-framework, como:
