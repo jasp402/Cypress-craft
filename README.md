@@ -3,22 +3,43 @@
 </div>
 
 # 📦 CypressCraft
-Una breve descripción del sub-framework, destacando su propósito y sus capacidades únicas.
+**CypressCraft** is an innovative sub-framework built on top of Cypress.
 
-# Tabla de Contenidos
-- Introducción
-- Características
-- Requisitos
-- Instalación
-- Configuración
-- Uso
-- Patrones de Diseño Implementados
-- Manejo de Entornos
-- Manejo de Datos
-- Contribuir
-- Licencia
-- Contacto
-- Introducción
+After working for several years with E2E test automation and API services. We have had the need to include multiple libraries, design patterns and organize the code in such a way that it is a transparent, easy and fast process, taking automation capabilities to a higher level, optimizing and expanding the standard Cypress functionalities to adapt both to frontend and API tests.
+
+Our sub-framework (**CypressCraft**) is distinguished by the integration of BDD using Cucumber and Gerkin, advanced design patterns such as Page Object Model (POM) and Factory Pattern, Singleton Pattern, and Strategy Pattern adapted and refined specifically to work with the versatile nature of Cypress. This integration not only improves the efficiency and effectiveness of automated testing, but also facilitates a more organized and maintainable structure of the test code.
+
+---
+
+CypressCraft key innovations include:
+
+- ### Optimization for API Testing:
+   Although Cypress was not originally designed with a focus on API testing, we have fine-tuned and optimized its use for this purpose, ensuring a smooth and effective experience.
+- ### Management of Multiple Environments:
+   CypressCraft efficiently handles multiple test environments, allowing easy transition and configuration between different test contexts.
+- ### Data Centralization:
+   We have centralized the management of data, both dynamic and fixed, through specialized classes that control data from fixtures, thus improving the consistency and reusability of data in tests.
+- ### Flexibility in Frontend and Backend:
+   The sub-framework is designed to automatically adjust to API or frontend projects as needed, implementing highly optimized design patterns.
+
+CypressCraft is the ideal solution for development and QA teams looking to minimize time and effort in the process of creating automations, while maintaining high standards of quality and efficiency. With the latest version of Cypress as a foundation, CypressCraft represents a significant evolution in the world of test automation.
+
+
+# Table of Contents
+- Introduction
+- Characteristics
+- Requirements
+- Facility
+- Setting
+- Use
+- Implemented Design Patterns
+- Environment Management
+- Data Management
+- Contribute
+- License
+- Contact
+- Introduction
+
 
 Explica qué es el sub-framework, su origen, cómo y por qué se desarrolló. Menciona cómo mejora o complementa el uso de Cypress, especialmente para pruebas E2E y de API.
 
