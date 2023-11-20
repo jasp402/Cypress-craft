@@ -1,9 +1,9 @@
-const fs   = require('fs');
+const fs   = require('fs-extra');
 const path = require('path');
 
-const templateDir = path.join('..');
-const destinoDir  = path.join('..', process.cwd());
-const ignoreFile = [
+const sourceDir   = path.join(__dirname, '../'); // Directory cypress-craft
+const targetDir   = path.join(__dirname, '../../../'); // Directory YourProject
+const ignoreFiles = [
     '.idea',
     '.git',
     '.gitignore',
@@ -18,32 +18,18 @@ const ignoreFile = [
     'scripts'
 ];
 
-function copiarRecursivamente(src, dest) {
-    const elementos = fs.readdirSync(src);
-    const table = {};
-    elementos.forEach(elemento => {
-        if(ignoreFile.includes(elemento)) return;
-        const srcPath = path.join(src, elemento);
-        const destPath = path.join(dest, elemento);
+const filterFunc = (src) => {
+    const basename = path.basename(src);
+    return !ignoreFiles.includes(basename);
+};
 
-        table[srcPath] = srcPath;
-        table[destPath] = destPath;
+fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc}, function (err) {
+    if (err) {
+        console.error('Error copying files: ', err);
+    }
+    else {
+        console.log('Files copied successfully.');
+    }
+});
 
-
-        // // Si es un directorio, hacer una llamada recursiva
-        // if (fs.lstatSync(srcPath).isDirectory()) {
-        //     copiarRecursivamente(srcPath, destPath);
-        // } else {
-        //     // Si es un archivo, simplemente copiarlo
-        //     fs.copyFileSync(srcPath, destPath);
-        // }
-    });
-
-    console.table(table);
-}
-
-
-// Iniciar la copia
-copiarRecursivamente(templateDir, destinoDir);
-
-console.log('Plantilla copiada con éxito en:', destinoDir);
+console.log('Template successfully copied to:', targetDir);
