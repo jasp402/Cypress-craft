@@ -1,6 +1,7 @@
 <div style="background: #e3f5ec;" align="center">
-    <img src="https://github.com/jasp402/CypressCraft/assets/8978470/beec7789-bdeb-4af1-91ae-2e7c40a51d4f" width="500" alt="CypressCraft Logo">
+    <img src="https://github.com/jasp402/Cypress-craft/assets/8978470/f75a5260-d16c-437a-978d-0da5e5bb5759" width="1024" alt="CypressCraft Logo">
 </div>
+
 
 # 📦 CypressCraft
 **CypressCraft** is an innovative sub-framework built on top of Cypress.
