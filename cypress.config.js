@@ -1,5 +1,5 @@
-const {defineConfig}                  = require("cypress");
-const setupNodeEvents                = require("./cypress/support/setupNodeEvents");
+const {defineConfig}  = require("cypress");
+const setupNodeEvents = require("./cypress/support/setupNodeEvents");
 
 module.exports = defineConfig({
     e2e: {
@@ -7,7 +7,7 @@ module.exports = defineConfig({
         specPattern      : "cypress/e2e/**/*.feature",
         chromeWebSecurity: false,
         env              : {
-            "environment": "qa-test"
+            "environment": "prod"
         }
     },
 });

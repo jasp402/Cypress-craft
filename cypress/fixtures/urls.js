@@ -5,9 +5,9 @@ class Urls {
 
     getBaseUrl(){
         let baseUrl = {
-            dev: 'https://dev.jsonplaceholder.typicode.com/',
-            qa : 'https://qa.jsonplaceholder.typicode.com/',
-            pro: 'https://jsonplaceholder.typicode.com/'
+            dev : 'https://dev.jsonplaceholder.typicode.com',
+            qa  : 'https://qa.jsonplaceholder.typicode.com',
+            prod: 'https://jsonplaceholder.typicode.com'
         };
         return baseUrl[this.env];
     }

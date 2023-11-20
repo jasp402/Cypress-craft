@@ -1,23 +1,25 @@
 {
-  "name": "cypresscraft",
-  "version": "1.0.0-alpha.2",
+  "name": "cypress-craft",
+  "version": "1.0.0-alpha.3",
   "description": "CypressCraft is an innovative sub-framework built on top of Cypress (Cypress + Cucumber + POM)",
   "main": "index.js",
   "scripts": {
+    "start": "cypress open",
     "release": "standard-version",
+    "publish": "npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jasp402/CypressCraft.git"
+    "url": "git+https://github.com/jasp402/Cypress-craft.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jasp402/CypressCraft/issues"
+    "url": "https://github.com/jasp402/Cypress-craft/issues"
   },
-  "homepage": "https://github.com/jasp402/CypressCraft#readme",
+  "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
     "@cypress/browserify-preprocessor": "^3.0.2",
