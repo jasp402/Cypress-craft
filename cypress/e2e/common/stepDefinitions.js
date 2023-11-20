@@ -15,6 +15,6 @@ When('I show the {string} endpoint {word}', (endPoint, type) => {
     pageObject._showManager(type, endPoint);
 });
 
-Then('the response should have the parameter "status" with condition "is equal to" and value "201"', () => {
-
+Then('the response should have the parameter {string} with condition {string} and value {string}', (field, condition, value) => {
+    pageObject.validateResponse(field, condition, value);
 });

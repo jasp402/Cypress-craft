@@ -4,9 +4,8 @@ Este archivo contiene una lista de tareas pendientes, mejoras y características
 
 ## Tareas Pendientes
 
-### 1. Añadir Soporte de Idioma
+### 1. Completar la documentación
 - **Descripción**: Implementar la funcionalidad para soportar múltiples idiomas en la aplicación.
-- **Responsable**: [Nombre del Desarrollador o Equipo]
 - **Fecha límite**: 30 de septiembre de 2023
 - **Notas**: Considerar la biblioteca `i18n` para la gestión de idiomas.
 

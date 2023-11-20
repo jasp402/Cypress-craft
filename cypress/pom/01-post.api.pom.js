@@ -46,7 +46,9 @@ class Posts extends Main {
 
         super._setRequest(endPoint, options);
     }
-
+    validateResponse(field, conditional, value) {
+        super._validateResponse('posts', field, conditional, value);
+    }
 }
 export const className = 'Posts';
 module.exports = new Posts();
