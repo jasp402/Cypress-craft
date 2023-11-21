@@ -2,8 +2,6 @@
 // load type definitions that come with Cypress module
 /// <reference types="cypress" />
 
-import * as string_decoder from "string_decoder";
-
 declare namespace Cypress {
     interface Chainable<Subject> {
         /**

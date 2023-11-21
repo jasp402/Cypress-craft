@@ -11,8 +11,8 @@ function extractAndSetDynamicValue(text, endPoint, _self) {
     return phraseOrWord(text) ? dynamicValues[0] : setValueText(text, dynamicValues);
 }
 
-function assertionMap(responseValue, value, endPoint, field, _self) {
-    return {
+function assertionMap(responseValue, value, assertion, endPoint, field, _self) {
+    const expectFn = {
         'not.equal'           : () => expect(responseValue).to.not.equal(value),
         'deep.equal'          : () => expect(JSON.stringify(responseValue)).to.deep.equal(JSON.parse(value)),
         'not.deep.equal'      : () => expect(responseValue).to.not.deep.equal(value),
@@ -47,10 +47,106 @@ function assertionMap(responseValue, value, endPoint, field, _self) {
         'above.length'        : () => expect(responseValue.length).to.above(JSON.parse(value)),
         'below.length'        : () => expect(responseValue.length).to.below(JSON.parse(value))
     };
+    return expectFn[assertion];
 }
 
-    module.exports = {
+function isValidInteger(str){
+    return /^\+?(0|[1-9]\d*)$/.test(str);
+}
+
+function convertFieldToArray(field){
+    return field.split(/\[(.*?)\]|\.+/).filter(Boolean)
+}
+
+function getChaiAssertion(assertMap, conditional) {
+    const assertion = assertMap[conditional];
+    if (!assertion) {
+        throw new Error(`Conditional '${conditional}' not found`);
+    }
+    return assertion;
+}
+
+function getNestedPropertyValue(object, path) {
+    return path.reduce((obj, segment) => {
+        if (Array.isArray(obj)) {
+            // Manejo de índices de arrays
+            const index = parseInt(segment, 10);
+            if (isNaN(index) || index >= obj.length) {
+                throw new Error(`Array index "${segment}" is invalid or out of range in the response.`);
+            }
+            return obj[index];
+        } else {
+            // Verificar la existencia de la propiedad
+            if (!obj || !obj.hasOwnProperty(segment)) {
+                throw new Error(`The field "${segment}" does not exist in the response.`);
+            }
+            return obj[segment];
+        }
+    }, object);
+}
+
+function normalizeValue(value) {
+    // Normalización para valores nulos o indefinidos
+    if (value === null || value === undefined) {
+        return null;
+    }
+
+    // Normalización para números
+    if (typeof value === 'number') {
+        // Puede incluir lógica adicional para manejar números especiales, como NaN o Infinity
+        return value;
+    }
+
+    // Normalización para cadenas de texto
+    if (typeof value === 'string') {
+        // Convertir a minúsculas, remover espacios extra, etc.
+        return value.trim().toLowerCase();
+    }
+
+    // Normalización para booleanos
+    if (typeof value === 'boolean') {
+        return value;
+    }
+
+    // Normalización para fechas
+    if (value instanceof Date) {
+        // Convertir a un formato de fecha estándar o a timestamp
+        return value.toISOString();
+    }
+
+    // Normalización para arrays
+    if (Array.isArray(value)) {
+        // Aplicar normalización a cada elemento del array
+        return value.map(element => normalizeValue(element));
+    }
+
+    // Normalización para objetos
+    if (typeof value === 'object') {
+        // Aplicar normalización a cada propiedad del objeto
+        return Object.keys(value).reduce((normalizedObj, key) => {
+            normalizedObj[key] = normalizeValue(value[key]);
+            return normalizedObj;
+        }, {});
+    }
+
+    // En caso de que el valor no corresponda a ningún tipo conocido
+    throw new Error(`Unable to normalize value of type: ${typeof value}`);
+}
+
+function getNumberDate(days) {
+    let date = new Date();
+    date.setDate(date.getDate() + days);
+    return Math.floor(date / 1000)
+}
+
+module.exports = {
         isDynamic,
         extractAndSetDynamicValue,
-        assertionMap
+        assertionMap,
+        isValidInteger,
+        convertFieldToArray,
+        getChaiAssertion,
+        getNestedPropertyValue,
+        normalizeValue,
+        getNumberDate
     }

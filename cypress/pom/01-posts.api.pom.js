@@ -40,6 +40,10 @@ class Posts extends Main {
             default:
                 throw new Error(`Invalid method ${method}`);
         }
+
+        if (Object.keys(settings).length > 0)
+            options = super._applyDynamicSettings(options, settings, endPoint);
+
         this.request[endPoint] = options;
         super._setRequest(endPoint, options);
     }
