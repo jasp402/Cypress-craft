@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
+    "@badeball/cypress-cucumber-preprocessor": "^19.1.1",
     "@cypress/browserify-preprocessor": "^3.0.2",
     "cypress": "^13.5.1",
     "multiple-cucumber-html-reporter": "^3.5.0"

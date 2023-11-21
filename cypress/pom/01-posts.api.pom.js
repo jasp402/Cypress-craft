@@ -41,14 +41,7 @@ class Posts extends Main {
                 throw new Error(`Invalid method ${method}`);
         }
         this.request[endPoint] = options;
-
-        cy.log(this.request);
-
         super._setRequest(endPoint, options);
     }
-    validateResponse(field, conditional, value) {
-        super._validateResponse('posts', field, conditional, value);
-    }
 }
-export const className = 'Posts';
 module.exports = new Posts();

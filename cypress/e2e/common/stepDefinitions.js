@@ -1,5 +1,4 @@
 import {Given, When,Then} from "@badeball/cypress-cucumber-preprocessor";
-import main from '../../pom/main.pom';
 import pom from '../../pom';
 let pageObject = null;
 
@@ -15,6 +14,6 @@ When('I show the {string} endpoint {word}', (endPoint, type) => {
     pageObject._showManager(type, endPoint);
 });
 
-Then('the response should have the parameter {string} with condition {string} and value {string}', (field, condition, value) => {
-    pageObject.validateResponse(field, condition, value);
+Then('the response on {string} should have the parameter {string} with condition {string} and value {string}', (endpoint, field, condition, value) => {
+    pageObject._validateResponse(endpoint, field, condition, value);
 });

@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+const {attach} = require("@badeball/cypress-cucumber-preprocessor");
+
+Cypress.Commands.add('logManager', (title, content, type) => {
+    const formatContent = (data, isReport) => isReport ? JSON.stringify(data, null, 4): JSON.stringify(data);
+    const createLogMessage = (title, content, isAssertion, isReport) => {
+        return isAssertion
+            ? `🔎${title}: \n✅Response value: \n${formatContent(content.result, isReport)}\n⬆️Expected value: \n${content.value}`
+            : `🔎${title}: \n${formatContent(content, isReport)}`;
+    };
+    const logCypress = createLogMessage(title, content, type === 'assertion', false);
+    const logReports = createLogMessage(title, content, false, true);
+    cy.log(logCypress);
+    attach(logReports, null);
+});
+

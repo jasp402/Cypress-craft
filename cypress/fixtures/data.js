@@ -7,50 +7,51 @@ class Data {
     constants() {
         //here set data constant for all environments
         return {
-            SERVICES_LIST     : ['posts', 'comments', 'albums', 'photos', 'todos', 'users'],
-            "CONDITIONALS_MAP": {
-                "es igual a"                     : "equal",
-                "es estructuralmente igual a"    : "deep.equal",
-                "que inicia con"                 : "startsWith",
-                "hace match con"                 : "match",
-                "que es mayor a"                 : "above",
-                "que es diferente a"             : "not.equal",
-                "que es menor a"                 : "below",
-                "que es mayor o igual a"         : "least",
-                "que es menor o igual a"         : "most",
-                "que es distinto de"             : "not.equal",
-                "que contiene"                   : "include",
-                "que no contiene"                : "not.include",
-                "que es verdadero"               : "true",
-                "que es falso"                   : "false",
-                "que es nulo"                    : "null",
-                "que no es nulo"                 : "not.null",
-                "que esta definido"              : "undefined",
-                "que no esta definido"           : "not.undefined",
-                "que es NaN"                     : "NaN",
-                "que no es NaN"                  : "not.NaN",
-                "que es instancia de"            : "instanceof",
-                "que no es instancia de"         : "not.instanceof",
-                "que es una propiedad"           : "have.property",
-                "que es una propiedad anidada de": "have.nested.property",
-                "en el index [0] de"             : "have.property.index",
-                "tiene una longitud igual a"     : "equal.length",
-                "tiene una longitud mayor a"     : "above.length",
-                "tiene una longitud menor a"     : "below.length"
-            },
-            "METHODS_LIST"    : [
-                "POST",
-                "GET",
-                "PUT",
-                "DELETE",
-                "PATCH"
+            SERVICES_LIST   : ['posts', 'comments', 'albums', 'photos', 'todos', 'users'],
+            METHODS_LIST    : [
+                'POST',
+                'GET',
+                'PUT',
+                'DELETE',
+                'PATCH'
             ],
+            CONDITIONALS_MAP: {
+                'es igual a'                     : 'equal', //ES_es
+                'is equal to'                    : 'equal', //EN_en
+                'es estructuralmente igual a'    : 'deep.equal',
+                'que inicia con'                 : 'startsWith',
+                'hace match con'                 : 'match',
+                'que es mayor a'                 : 'above',
+                'que es diferente a'             : 'not.equal',
+                'que es menor a'                 : 'below',
+                'que es mayor o igual a'         : 'least',
+                'que es menor o igual a'         : 'most',
+                'que es distinto de'             : 'not.equal',
+                'que contiene'                   : 'include',
+                'que no contiene'                : 'not.include',
+                'que es verdadero'               : 'true',
+                'que es falso'                   : 'false',
+                'que es nulo'                    : 'null',
+                'que no es nulo'                 : 'not.null',
+                'que esta definido'              : 'undefined',
+                'que no esta definido'           : 'not.undefined',
+                'que es NaN'                     : 'NaN',
+                'que no es NaN'                  : 'not.NaN',
+                'que es instancia de'            : 'instanceof',
+                'que no es instancia de'         : 'not.instanceof',
+                'que es una propiedad'           : 'have.property',
+                'que es una propiedad anidada de': 'have.nested.property',
+                'en el index [0] de'             : 'have.property.index',
+                'tiene una longitud igual a'     : 'equal.length',
+                'tiene una longitud mayor a'     : 'above.length',
+                'tiene una longitud menor a'     : 'below.length',
+
+            },
         }
     }
 
     #getDefaultData() {
-        return {
-        }
+        return {}
     }
 
     #getEnvironmentSpecificData() {
@@ -69,7 +70,7 @@ class Data {
                 ...(this.env === 'dev' && { // Datos específicos para 'posts' en 'dev'
                     // Otros datos específicos de 'posts' para 'dev'
                 }),
-                ...(this.env === 'qa'  && { // Datos específicos para 'posts' en 'qa'
+                ...(this.env === 'qa' && { // Datos específicos para 'posts' en 'qa'
                     // Otros datos específicos de 'posts' para 'qa'
                 }),
                 ...(this.env === 'pro' && { // Datos específicos para 'posts' en 'pro'
