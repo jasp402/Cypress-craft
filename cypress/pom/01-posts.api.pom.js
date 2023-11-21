@@ -22,21 +22,17 @@ class Posts extends Main {
                 options = {
                     ...commonOptions,
                     method,
-                    body: JSON.stringify({
-                        title: 'foo',
-                        body: 'bar',
-                        userId: 1,
-                    }),
+                    body: JSON.stringify(this.data.posts.bodyDefault),
                 };
                 break;
-            case 'GET':
+            case 'GET' :
                 options = {
                     ...commonOptions,
                     method,
                     body: null,
                 };
                 break;
-            // Añadir más casos si es necesario para otros métodos como PATCH, DELETE, etc.
+            // Add additional methods PATCH, DELETE, etc.
             default:
                 throw new Error(`Invalid method ${method}`);
         }

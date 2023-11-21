@@ -128,7 +128,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-/.idea/sonarlint/issuestore/7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
+.idea
+/.idea/sonarlint/.*
 /.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 /.idea/sonarlint/issuestore/index.pb
 /.idea/sonarlint/securityhotspotstore/7/0/7030d0b2f71b999ff89a343de08c414af32fc93a

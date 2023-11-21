@@ -73,8 +73,13 @@ class Data {
                 ...(this.env === 'qa' && { // Datos específicos para 'posts' en 'qa'
                     // Otros datos específicos de 'posts' para 'qa'
                 }),
-                ...(this.env === 'pro' && { // Datos específicos para 'posts' en 'pro'
-                    // Otros datos específicos de 'posts' para 'pro'
+                ...(this.env === 'prod' && { // Datos específicos para 'posts' en 'prod'
+                    bodyDefault: {
+                        title : 'Create Default Posts',
+                        body  : 'This is demo information for the default post',
+                        userId: 1,
+                    }
+                    // Otros datos específicos de 'posts' para 'prod'
                 })
             },
             comments: { // Datos específicos para 'comments' pero generales para todos los entornos
@@ -84,7 +89,7 @@ class Data {
                 ...(this.env === 'qa' && {
                     // Resto de la configuración específica de 'comments'
                 }),
-                ...(this.env === 'pro' && {
+                ...(this.env === 'prod' && {
                     // Resto de la configuración específica de 'comments'
                 }),
             },
