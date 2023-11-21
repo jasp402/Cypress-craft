@@ -74,9 +74,14 @@ class Data {
                     // Otros datos específicos de 'posts' para 'qa'
                 }),
                 ...(this.env === 'prod' && { // Datos específicos para 'posts' en 'prod'
-                    bodyDefault: {
+                    bodyCreate: {
                         title : 'Create Default Posts',
                         body  : 'This is demo information for the default post',
+                        userId: 1,
+                    },
+                    bodyUpdate : {
+                        title : 'Update Default Posts',
+                        body  : 'This is demo information for the updated post',
                         userId: 1,
                     }
                     // Otros datos específicos de 'posts' para 'prod'

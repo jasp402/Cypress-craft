@@ -13,6 +13,7 @@ function extractAndSetDynamicValue(text, endPoint, _self) {
 
 function assertionMap(responseValue, value, assertion, endPoint, field, _self) {
     const expectFn = {
+        'equal'               : (responseValue, value) => expect(responseValue).to.equal(value),
         'not.equal'           : () => expect(responseValue).to.not.equal(value),
         'deep.equal'          : () => expect(JSON.stringify(responseValue)).to.deep.equal(JSON.parse(value)),
         'not.deep.equal'      : () => expect(responseValue).to.not.deep.equal(value),
@@ -47,14 +48,14 @@ function assertionMap(responseValue, value, assertion, endPoint, field, _self) {
         'above.length'        : () => expect(responseValue.length).to.above(JSON.parse(value)),
         'below.length'        : () => expect(responseValue.length).to.below(JSON.parse(value))
     };
-    return expectFn[assertion];
+    return expectFn[assertion](responseValue, value);
 }
 
-function isValidInteger(str){
+function isValidInteger(str) {
     return /^\+?(0|[1-9]\d*)$/.test(str);
 }
 
-function convertFieldToArray(field){
+function convertFieldToArray(field) {
     return field.split(/\[(.*?)\]|\.+/).filter(Boolean)
 }
 
@@ -86,6 +87,11 @@ function getNestedPropertyValue(object, path) {
 }
 
 function normalizeValue(value) {
+
+    if (isValidInteger(value)) {
+        return Number(value);
+    }
+
     // Normalización para valores nulos o indefinidos
     if (value === null || value === undefined) {
         return null;
@@ -140,13 +146,13 @@ function getNumberDate(days) {
 }
 
 module.exports = {
-        isDynamic,
-        extractAndSetDynamicValue,
-        assertionMap,
-        isValidInteger,
-        convertFieldToArray,
-        getChaiAssertion,
-        getNestedPropertyValue,
-        normalizeValue,
-        getNumberDate
-    }
+    isDynamic,
+    extractAndSetDynamicValue,
+    assertionMap,
+    isValidInteger,
+    convertFieldToArray,
+    getChaiAssertion,
+    getNestedPropertyValue,
+    normalizeValue,
+    getNumberDate
+}

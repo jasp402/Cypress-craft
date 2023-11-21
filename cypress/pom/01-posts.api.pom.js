@@ -22,7 +22,7 @@ class Posts extends Main {
                 options = {
                     ...commonOptions,
                     method,
-                    body: JSON.stringify(this.data.posts.bodyDefault),
+                    body: JSON.stringify(this.data.posts.bodyCreate),
                 };
                 break;
             case 'GET' :
@@ -32,7 +32,20 @@ class Posts extends Main {
                     body: null,
                 };
                 break;
-            // Add additional methods PATCH, DELETE, etc.
+            case 'PATCH' :
+                options = {
+                    ...commonOptions,
+                    method,
+                    body: JSON.stringify(this.data.posts.bodyUpdate),
+                };
+                break;
+            case 'DELETE' :
+                options = {
+                    ...commonOptions,
+                    method,
+                    body: null,
+                };
+                break;
             default:
                 throw new Error(`Invalid method ${method}`);
         }
