@@ -1,4 +1,4 @@
-import posts from './01-posts.api.pom.js';
+import posts from './api.01-posts.pom.js';
 export default {
     posts
 }
