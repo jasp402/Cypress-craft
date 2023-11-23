@@ -1,8 +1,8 @@
 {
   "name": "cypress-craft",
-  "version": "1.0.5-alpha.1",
+  "version": "1.0.6-alpha.1",
   "description": "CypressCraft is an innovative sub-framework built on top of Cypress (Cypress + Cucumber + POM)",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "cypress open",
     "release": "standard-version",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.12",
     "standard-version": "^9.5.0"
   }
 }
