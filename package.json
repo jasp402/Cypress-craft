@@ -1,6 +1,6 @@
 {
   "name": "cypress-craft",
-  "version": "1.0.7-alpha.1",
+  "version": "1.0.8-alpha.1",
   "description": "CypressCraft is an innovative sub-framework built on top of Cypress (Cypress + Cucumber + POM)",
   "engines": {
     "node": ">=18"
@@ -27,11 +27,11 @@
     "@badeball/cypress-cucumber-preprocessor": "^19.1.1",
     "@cypress/browserify-preprocessor": "^3.0.2",
     "cypress": "^13.5.1",
-    "multiple-cucumber-html-reporter": "^3.5.0"
+    "multiple-cucumber-html-reporter": "^3.5.0",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^8.0.0"
   },
   "devDependencies": {
-    "fs-extra": "^11.1.1",
-    "inquirer": "^8.0.0",
     "standard-version": "^9.5.0"
   }
 }
