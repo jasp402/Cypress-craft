@@ -1,14 +1,12 @@
-import path from 'path';
-import {fileURLToPath} from 'url';
-import inquirer from 'inquirer';
+const fs   = require('fs-extra');
+const path = require('path');
+const inquirer = require('inquirer');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
-const sourceDir  = path.join(__dirname, '../'); // Directory cypress-craft
-const targetDir  = path.join(__dirname, '../../../'); // Directory YourProject
-
+const sourceDir   = path.join(__dirname, '../'); // Directory cypress-craft
+const targetDir   = path.join(__dirname, '../../../'); // Directory YourProject
 const ignoreFiles = [
     '.idea',
+    '.github',
     '.git',
     '.gitignore',
     'node_modules',
@@ -18,6 +16,10 @@ const ignoreFiles = [
     'README.md',
     'yarn.lock',
     'TODO.md',
+    'CODE_OF_CONDUCT.md',
+    'CONTRIBUTING.md',
+    'qodana.yaml',
+    'SECURITY.md',
     'LICENSE',
     'scripts'
 ];
