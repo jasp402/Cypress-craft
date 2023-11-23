@@ -6,7 +6,8 @@ const {
           getNestedPropertyValue,
           isDynamic,
           normalizeValue,
-          getNumberDate
+          getNumberDate,
+          isUniqueDynamic
       }         = require('../support/helpers.js');
 const classUrls = require('../fixtures/urls.js');
 const classData = require('../fixtures/data.js');
@@ -24,19 +25,22 @@ module.exports = class Main {
         this.response  = {};
     }
 
-
-
     _applyDynamicSettings(options, settings, endPoint = null) {
         const parameters       = ['url', 'headers', 'body', 'qs', 'exclude'];
         const handleAttributes = (options, settings, key, endPoint) => {
-            const parsedKey = JSON.parse(settings[key]);
-            for (const [keyPart, value] of Object.entries(parsedKey)) {
-                options[key][keyPart] = isDynamic(value) ? extractAndSetDynamicValue(value, endPoint) : value;
+            if (isUniqueDynamic(settings[key])) {
+                const value  = settings[key];
+                options[key] = isDynamic(value) ? extractAndSetDynamicValue(value, endPoint, this) : value;
+            } else {
+                const parsedKey = JSON.parse(settings[key]);
+                for (const [keyPart, value] of Object.entries(parsedKey)) {
+                    options[key][keyPart] = isDynamic(value) ? extractAndSetDynamicValue(value, endPoint, this) : value;
+                }
             }
         }
         const handleUrl        = (options, settings, endPoint) => {
             const urlParts = settings.url.split('/').map(part =>
-                isDynamic(part) ? extractAndSetDynamicValue(part, endPoint) : part
+                isDynamic(part) ? extractAndSetDynamicValue(part, endPoint, this) : part
             );
             options.url    = urlParts.join('/');
         }
@@ -62,25 +66,12 @@ module.exports = class Main {
     }
 
     _loadDynamicData(value, endPoint) {
-        const keyName       = value.replace(/#/g, "");
-        const dateKeyToArg  = {
-            'DATE_AFTER_TODAY' : 1,
-            'DATE_BEFORE_TODAY': -1,
-            'DATE_CURRENT'     : 0
-        };
-
-        let endPointId      = endPoint ? `${keyName.replace('_ID', 's').toLowerCase()}` : null;
-        if (endPointId) {
-            return this[endPoint].body.id;
-        } else if (['SECURE_URL', 'BASE_URL'].includes(keyName)) {
-            let path = this.urls[endPoint].split('/v2/')[1];
-            return `${this.urls[keyName.replace('_URL', '').toLowerCase()]}/v2/${path}`;
-        } else if (dateKeyToArg.hasOwnProperty(keyName)) {
-            return getNumberDate(dateKeyToArg[keyName]);
-        } else if (value === "ORDER_NUMBER") {
-            return `#id-${String(Math.floor(Math.random() * 1000000000000)).padStart(12, '0')}`;
-        } else {
-            return this.data[keyName];
+        const keyName = value.replace(/#/g, "");
+        switch (keyName) {
+            case 'BASE_URL'         :
+                return `${this.urls['base']}`;
+            default                 :
+                return this.data[keyName];
         }
     }
 
@@ -91,14 +82,14 @@ module.exports = class Main {
     }
 
     _validateEndPoint(endPoint) {
-        endPoint = endPoint.toLowerCase();
+        // endPoint = endPoint.toLowerCase();
         if (!this.constants.SERVICES_LIST.includes(endPoint)) throw new Error('Invalid service endpoint: ' + endPoint);
         return endPoint;
     }
 
     _setRequest(endPoint, options) {
         return cy.request(options).then(resp => {
-            this[endPoint.toLowerCase()] = resp;
+            this[endPoint] = resp;
         });
     }
 
@@ -111,13 +102,7 @@ module.exports = class Main {
         } else {
             endPoint     = this._validateEndPoint(endPoint);
             let response = this[endPoint].body;
-            if (!response.hasOwnProperty("data")) {
-                cy.logManager('RESPONSE', response, 'response');
-            } else {
-                let responseData            = {};
-                responseData[`firstRecord`] = response.data[0] || {};
-                cy.logManager('RESPONSE', responseData, 'response');
-            }
+            cy.logManager('RESPONSE', response, 'response');
         }
     }
 
@@ -129,7 +114,6 @@ module.exports = class Main {
 
         const normalizedValue         = normalizeValue(expectedValue);
         const normalizedResponseValue = normalizeValue(responseValue);
-
         assertionMap(normalizedResponseValue, normalizedValue, chaiAssertion, endPoint, field, this);
 
         let result = responseValue && responseValue.hasOwnProperty('data') ? responseValue.data[0] : responseValue;

@@ -4,6 +4,24 @@ function isDynamic(value) {
     return Boolean(/#([a-zA-Z0-9_]+)#/g.test(value));
 }
 
+function isUniqueDynamic(value) {
+    // Primero, verificamos si el valor es una cadena
+    if (typeof value !== 'string') {
+        return false;
+    }
+
+    // Comprobamos si la cadena comienza y termina con '#'
+    if (value.startsWith('#') && value.endsWith('#')) {
+        // Contamos el número de veces que aparece '#' en la cadena
+        const countHash = value.split('#').length - 1;
+
+        // Un valor dinámico único debe tener exactamente 2 '#'
+        return countHash === 2;
+    }
+
+    return false;
+}
+
 function extractAndSetDynamicValue(text, endPoint, _self) {
     const phraseOrWord  = str => str.startsWith('#') && str.endsWith('#');
     const setValueText  = (str, vals) => util.format(str.replace(/#(.*?)#/g, '%s'), ...vals);
@@ -88,6 +106,7 @@ function getNestedPropertyValue(object, path) {
 
 function normalizeValue(value) {
 
+    //validated isNum
     if (isValidInteger(value)) {
         return Number(value);
     }
@@ -106,7 +125,13 @@ function normalizeValue(value) {
     // Normalización para cadenas de texto
     if (typeof value === 'string') {
         // Convertir a minúsculas, remover espacios extra, etc.
-        return value.trim().toLowerCase();
+        const lowerCaseValue = value.trim().toLowerCase();
+        if(['true', 'false'].includes(lowerCaseValue)){
+            return lowerCaseValue === 'true';
+        }else{
+            return value.trim();
+        }
+
     }
 
     // Normalización para booleanos
@@ -147,6 +172,7 @@ function getNumberDate(days) {
 
 module.exports = {
     isDynamic,
+    isUniqueDynamic,
     extractAndSetDynamicValue,
     assertionMap,
     isValidInteger,
