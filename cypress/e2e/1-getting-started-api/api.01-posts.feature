@@ -1,9 +1,19 @@
 # <reference types="cypressCraft" />
+# ---------------------------------------------------------------------------------------
+# Welcome to CypressCraft! | Specification File Overview:
+# ---------------------------------------------------------------------------------------
+# This file contains a diverse array of sample tests utilizing the tool:
+# https://jsonplaceholder.typicode.com/
 #
-# Welcome to CypressCraft!
+# Purpose:
+# - To emulate requests and responses to a real API.
+# - Demonstrates how to make (POST), (GET), (PATCH), and (DELETE) requests
+#   at a high level of abstraction.
 #
-# This spec file contains a variety of sample tests
-
+# Further Information:
+# - For comprehensive details, you are invited to review the cypress-craft documentation.
+# ---------------------------------------------------------------------------------------
+# >> Feel free to delete this message after reading the entire message <<
 
 Feature: Example test for JSONPlaceholder
   test API method from JSONPlaceholder (POST, GET, PUT, DELETE)
@@ -38,7 +48,6 @@ Feature: Example test for JSONPlaceholder
     Then the response on "posts" should have the parameter "status" with condition "is equal to" and value "200"
     Then the response on "posts" should have the parameter "body.id" with condition "is equal to" and value "1"
     Then the response on "posts" should have the parameter "body.title" with condition "is equal to" and value "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
-
 
   Scenario: Delete specific post
     When a DELETE request is sent to the "posts" endpoint
