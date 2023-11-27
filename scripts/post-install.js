@@ -21,7 +21,8 @@ const ignoreFiles = [
     'qodana.yaml',
     'SECURITY.md',
     'LICENSE',
-    'scripts'
+    'scripts',
+    'Writerside'
 ];
 
 const filterFunc = (src) => {
