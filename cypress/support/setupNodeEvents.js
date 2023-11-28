@@ -2,8 +2,8 @@ const { preprocessor } = require("@badeball/cypress-cucumber-preprocessor/browse
 const {addCucumberPreprocessorPlugin} = require("@badeball/cypress-cucumber-preprocessor");
 
 const setupNodeEvents = async (on, config) => {
-    on("file:preprocessor", preprocessor(config));
     await addCucumberPreprocessorPlugin(on, config);
+    on("file:preprocessor", preprocessor(config));
     return config;
 };
 
