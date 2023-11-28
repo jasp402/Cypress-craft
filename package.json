@@ -1,6 +1,6 @@
 {
   "name": "cypress-craft",
-  "version": "1.0.12-alpha.1",
+  "version": "1.0.13-alpha.1",
   "description": "CypressCraft is an innovative sub-framework built on top of Cypress (Cypress + Cucumber + POM)",
   "engines": {
     "node": ">=18"
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^19.1.1",
-    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "cypress": "^13.6.0",
     "fs-extra": "^11.1.1",
     "multiple-cucumber-html-reporter": "^3.5.0"
