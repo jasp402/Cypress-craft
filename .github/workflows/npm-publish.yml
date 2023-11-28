@@ -1,26 +1,20 @@
-name: 🚀 Node.js Package Publish
-
+name: "🚀 npm-publish"
 on:
   push:
     branches:
-      - main  # Asegúrate de que esta sea la rama correcta donde deseas activar la publicación
-
+      - main
 jobs:
-  publish-npm:
+  release:
+    name: 🚀 npm-publish
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') # Esta línea asegura que solo se ejecuta para los tags
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18' # Asegúrate de que esta sea la versión que deseas utilizar
-          registry-url: 'https://registry.npmjs.org/'
-      - name: Install dependencies
-        run: npm install
-      - name: Build package
-        run: npm run build # Reemplaza esto con tu script de construcción si es necesario
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - uses: actions/checkout@v2
+    # Setup .npmrc file to publish to npm
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '18'
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm install
+    - run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
