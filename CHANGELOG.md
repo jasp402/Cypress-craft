@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.2-alpha.1 (2023-11-29)
+* fix add new design for readme
+
 ## 1.1.1-alpha.1 (2023-11-28)
 * fix add polyfills webpack has used before webpack 5
 
