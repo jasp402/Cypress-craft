@@ -57,4 +57,4 @@ class Posts extends Main {
         super._setRequest(endPoint, options);
     }
 }
-module.exports = new Posts();
+export default new Posts();

@@ -1,18 +1,11 @@
-const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const webpack = require("@cypress/webpack-preprocessor");
 const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
-const { createEsbuildPlugin } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+const {webpackOptions} = require('./../../webpack.config');
 
 const setupNodeEvents = async(on, config) => {
     await addCucumberPreprocessorPlugin(on, config);
-    on("file:preprocessor", createBundler({plugins: [createEsbuildPlugin(config)]}));
+    on("file:preprocessor",  webpack(webpackOptions(config)));
     return config;
 }
 
-module.exports = setupNodeEvents
-
-
-
-
-
-
-
+module.exports = setupNodeEvents;

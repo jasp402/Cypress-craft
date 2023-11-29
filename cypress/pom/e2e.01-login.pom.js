@@ -4,4 +4,4 @@ class Login extends Main {
         super();
     }
 }
-module.exports = new Login();
+export default new Login();
