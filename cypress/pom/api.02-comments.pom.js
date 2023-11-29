@@ -57,4 +57,4 @@ class Comments extends Main {
         super._setRequest(endPoint, options);
     }
 }
-module.exports = new Comments();
+export default new Comments();

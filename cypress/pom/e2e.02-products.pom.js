@@ -4,4 +4,4 @@ class Products extends Main {
         super();
     }
 }
-module.exports = new Products();
+export default new Products();
