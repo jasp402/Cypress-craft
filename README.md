@@ -12,6 +12,12 @@ Our sub-framework (**CypressCraft**) is distinguished by the integration of BDD 
 
 ---
 
+<div style="background: #e3f5ec;" align="center">
+    <img src="https://github.com/jasp402/Cypress-craft/assets/8978470/fca61caa-5d10-4ef6-9b0c-0f84b1be6bba" width="1024" alt="CypressCraft Logo">
+</div>
+
+---
+
 CypressCraft key innovations include:
 
 - ### Optimization for API Testing:
