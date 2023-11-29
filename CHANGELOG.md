@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.1-alpha.1 (2023-11-28)
+* fix add polyfills webpack has used before webpack 5
+
 ## 1.1.0-alpha.1 (2023-11-28)
 * Add new method cucumber-preprocessor use [webpack](https://github.com/cypress-io/cypress/tree/develop/npm/webpack-preprocessor) 
 * Update dependencies 
