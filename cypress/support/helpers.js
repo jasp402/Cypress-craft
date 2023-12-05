@@ -29,6 +29,13 @@ function extractAndSetDynamicValue(text, endPoint, _self) {
     return phraseOrWord(text) ? dynamicValues[0] : setValueText(text, dynamicValues);
 }
 
+function assertionE2E(elementType, element, assertion, value, endPoint, _self) {
+    const expectFn = {
+        'have.text':(element, text)=> element.should(assertion, text),
+    }
+    return expectFn[assertion](element, value);
+}
+
 function assertionMap(responseValue, value, assertion, endPoint, field, _self) {
     const expectFn = {
         'equal'               : (responseValue, value) => expect(responseValue).to.equal(value),
@@ -180,5 +187,6 @@ module.exports = {
     getChaiAssertion,
     getNestedPropertyValue,
     normalizeValue,
-    getNumberDate
+    getNumberDate,
+    assertionE2E
 }

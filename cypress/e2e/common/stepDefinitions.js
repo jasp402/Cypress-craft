@@ -2,13 +2,15 @@ import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
 import pom from '../../pom';
 let pageObject = null;
 
-/** ------------------------------------------- **/
-/** Steps definitions for the API .feature file **/
-/** ------------------------------------------- **/
 
 Given('the Page Object Model configuration for {string} has been initialized', (name) => {
     pageObject = pom[name];
+    pageObject._loadEndPoint(name);
 });
+
+/** ------------------------------------------- **/
+/** Steps definitions for the API .feature file **/
+/** ------------------------------------------- **/
 
 When('a {word} request is sent to the {string} endpoint', (method, endPoint, settings) => {
     pageObject.sendRequest(method, endPoint, settings);
@@ -26,38 +28,43 @@ Then('the response on {string} should have the parameter {string} with condition
 /** Steps definitions for the E2E .feature file **/
 /** ------------------------------------------- **/
 
-Given('A user enters to the login page', ()=>{
-    cy.visit('https://www.saucedemo.com');
-})
-
-When('A user enters the username {string}', (username)=>{
-    LoginPage.typeUsername(username);
-})
+Given('el usuario ingresa a la pagina {word}', (endPoint) => {
+    pageObject._open(endPoint);
+});
 
 
-When('A user enters incorrect credentials', (dataTable)=>{
-    dataTable.hashes().forEach(row => {
-        LoginPage.typeUsername(row.username);
-        LoginPage.typePassword(row.password);
-    });
-})
+When(/^el usuario (hace clic|escribe|selecciona|...) en el (botón|campo|link|...) "([^"]*)"?(?: con el valor "([^"]*)")?$/, (action, elementType, elementId, content) => {
+    pageObject.sendAction(action, elementType, elementId, content);
+});
 
-When('A user enters the password {string}', (password)=>{
-    LoginPage.typePassword(password);
-})
 
-When('A user clicks on the login button', ()=>{
-    LoginPage.clickLogin();
-})
+Then(/^(el elemento|la sección|el campo|el boton|la lista|la Imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
+    pageObject._validate(elementType, elementId, condition, content);
+});
 
-Then('A user will be logged in', ()=>{
-    LoginPage.urlSuccess();
-})
-
-Then('The error message {string} is displayed', (errorMessage)=>{
-    LoginPage.msjError(errorMessage);
-    cy.screenshot();
-})
+// When('A user enters incorrect credentials', (dataTable)=>{
+//     dataTable.hashes().forEach(row => {
+//         LoginPage.typeUsername(row.username);
+//         LoginPage.typePassword(row.password);
+//     });
+// })
+//
+// When('A user enters the password {string}', (password)=>{
+//     LoginPage.typePassword(password);
+// })
+//
+// When('A user clicks on the login button', ()=>{
+//     LoginPage.clickLogin();
+// })
+//
+// Then('A user will be logged in', ()=>{
+//     LoginPage.urlSuccess();
+// })
+//
+// Then('The error message {string} is displayed', (errorMessage)=>{
+//     LoginPage.msjError(errorMessage);
+//     cy.screenshot();
+// })
 
 
 

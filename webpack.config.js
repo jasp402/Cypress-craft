@@ -3,7 +3,10 @@ function webpackOptions(config) {
     webpackOptions: {
       resolve: {
         extensions: [".ts", ".js"],
-        fallback: { "util": false } // Ignorar el módulo 'util'
+        fallback: {
+          "util": false,
+          "fs": false,
+        }
       },
       module: {
         rules: [

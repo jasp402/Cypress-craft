@@ -7,7 +7,7 @@ class Data {
     constants() {
         //here set data constant for all environments
         return {
-            SERVICES_LIST   : ['posts', 'comments', 'albums', 'photos', 'todos', 'users'],
+            SERVICES_LIST   : ['posts', 'comments', 'login', 'products'],
             METHODS_LIST    : [
                 'POST',
                 'GET',
@@ -46,6 +46,9 @@ class Data {
                 'tiene una longitud mayor a'     : 'above.length',
                 'tiene una longitud menor a'     : 'below.length',
 
+            },
+            CONDITIONALS_MAP_E2E: {
+                'tiene el texto': 'have.text', //ES_es
             },
         }
     }

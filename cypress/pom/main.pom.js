@@ -7,7 +7,8 @@ const {
           isDynamic,
           normalizeValue,
           getNumberDate,
-          isUniqueDynamic
+          isUniqueDynamic,
+          assertionE2E
       }         = require('../support/helpers.js');
 const classUrls = require('../fixtures/urls.js');
 const classData = require('../fixtures/data.js');
@@ -17,12 +18,19 @@ let urls    = classUrls(arEnv);
 let data    = classData(arEnv);
 
 module.exports = class Main {
-    constructor() {
-        this.urls      = urls.getAllUrls();
-        this.data      = data.getData();
-        this.constants = data.constants();
-        this.request   = {};
-        this.response  = {};
+    constructor(elements=null) {
+        this.urls            = urls.getAllUrls();
+        this.data            = data.getData();
+        this.constants       = data.constants();
+        this.elements        = {...elements}
+        this.request         = {};
+        this.response        = {};
+        this.currentEndPoint = {};
+    }
+
+    _loadEndPoint(endPoint){
+        this._validateEndPoint(endPoint);
+        this.currentEndPoint  = endPoint;
     }
 
     _applyDynamicSettings(options, settings, endPoint = null) {
@@ -121,4 +129,24 @@ module.exports = class Main {
         return responseValue;
     }
 
+
+    // Functions E2E
+    _open(endPoint = null) {
+        cy.visit(String(this.urls[endPoint] || this.urls.base));
+    }
+
+    _getElement(elementId) {
+        return this.elements[elementId]();
+    }
+
+    _validate(elementType, elementId, condition, content=null){
+        const endPoint = this.currentEndPoint;
+        const element  = this._getElement(elementId);
+        const expectedValue = content ? (isDynamic(content) ? extractAndSetDynamicValue(content, endPoint, this) : content) : null;
+        const chaiAssertion = getChaiAssertion(this.constants.CONDITIONALS_MAP_E2E, condition);
+
+
+        assertionE2E(elementType, element, chaiAssertion, expectedValue, endPoint, this);
+        cy.logManager('ASSERTION', {elementId, content}, 'assertion');
+    }
 }
