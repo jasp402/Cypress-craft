@@ -1,32 +1,49 @@
 {
   "name": "cypress-craft",
-  "version": "1.1.2-alpha.1",
-  "description": "CypressCraft is an innovative sub-framework built on top of Cypress (Cypress + Cucumber + POM)",
+  "version": "1.1.4-alpha.1",
+  "description": "CypressCraft is an innovative extension built on top of Cypress (Cypress + Cucumber + POM)",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
     "start": "cypress open",
     "release": "standard-version",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "node scripts/post-install.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jasp402/Cypress-craft.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "javascript",
+    "tools",
+    "js",
+    "jas402",
+    "cypress",
+    "cucumber",
+    "pageObjectModel",
+    "pom",
+    "cypress-cucumber-preprocessor",
+    "cypress-cucumber",
+    "cypress-cucumber-preprocessor-v5",
+    "cypress-craft"
+  ],
+  "author": {
+    "name": "Jesús Antonio Pérez Sandoval",
+    "email": "jasp402@gmail.com",
+    "url": "http://jasp402.com/"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jasp402/Cypress-craft/issues"
   },
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "dependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^19.2.0",
-    "@cypress/webpack-preprocessor": "^6.0.0",
     "cypress": "^13.6.0",
-    "fs-extra": "^11.2.0",
-    "multiple-cucumber-html-reporter": "^3.5.0"
+    "@badeball/cypress-cucumber-preprocessor": "^19.2.0",
+    "cypress-webpack-preprocessor-v5": "^5.0.0-alpha.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "multiple-cucumber-html-reporter": "^3.5.0",
+    "fs-extra": "^11.2.0"
   }
 }

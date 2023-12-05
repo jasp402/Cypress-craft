@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="189e85f2">
+        <description>Created after removal of "Why CypressCraft?" from CypressCraft</description>
+        <accepts>Why-CypressCraft.html</accepts>
+    </rule>
+    <rule id="2ca35371">
+        <description>Created after removal of "Discover CypressCraft" from CypressCraft</description>
+        <accepts>Discover-CypressCraft.html</accepts>
+    </rule>
+</rules>
