@@ -1,10 +1,12 @@
-# About CypressCraft
+# CypressCraft
 
-<!--Writerside adds this topic when you create a new documentation project.
-You can use it as a sandbox to play with Writerside features, and remove it from the TOC when you don't need it anymore.-->
+![CypresCraft Logo](cypress_craft_logo.png){ width=800 }{border-effect=line}
 
-## Add new topics
-You can create empty topics, or choose a template for different types of content that contains some boilerplate structure to help you get started:
+## What is CypresCraft?
+**CypressCraft** is an innovative sub-framework built on top of Cypress
+After working for several years with E2E test automation and API services. We have had the need to include multiple libraries, design patterns and organize the code in such a way that it is a transparent, easy and fast process, taking automation capabilities to a higher level, optimizing and expanding the standard Cypress functionalities to adapt both to frontend and API tests.
+
+Our sub-framework (CypressCraft) is distinguished by the integration of BDD using Cucumber and Gerkin, advanced design patterns such as Page Object Model (POM) and Factory Pattern, Singleton Pattern, and Strategy Pattern adapted and refined specifically to work with the versatile nature of Cypress. This integration not only improves the efficiency and effectiveness of automated testing, but also facilitates a more organized and maintainable structure of the test code.
 
 ![Create new topic options](new_topic_options.png){ width=290 }{border-effect=line}
 

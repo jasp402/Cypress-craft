@@ -11,5 +11,6 @@ declare namespace Cypress {
          * @param type Type of the log ('assertion' or other)
          */
         logManager(title: string, content: any, type: string): Chainable<Subject>;
+        logManagerE2E(title: string, content: any, type: string): Chainable<Subject>;
     }
 }

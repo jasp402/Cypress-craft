@@ -6,5 +6,7 @@
                  name="CypressCraft"
                  start-page="starter-topic.md">
 
-    <toc-element topic="starter-topic.md"/>
+    <toc-element topic="Section-Starting-Page.topic">
+        <toc-element topic="starter-topic.md"/>
+    </toc-element>
 </instance-profile>

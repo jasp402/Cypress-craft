@@ -39,3 +39,16 @@ Cypress.Commands.add('logManager', (title, content, type) => {
     attach(logReports, null);
 });
 
+Cypress.Commands.add('logManagerE2E', (title, content, type) => {
+    const formatContent = (data, isReport) => isReport ? JSON.stringify(data, null, 4): JSON.stringify(data);
+    const createLogMessage = (title, content, isAssertion, isReport) => {
+        return isAssertion
+            ? `🔎 ${title}: \n✅Element: ${content.result} | ⬆️ ${content.condition}` + (content.value ? ` | ➡️ ${content.value}` : '')
+            : `🔎 ${title}: \n${formatContent(content, isReport)}`;
+    };
+    const logCypress = createLogMessage(title, content, type === 'assertion', false);
+    const logReports = createLogMessage(title, content, false, true);
+    cy.log(logCypress);
+    attach(logReports, null);
+});
+

@@ -4,17 +4,30 @@
 
 
 # 📦 CypressCraft
-**CypressCraft** is an innovative sub-framework built on top of Cypress.
+> _We had fun creating this app. So you can have fun trying._
 
-After working for several years with E2E test automation and API services. We have had the need to include multiple libraries, design patterns and organize the code in such a way that it is a transparent, easy and fast process, taking automation capabilities to a higher level, optimizing and expanding the standard Cypress functionalities to adapt both to frontend and API tests.
+# What is CypressCraft?
+It is a library for **[nodeJS](https://nodejs.org/en)** distributed via **[NPM](https://www.npmjs.com/package/cypress-craft)**. In essence, it is a **[Cypress](https://www.cypress.io/)** extension _(unofficial - created by the community)_. Which concentrates the best practices of E2E testing and API services: multiple libraries, design patterns and code organization.
+This library is characterized by the integration of BDD using Cucumber and Gherkin, advanced design patterns such as Page Object Model (POM) and Factory Pattern, and Singleton Pattern specifically adapted and refined to work with the versatile nature of Cypress.
 
-Our sub-framework (**CypressCraft**) is distinguished by the integration of BDD using Cucumber and Gerkin, advanced design patterns such as Page Object Model (POM) and Factory Pattern, Singleton Pattern, and Strategy Pattern adapted and refined specifically to work with the versatile nature of Cypress. This integration not only improves the efficiency and effectiveness of automated testing, but also facilitates a more organized and maintainable structure of the test code.
+
+It also has the ability to manage multiple environments, dynamic data, and a structure designed specifically for managing APIs. This integration not only improves automated test setup, but also facilitates a more organized and maintainable test code structure. It provides a clear template to follow when building test cases.
+
+
 
 ---
 
 <div style="background: #e3f5ec;" align="center">
     <img src="https://github.com/jasp402/Cypress-craft/assets/8978470/fca61caa-5d10-4ef6-9b0c-0f84b1be6bba" width="1024" alt="CypressCraft Logo">
 </div>
+
+---
+# Why Cypress Craft?
+This library was designed especially for automation enthusiasts: With Cypress-Craft we try to redefine the way you write tests for API AND E2E.
+
+As test automation professionals, many of us have explored the depths of Cypress, discovering both its strengths and limitations. Cypress shines in a variety of FrontEnd (E2E) testing scenarios, but it also has its limitations, especially when it comes to non-native functionality, such as handling API tests or integrations with cucumber and Gherkins, handling multiple environments or managing dynamic data.
+
+This library not only shares the desire to simplify the integration process with cucumber and improve the API testing experience. But it also shares our experience of many years. Trying to improve and simplify processes. Inside the world of automation.
 
 ---
 

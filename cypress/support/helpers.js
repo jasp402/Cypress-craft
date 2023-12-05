@@ -29,6 +29,15 @@ function extractAndSetDynamicValue(text, endPoint, _self) {
     return phraseOrWord(text) ? dynamicValues[0] : setValueText(text, dynamicValues);
 }
 
+function assertionE2E(elementType, element, assertion, value, endPoint, _self) {
+    const expectFn = {
+        'have.text' : (element, text) => element.should(assertion, text),
+        'be.visible': (element) => element.should(assertion),
+        'url.eq'    : (element, value) => element.should('eq', value),
+    }
+    return expectFn[assertion](element, value);
+}
+
 function assertionMap(responseValue, value, assertion, endPoint, field, _self) {
     const expectFn = {
         'equal'               : (responseValue, value) => expect(responseValue).to.equal(value),
@@ -126,9 +135,9 @@ function normalizeValue(value) {
     if (typeof value === 'string') {
         // Convertir a minúsculas, remover espacios extra, etc.
         const lowerCaseValue = value.trim().toLowerCase();
-        if(['true', 'false'].includes(lowerCaseValue)){
+        if (['true', 'false'].includes(lowerCaseValue)) {
             return lowerCaseValue === 'true';
-        }else{
+        } else {
             return value.trim();
         }
 
@@ -180,5 +189,6 @@ module.exports = {
     getChaiAssertion,
     getNestedPropertyValue,
     normalizeValue,
-    getNumberDate
+    getNumberDate,
+    assertionE2E
 }
