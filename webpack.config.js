@@ -1,6 +1,9 @@
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+
 function webpackOptions(config) {
   return {
     webpackOptions: {
+      plugins: [new NodePolyfillPlugin() ],
       resolve: {
         extensions: [".ts", ".js"],
         fallback: {
