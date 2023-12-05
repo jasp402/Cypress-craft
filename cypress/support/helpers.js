@@ -31,7 +31,9 @@ function extractAndSetDynamicValue(text, endPoint, _self) {
 
 function assertionE2E(elementType, element, assertion, value, endPoint, _self) {
     const expectFn = {
-        'have.text':(element, text)=> element.should(assertion, text),
+        'have.text' : (element, text) => element.should(assertion, text),
+        'be.visible': (element) => element.should(assertion),
+        'url.eq'    : (element, value) => element.should('eq', value),
     }
     return expectFn[assertion](element, value);
 }
@@ -133,9 +135,9 @@ function normalizeValue(value) {
     if (typeof value === 'string') {
         // Convertir a minúsculas, remover espacios extra, etc.
         const lowerCaseValue = value.trim().toLowerCase();
-        if(['true', 'false'].includes(lowerCaseValue)){
+        if (['true', 'false'].includes(lowerCaseValue)) {
             return lowerCaseValue === 'true';
-        }else{
+        } else {
             return value.trim();
         }
 

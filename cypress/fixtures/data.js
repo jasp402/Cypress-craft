@@ -48,7 +48,9 @@ class Data {
 
             },
             CONDITIONALS_MAP_E2E: {
-                'tiene el texto': 'have.text', //ES_es
+                'tiene el texto': 'have.text',  //ES_es
+                'ser visible'   : 'be.visible', //ES_es
+                'tener la ruta' : 'url.eq',  //ES_es,
             },
         }
     }

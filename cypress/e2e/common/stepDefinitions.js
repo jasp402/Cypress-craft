@@ -32,39 +32,13 @@ Given('el usuario ingresa a la pagina {word}', (endPoint) => {
     pageObject._open(endPoint);
 });
 
-
 When(/^el usuario (hace clic|escribe|selecciona|...) en el (botón|campo|link|...) "([^"]*)"?(?: con el valor "([^"]*)")?$/, (action, elementType, elementId, content) => {
     pageObject.sendAction(action, elementType, elementId, content);
 });
 
-
-Then(/^(el elemento|la sección|el campo|el boton|la lista|la Imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
+Then(/^(el elemento|la sección|el campo|el boton|la lista|la imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
     pageObject._validate(elementType, elementId, condition, content);
 });
-
-// When('A user enters incorrect credentials', (dataTable)=>{
-//     dataTable.hashes().forEach(row => {
-//         LoginPage.typeUsername(row.username);
-//         LoginPage.typePassword(row.password);
-//     });
-// })
-//
-// When('A user enters the password {string}', (password)=>{
-//     LoginPage.typePassword(password);
-// })
-//
-// When('A user clicks on the login button', ()=>{
-//     LoginPage.clickLogin();
-// })
-//
-// Then('A user will be logged in', ()=>{
-//     LoginPage.urlSuccess();
-// })
-//
-// Then('The error message {string} is displayed', (errorMessage)=>{
-//     LoginPage.msjError(errorMessage);
-//     cy.screenshot();
-// })
 
 
 

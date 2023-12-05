@@ -7,8 +7,10 @@ class Login extends Main {
             passwordInput: () => cy.get('#password'),
             loginBtn     : () => cy.get('#login-button'),
             errorMessage : () => cy.get('h3[data-test="error"]'),
-            url          : () => cy.url(),
+            url          : ()      => cy.url(),
             title        : () => cy.get('title'),
+            shoppingCart : () => cy.get('a.shopping_cart_link'),
+
         };
         super(elements);
     }

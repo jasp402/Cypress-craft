@@ -147,6 +147,6 @@ module.exports = class Main {
 
 
         assertionE2E(elementType, element, chaiAssertion, expectedValue, endPoint, this);
-        cy.logManager('ASSERTION', {elementId, content}, 'assertion');
+        cy.logManagerE2E('ASSERTION', {result:elementId, condition, value:expectedValue}, 'assertion');
     }
 }
