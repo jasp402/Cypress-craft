@@ -14,9 +14,10 @@
   "stepDefinitions": [
     "[filepath]/**/*.{js,ts}",
     "[filepath].{js,ts}",
-    "cypress/e2e/common/*.{js,ts}",
+    "cypress/tests/e2e/common/*.{js,ts}",
+    "cypress/tests/api/common/*.{js,ts}",
     "[filepath]\\***.{js,ts}",
     "[filepath].{js,ts}",
-    "cypress\\e2e\\common\\*.{js,ts}"
+    "cypress\\common\\*.{js,ts}"
   ]
 }

@@ -15,6 +15,7 @@
 # ---------------------------------------------------------------------------------------
 # >> Feel free to delete this message after reading the entire message <<
 
+# language: es
 
 Feature: Example test for JSONPlaceholder
   test API method from JSONPlaceholder on comments (POST, GET, PUT, DELETE)

@@ -1,0 +1,21 @@
+/** ------------------------------------------- **/
+/** Steps definitions for the E2E .feature file **/
+/** ------------------------------------------- **/
+
+Given('el usuario ingresa a la pagina {word}', (endPoint) => {
+    pageObject._open(endPoint);
+});
+
+When(/^el usuario (hace clic|escribe|selecciona|...) en el (botón|campo|link|...) "([^"]*)"?(?: con el valor "([^"]*)")?$/, (action, elementType, elementId, content) => {
+    pageObject.sendAction(action, elementType, elementId, content);
+});
+
+Then(/^(el elemento|la sección|el campo|el boton|la lista|la imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
+    pageObject._validate(elementType, elementId, condition, content);
+});
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 # <reference types="cypressCraft" />
 # ---------------------------------------------------------------------------------------
-# Welcome to CypressCraft! | Specification File Overview:
+# Welcome to Cypress-Craft! | Specification File Overview:
 # ---------------------------------------------------------------------------------------
 # This file contains a diverse array of sample tests utilizing the tool:
 # https://jsonplaceholder.typicode.com/
@@ -14,6 +14,8 @@
 # - For comprehensive details, you are invited to review the cypress-craft documentation.
 # ---------------------------------------------------------------------------------------
 # >> Feel free to delete this message after reading the entire message <<
+
+# language: en
 
 Feature: Example test for JSONPlaceholder
   test API method from JSONPlaceholder (POST, GET, PUT, DELETE)

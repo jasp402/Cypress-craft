@@ -1,4 +1,4 @@
-import Main from './main.pom.js';
+import Main from '../main.pom.js';
 class Products extends Main {
     constructor() {
         super();

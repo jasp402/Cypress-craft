@@ -1,0 +1,15 @@
+/** ------------------------------------------- **/
+/** Steps definitions for the API .feature file **/
+/** ------------------------------------------- **/
+
+When('a {word} request is sent to the {string} endpoint', (method, endPoint, settings) => {
+    pageObject.sendRequest(method, endPoint, settings);
+});
+
+When('I show the {string} endpoint {word}', (endPoint, type) => {
+    pageObject._showManager(type, endPoint);
+});
+
+Then('the response on {string} should have the parameter {string} with condition {string} and value {string}', (endpoint, field, condition, value) => {
+    pageObject._validateResponse(endpoint, field, condition, value);
+});

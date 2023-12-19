@@ -4,7 +4,7 @@ const setupNodeEvents = require("./cypress/support/setupNodeEvents");
 module.exports = defineConfig({
     e2e: {
         setupNodeEvents,
-        specPattern      : "cypress/e2e/**/*.feature",
+        specPattern      : "cypress/**/*.feature",
         chromeWebSecurity: false,
         env              : {
             "environment": "prod"
