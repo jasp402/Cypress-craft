@@ -1,0 +1,15 @@
+/** ------------------------------------------- **/
+/** Steps definitions for the API .feature file **/
+/** ------------------------------------------- **/
+
+When('una petición {word} es enviada al endpoint {string}', (method, endPoint, settings) => {
+    pageObject.sendRequest(method, endPoint, settings);
+});
+
+When(/^se muestre la (petición|respuesta) de "([^"]*)"?$/, (endPoint, type) => {
+    pageObject._showManager(type, endPoint);
+});
+
+Then('la respuesta en {string} debe tener el parámetro {string} con la condición {string} y el valor {string}', (endpoint, field, condition, value) => {
+    pageObject._validateResponse(endpoint, field, condition, value);
+});
