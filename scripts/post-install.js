@@ -33,13 +33,23 @@ const ignoreFiles = [
     'e2e_es_steps.txt',
     'stepDefinition.core.js'
 ];
+const updateFiles = [
+    'main.pom.js',
+    'setupNodeEvents.js',
+    'helpers.js',
+    'commands.js'
+    ]
 
 
-function init(language, typeTest) {
+function init(language, typeTest, reports) {
     const languageDir   = language === 'English' ? 'tests_es'  : 'tests_en' ;
 
     const filterFunc = (src) => {
         const basename = path.basename(src);
+
+        if(!reports && basename === 'report-cucumber.js'){
+            return false;
+        }
 
         //Ignore files
         if (ignoreFiles.includes(basename)) {
@@ -60,29 +70,36 @@ function init(language, typeTest) {
         }
         return true;
     };
+    const updateFilter = (src) => {
+        if (updateFiles.includes(path.basename(src))) {
+            return true;
+        }else{
+            return  false;
+        }
+    }
 
     if (fs.existsSync(cypressDir)) {
-        console.log('Target directory already exists. Skipping file copy.');
+        fs.copy(sourceDir, targetDir, {overwrite: true, filter: updateFilter}, function (err) {
+            if (err) {
+                console.error('Error update files: ', err);
+            }
+        });
     } else {
         fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc}, function (err) {
             if (err) {
                 console.error('Error copying files: ', err);
             } else {
-                console.log('Files copied successfully.');
                 if (fs.existsSync(cypressDir)) {
                     mergeStepDefinitions(language, typeTest, languageDir);
                 }
             }
         });
     }
-    console.log('Template successfully copied to:', targetDir);
 }
 
 async function renameFolder(oldPath, newPath) {
-    console.log(`Intentando renombrar de: ${oldPath.split('/').pop()} a: ${newPath.split('/').pop()}`); // Log antes de intentar renombrar
     try {
         await fs.rename(oldPath, newPath);
-        console.log(`La carpeta ha sido renombrada de ${oldPath} a ${newPath}`);
     } catch (error) {
         console.error('Error al renombrar la carpeta:', error);
     }
@@ -96,26 +113,25 @@ async function main() {
             type   : 'list',
             choices: ['English', 'Spanish'],
             name   : 'language',
-            message: 'choices the language of your project?',
+            message: 'Language of your project?',
             default: 'Spanish'
         },
         {
             type   : 'list',
             choices: ['E2E', 'API', 'E2E+API'], //None
             name   : 'typeTest',
-            message: 'Choice type of project?',
+            message: 'Type of project?',
             default: 'E2E+API'
         },
         {
             type   : 'confirm',
             name   : 'report',
-            message: 'Are you what include report?',
+            message: 'Do you want to include report?',
             default: true
         }
         // más preguntas según sea necesario
     ]).then(answers => {
-        console.log('Respuesta: ' + JSON.stringify(answers));
-        init(answers.language, answers.typeTest);
+        init(answers.language, answers.typeTest, answers.report);
     });
 }
 
@@ -163,26 +179,75 @@ async function mergeStepDefinitions(language, type) {
     }
 
     await renameFolder(testsFolderOld, testsFolder);
-    console.log('Los contenidos de stepDefinition.js han sido actualizados.');
 }
 
-const args   = process.argv.slice(2);
-const params = args.reduce((acc, arg) => {
-    let [key, value] = arg.split(':');
-    key              = key.replace('--', '').toLowerCase();
-    console.log(key);
-    if (!['l', 'language', 't', 'typeTest', 'r', 'report'].includes(key)) throw new Error('Invalid parameter: ' + key);
-    if (key === 'language') key = 'l';
-    if (key === 'typeTest') key = 't';
-    if (key === 'report') key = 'r';
-    acc[key] = value;
-    return acc;
-}, {});
-console.log(logo)
-console.log(params);
-if (Object.keys(params).length === 0) {
-    main();
-} else {
-    console.log(params[Object.keys(params)[0]]);
-    init(params[Object.keys(params)[0]], params[Object.keys(params)[1]]);
+function install(){
+    console.log(logo)
+
+    const args   = process.argv.slice(2);
+    let errorParams = false;
+    const params = args.reduce((acc, arg) => {
+        let [key, value] = arg.split(':');
+        key              = key.replace('--', '').toLowerCase();
+        if (!['l', 'language', 't', 'typeTest', 'r', 'report'].includes(key)){
+            errorParams = true;
+        }
+        if (key === 'language') key = 'l';
+        if (key === 'typeTest') key = 't';
+        if (key === 'report') key = 'r';
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    if (errorParams){
+        console.log('-- Invalid parameters. Try again with wizard install --');
+        main();
+    }
+
+    if (Object.keys(params).length === 0) {
+        main();
+    } else {
+        console.log(params);
+        if(['Spanish','ES','es','English', 'EN', 'en'].includes(params[Object.keys(params)[0]])
+            && ['E2E', 'e2e', 'API', 'api', 'e2e+api', 'api+e2e', 'E2E+API'].includes(params[Object.keys(params)[1]])
+            && ['true', 'false', 'Y', 'y', 'N', 'n'].includes(params[Object.keys(params)[2]])
+        ){
+            let language = null;
+            let typeTest = null;
+            let addReport = null;
+
+            if(['ES','es'].includes(params[Object.keys(params)[0]])){
+                language = 'Spanish'
+            }
+            if(['EN','en'].includes(params[Object.keys(params)[0]])){
+                language = 'English'
+            }
+
+            if(['e2e', 'api'].includes(params[Object.keys(params)[1]])){
+                typeTest = params[Object.keys(params)[1]].toUpperCase();
+            }
+            if(['e2e+api', 'api+e2e', 'E2E+API'].includes(params[Object.keys(params)[1]])){
+                typeTest = 'E2E+API';
+            }
+            if(['true', 'Y', 'y'].includes(params[Object.keys(params)[2]])){
+                addReport = true;
+            }
+            if(['false', 'N', 'n'].includes(params[Object.keys(params)[2]])){
+                addReport = false;
+            }
+
+            if (language === null || typeTest === null || addReport === null){
+                console.log('-- Invalid parameters. Try again with wizard install --');
+                main();
+            }
+
+            init(language, typeTest, addReport);
+        }else{
+            console.log('-- Invalid parameters. Try again with wizard install --');
+            main();
+        }
+
+    }
 }
+
+install();

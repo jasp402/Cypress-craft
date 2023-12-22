@@ -2,20 +2,14 @@
 /** Steps definitions for the E2E .feature file **/
 /** ------------------------------------------- **/
 
-Given('el usuario ingresa a la pagina {word}', (endPoint) => {
+Given('the user enters the {word} page', (endPoint) => {
     pageObject._open(endPoint);
 });
 
-When(/^el usuario (hace clic|escribe|selecciona|...) en el (botón|campo|link|...) "([^"]*)"?(?: con el valor "([^"]*)")?$/, (action, elementType, elementId, content) => {
+When(/^the user should (clic|type|select|actions|...) in the (button|field|link|fields|elements|...) "([^"]*)"?(?: with value "([^"]*)")?$/, (action, elementType, elementId, content) => {
     pageObject.sendAction(action, elementType, elementId, content);
 });
 
-Then(/^(el elemento|la sección|el campo|el boton|la lista|la imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
+Then(/^the (element|section|field|button|list|image|...) "([^"]*)" should "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
     pageObject._validate(elementType, elementId, condition, content);
 });
-
-
-
-
-
-

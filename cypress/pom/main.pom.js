@@ -9,7 +9,7 @@ const {
           getNumberDate,
           isUniqueDynamic,
           assertionE2E
-      }         = require('../support/helpers.js');
+      }         = require('../settings/helpers.js');
 const classUrls = require('../fixtures/urls.js');
 const classData = require('../fixtures/data.js');
 

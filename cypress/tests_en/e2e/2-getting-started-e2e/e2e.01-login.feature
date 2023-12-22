@@ -1,3 +1,22 @@
+# <reference types="cypressCraft" />
+# ---------------------------------------------------------------------------------------
+# Welcome to CypressCraft! | Specification File Overview:
+# ---------------------------------------------------------------------------------------
+# This file contains a diverse array of sample tests utilizing the tool:
+# https://jsonplaceholder.typicode.com/
+#
+# Purpose:
+# - To emulate requests and responses to a real API.
+# - Demonstrates how to make (POST), (GET), (PATCH), and (DELETE) requests
+#   at a high level of abstraction.
+#
+# Further Information:
+# - For comprehensive details, you are invited to review the cypress-craft documentation.
+# ---------------------------------------------------------------------------------------
+# >> Feel free to delete this message after reading the entire message <<
+
+# language: en
+
 Feature: Login Page
   Details - Page where the users can login to their accounts
 
@@ -6,27 +25,25 @@ Feature: Login Page
     Given el usuario ingresa a la pagina login
 
   Scenario: Login success
-    When el usuario escribe en el campo "usernameInput" con el valor "standard_user"
-    When el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
-    When el usuario hace clic en el botón "loginBtn"
-    Then el elemento "title" debe "tiene el texto" "Swag Labs"
-    Then la imagen "shoppingCart" debe "ser visible"
-    Then el elemento "url" debe "tener la ruta" "https://www.saucedemo.com/inventory.html"
-
+    When the user should type in the field "usernameInput" with value "standard_user"
+    When the user should type in the field "passwordInput" with value "secret_sauce"
+    When the user should clic in the button "loginBtn"
+    Then the element "title" should "have text" "Swag Labs"
+    Then the image "shoppingCart" should "is visible"
+    Then the element "url" should "have url" "https://www.saucedemo.com/inventory.html"
 
   Scenario: Login locked
-    When el usuario escribe en el campo "usernameInput" con el valor "locked_out_user"
-    When el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
-    When el usuario hace clic en el botón "loginBtn"
-    Then la sección "errorMessage" debe "tiene el texto" "Epic sadface: Sorry, this user has been locked out."
-
+    When the user should type in the field "usernameInput" with value "locked_out_user"
+    When the user should type in the field "passwordInput" with value "secret_sauce"
+    When the user should clic in the button "loginBtn"
+    Then the section "errorMessage" should "have text" "Epic sadface: Sorry, this user has been locked out."
 
 
   Scenario Outline: Login <title>
-    When el usuario escribe en el campo "usernameInput" con el valor "<username>"
-    When el usuario escribe en el campo "passwordInput" con el valor "<password>"
-    When el usuario hace clic en el botón "loginBtn"
-    Then la sección "errorMessage" debe "tiene el texto" "<errorMessage>"
+    When the user should type in the field "usernameInput" with value "<username>"
+    When the user should type in the field "passwordInput" with value "<password>"
+    When the user should clic in the button "loginBtn"
+    Then the section "errorMessage" should "have text" "<errorMessage>"
 
     Examples:
       | title            | username      | password      | errorMessage                                                              |

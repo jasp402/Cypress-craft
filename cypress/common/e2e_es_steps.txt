@@ -13,9 +13,3 @@ When(/^el usuario (hace clic|escribe|selecciona|...) en el (botón|campo|link|..
 Then(/^(el elemento|la sección|el campo|el boton|la lista|la imagen|...) "([^"]*)" debe "([^"]*)"?(?: "([^"]*)")?$/, (elementType, elementId, condition, content) => {
     pageObject._validate(elementType, elementId, condition, content);
 });
-
-
-
-
-
-

@@ -17,47 +17,47 @@
 
 # language: es
 
-Feature: Example test for JSONPlaceholder
-  test API method from JSONPlaceholder on comments (POST, GET, PUT, DELETE)
+Característica: Prueba de ejemplo usando JSONPlaceholder
+  Pruebas de los métodos (POST, GET, PUT, DELETE) para el EndPoint "COMMENTS" del API JSONPlaceholder
 
-  Background:
-    Given the Page Object Model configuration for "comments" has been initialized
+  Antecedentes:
+    Dado la configuración del POM ha sido inicializada para "comments"
 
-  Scenario:Successful creation of a comments
-    When a POST request is sent to the "comments" endpoint
-    When I show the "comments" endpoint request
-    When I show the "comments" endpoint response
-    Then the response on "comments" should have the parameter "status" with condition "is equal to" and value "201"
-    Then the response on "comments" should have the parameter "body.id" with condition "is equal to" and value "501"
+  Escenario: Creación de COMMENTS exitosamente
+    Cuando una petición POST es enviada al endpoint "comments"
+    Cuando se muestre la petición de "comments"
+    Cuando se muestre la respuesta de "comments"
+    Entonces la respuesta en "comments" debe tener el parámetro "status" con la condición "es igual a" y el valor "201"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.id" con la condición "es igual a" y el valor "501"
 
-  Scenario: Retrieve specific comments
-    When a GET request is sent to the "comments" endpoint
+  Escenario: Obtener un COMMENTS especifico
+    Cuando una petición GET es enviada al endpoint "posts"
       | url                |
       | #BASE_URL#/comments/1 |
-    When I show the "comments" endpoint request
-    When I show the "comments" endpoint response
-    Then the response on "comments" should have the parameter "status" with condition "is equal to" and value "200"
-    Then the response on "comments" should have the parameter "body.postId" with condition "is equal to" and value "1"
-    Then the response on "comments" should have the parameter "body.id" with condition "is equal to" and value "1"
-    Then the response on "comments" should have the parameter "body.name" with condition "is equal to" and value "id labore ex et quam laborum"
-    Then the response on "comments" should have the parameter "body.email" with condition "is equal to" and value "Eliseo@gardner.biz"
+    Cuando se muestre la petición de "comments"
+    Cuando se muestre la respuesta de "comments"
+    Entonces la respuesta en "comments" debe tener el parámetro "status" con la condición "es igual a" y el valor "200"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.userId" con la condición "es igual a" y el valor "1"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.id" con la condición "es igual a" y el valor "1"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.name" con la condición "es igual a" y el valor "id labore ex et quam laborum"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.email" con la condición "es igual a" y el valor "Eliseo@gardner.biz"
 
-  Scenario: Update specific comments
-    When a PATCH request is sent to the "comments" endpoint
+  Escenario: Actualizar un COMMENTS especifico
+    Cuando una petición PATCH es enviada al endpoint "comments"
       | url                |
       | #BASE_URL#/comments/1 |
-    When I show the "comments" endpoint request
-    When I show the "comments" endpoint response
-    Then the response on "comments" should have the parameter "status" with condition "is equal to" and value "200"
-    Then the response on "comments" should have the parameter "body.postId" with condition "is equal to" and value "1"
-    Then the response on "comments" should have the parameter "body.id" with condition "is equal to" and value "1"
-    Then the response on "comments" should have the parameter "body.name" with condition "is equal to" and value "id labore ex et quam laborum"
-    Then the response on "comments" should have the parameter "body.email" with condition "is equal to" and value "Eliseo@gardner.biz"
+    Cuando se muestre la petición de "comments"
+    Cuando se muestre la respuesta de "comments"
+    Entonces la respuesta en "comments" debe tener el parámetro "status" con la condición "es igual a" y el valor "200"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.postId" con la condición "es igual a" y el valor "1"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.id" con la condición "es igual a" y el valor "1"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.name" con la condición "es igual a" y el valor "id labore ex et quam laborum"
+    Entonces la respuesta en "comments" debe tener el parámetro "body.email" con la condición "es igual a" y el valor "Eliseo@gardner.biz"
 
-  Scenario: Delete specific comments
-    When a DELETE request is sent to the "comments" endpoint
+  Escenario: Eliminar un COMMENTS especifico
+    Cuando una petición DELETE es enviada al endpoint "comments"
       | url                |
       | #BASE_URL#/comments/1 |
-    When I show the "comments" endpoint request
-    When I show the "comments" endpoint response
-    Then the response on "comments" should have the parameter "status" with condition "is equal to" and value "200"
+    Cuando se muestre la petición de "comments"
+    Cuando se muestre la respuesta de "comments"
+    Entonces la respuesta en "comments" debe tener el parámetro "status" con la condición "es igual a" y el valor "200"
