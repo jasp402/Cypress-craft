@@ -5,89 +5,50 @@
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        title="Discover CypressCraft" id="Section-Starting-Page">
 
+
+
     <section-starting-page>
-        <title>Discover Cypress-craft</title>
+        <title>Cypress-craft</title>
         <description>
-            Nos divertimos creando una herramienta. Para que tú te diviertas probando.
+            Es una increíble extensión construida sobre cypress
         </description>
 
         <primary>
-            <title>Get started</title>
-            <a href="" type="container" summary="This overrides the card summary of the topic">Custom card title</a>
-            <a href="" type="start" summary="This overrides the card summary of the topic">Another custom title</a>
-            <a href=""/>
-            <a href="" summary="With a custom card summary"/>
-            <a href="">Custom card title</a>
-            <a href="" summary="With a custom card summary">Custom card title</a>
+            <title>Empezar</title>
+            <a href="starter-topic.md" type="container" summary="Todo sobre cypress-craft. Más que una herramienta es todo un cambio de paradigma en el mundo del testing">¿Que es cypressCraft?</a>
+            <a href="why-cypress-craft.md" type="cup" summary="Integración con Cucumber, sistema de multi-ambiente, manejo de data dinamica, simplificación en los steps entre otras mejoras">¿Porque cypressCraft?</a>
+            <a href="install.md" type="mixed" summary="Instalación y configuración. Sistema post-instalación con asistente de instalación o mediante parametros">Instalación</a>
+            <a href="structure.md" type="start" summary="Cambios en los nombre de archivos y carpetas para una mejor interpretación, con una estrucutra mas acorde a las necesidades">Estructura</a>
+			<a href="test-api.md" type="branch" summary="Explora todo lo referente a pruebas API y aprende a sacarle la mayor ventajas en pruebas de Servicios">Pruebas API</a>
+			<a href="test-e2e.md" type="mixed" summary="Toda la potencia de las prueba E2E ahora con CUCUMBER + POM y un definicion de step facil de recordar">Puebas E2E</a>
         </primary>
 
         <!--    Add several topics that are less important or are relevant only for advanced/experienced users.    -->
         <secondary>
-            <title>Explore advanced features</title>
-            <a href=""/>
-            <a href="" summary="With a custom card summary"/>
-            <a href="">Custom card title</a>
-            <a href="" summary="With a custom card summary">Custom card title</a>
+            <title>Explora funciones avanzadas</title>
+            <a href="" summary="Aprende a manejar multiples ambientes [DEV, QA, PROD] para categorizar mejor tus pruebas">Manejo de multi-ambiente</a>
+            <a href="" summary="Aprende a añidir datos dinamicos y reciclar datos y reutilziarlos">Gestión de data dinámica</a>
+            <a href="" summary="Aprende a manejar de forma correcta la definición de pasos. Añade o customiza tus steps">Manejo del StepDefinition</a>
+            <a href="" summary="Aprende a crear funcionalidades y darle potencia a tus pruebas mediante el POM">Manejo del POM (Page Object Model)</a>
         </secondary>
 
         <!--    Optionally add additional cards and links to topics that are not in this section but may be relevant.    -->
-        <misc>
-            <cards>
-                <title>Other relevant topics as wide cards</title>
-                <a href=""/>
-                <a href="" summary="With a custom card summary"/>
-                <a href="">Custom card title</a>
-                <a href="" summary="With a custom card summary">Custom card title</a>
-            </cards>
-
-            <cards narrow="true">
-                <title>Other relevant topics as narrow cards</title>
-                <a href=""/>
-                <a href=""/>
-                <a href="" summary="With a custom card summary"/>
-                <a href="">Custom card title</a>
-                <a href="">Custom card title</a>
-                <a href="" summary="With a custom card summary">Custom card title</a>
-            </cards>
-
-            <links>
-                <group>
-                    <title>Other related topics as links</title>
-                    <a href=""/>
-                    <a href="" summary="With a custom card summary"/>
-                    <a href="">Custom card title</a>
-                    <a href="" summary="With a custom card summary">Custom card title</a>
-                </group>
-                <group>
-                    <title>Two in a row</title>
-                    <a href=""/>
-                    <a href="" summary="With a custom card summary"/>
-                    <a href="">Custom card title</a>
-                    <a href="" summary="With a custom card summary">Custom card title</a>
-                </group>
-            </links>
-
+		<misc>
             <links narrow="true">
                 <group>
-                    <title>More related topics</title>
-                    <a href=""/>
-                    <a href="" summary="With a custom card summary"/>
-                    <a href="">Custom card title</a>
-                    <a href="" summary="With a custom card summary">Custom card title</a>
+                    <title>Mejoras y lanzamientos</title>
+                    <a href="" summary="Archivo de cambios donde se registran de forma historica todos los cambios">Ver CHANGELOG</a>
+                    <a href="" summary="">Release y versiones</a>
                 </group>
                 <group>
-                    <title>Three in a row</title>
-                    <a href=""/>
-                    <a href=""/>
-                    <a href="">Custom card title</a>
-                    <a href="">Custom card title</a>
+                    <title>Errores y requerimientos</title>
+                    <a href="" summary="">Reportar un Bug</a>
+                    <a href="" summary="">Solicitar una funcionalidad</a>
                 </group>
                 <group>
-                    <title>Each group is narrow</title>
-                    <a href=""/>
-                    <a href=""/>
-                    <a href="">Custom card title</a>
-                    <a href="">Custom card title</a>
+                    <title>Preguntas frecuentes Q&A</title>
+                    <a href="" summary="">Ver preguntas frecuentes</a>
+                    <a href="" summary="">Crear una discusión</a>
                 </group>
             </links>
         </misc>

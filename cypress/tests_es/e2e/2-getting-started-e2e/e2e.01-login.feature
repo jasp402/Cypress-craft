@@ -1,32 +1,51 @@
-Feature: Login Page
+# <reference types="cypressCraft" />
+# ---------------------------------------------------------------------------------------
+# Welcome to CypressCraft! | Specification File Overview:
+# ---------------------------------------------------------------------------------------
+# This file contains a diverse array of sample tests utilizing the tool:
+# https://jsonplaceholder.typicode.com/
+#
+# Purpose:
+# - To emulate requests and responses to a real API.
+# - Demonstrates how to make (POST), (GET), (PATCH), and (DELETE) requests
+#   at a high level of abstraction.
+#
+# Further Information:
+# - For comprehensive details, you are invited to review the cypress-craft documentation.
+# ---------------------------------------------------------------------------------------
+# >> Feel free to delete this message after reading the entire message <<
+
+# language: es
+
+Característica: Login Page
   Details - Page where the users can login to their accounts
 
-  Background:
-    Given the Page Object Model configuration for "login" has been initialized
-    Given el usuario ingresa a la pagina login
+  Antecedentes:
+    Dado la configuración del POM ha sido inicializada para "posts"
+    Dado el usuario ingresa a la pagina login
 
-  Scenario: Login success
-    When el usuario escribe en el campo "usernameInput" con el valor "standard_user"
-    When el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
-    When el usuario hace clic en el botón "loginBtn"
-    Then el elemento "title" debe "tiene el texto" "Swag Labs"
-    Then la imagen "shoppingCart" debe "ser visible"
-    Then el elemento "url" debe "tener la ruta" "https://www.saucedemo.com/inventory.html"
-
-
-  Scenario: Login locked
-    When el usuario escribe en el campo "usernameInput" con el valor "locked_out_user"
-    When el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
-    When el usuario hace clic en el botón "loginBtn"
-    Then la sección "errorMessage" debe "tiene el texto" "Epic sadface: Sorry, this user has been locked out."
+  Escenario: Login success
+    Cuando el usuario escribe en el campo "usernameInput" con el valor "standard_user"
+    Cuando el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
+    Cuando el usuario hace clic en el botón "loginBtn"
+    Entonces el elemento "title" debe "tiene el texto" "Swag Labs"
+    Entonces la imagen "shoppingCart" debe "ser visible"
+    Entonces el elemento "url" debe "tener la ruta" "https://www.saucedemo.com/inventory.html"
 
 
+  Escenario: Login locked
+    Cuando el usuario escribe en el campo "usernameInput" con el valor "locked_out_user"
+    Cuando el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
+    Cuando el usuario hace clic en el botón "loginBtn"
+    Entonces la sección "errorMessage" debe "tiene el texto" "Epic sadface: Sorry, this user has been locked out."
 
-  Scenario Outline: Login <title>
-    When el usuario escribe en el campo "usernameInput" con el valor "<username>"
-    When el usuario escribe en el campo "passwordInput" con el valor "<password>"
-    When el usuario hace clic en el botón "loginBtn"
-    Then la sección "errorMessage" debe "tiene el texto" "<errorMessage>"
+
+
+  Escenario Outline: Login <title>
+    Cuando el usuario escribe en el campo "usernameInput" con el valor "<username>"
+    Cuando el usuario escribe en el campo "passwordInput" con el valor "<password>"
+    Cuando el usuario hace clic en el botón "loginBtn"
+    Entonces la sección "errorMessage" debe "tiene el texto" "<errorMessage>"
 
     Examples:
       | title            | username      | password      | errorMessage                                                              |

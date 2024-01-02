@@ -14,4 +14,8 @@
         <description>Created after removal of "Discover CypressCraft" from CypressCraft</description>
         <accepts>Discover-CypressCraft.html</accepts>
     </rule>
+    <rule id="13c976e5">
+        <description>Created after removal of "Overview" from CypressCraft</description>
+        <accepts>Overview.html</accepts>
+    </rule>
 </rules>

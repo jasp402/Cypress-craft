@@ -41,98 +41,12 @@ const updateFiles = [
     ]
 
 
-function init(language, typeTest, reports) {
-    const languageDir   = language === 'English' ? 'tests_es'  : 'tests_en' ;
-
-    const filterFunc = (src) => {
-        const basename = path.basename(src);
-
-        if(!reports && basename === 'report-cucumber.js'){
-            return false;
-        }
-
-        //Ignore files
-        if (ignoreFiles.includes(basename)) {
-            return false;
-        }
-
-        //Exclude language [ES / EN]
-        if (basename.includes(languageDir)) {
-            return false;
-        }
-
-        //Exclude type test [E2E / API]
-        if (typeTest !== 'E2E+API') {
-            const testTypePath = (typeTest === 'API') ? 'e2e' : 'api';
-            if (basename.includes(testTypePath)) {
-                return false;
-            }
-        }
-        return true;
-    };
-    const updateFilter = (src) => {
-        if (updateFiles.includes(path.basename(src))) {
-            return true;
-        }else{
-            return  false;
-        }
-    }
-
-    if (fs.existsSync(cypressDir)) {
-        fs.copy(sourceDir, targetDir, {overwrite: true, filter: updateFilter}, function (err) {
-            if (err) {
-                console.error('Error update files: ', err);
-            }
-        });
-    } else {
-        fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc}, function (err) {
-            if (err) {
-                console.error('Error copying files: ', err);
-            } else {
-                if (fs.existsSync(cypressDir)) {
-                    mergeStepDefinitions(language, typeTest, languageDir);
-                }
-            }
-        });
-    }
-}
-
 async function renameFolder(oldPath, newPath) {
     try {
         await fs.rename(oldPath, newPath);
     } catch (error) {
         console.error('Error al renombrar la carpeta:', error);
     }
-}
-
-async function main() {
-    const inquirer = await import('inquirer');
-    const prompt   = inquirer.default.prompt;
-    prompt([
-        {
-            type   : 'list',
-            choices: ['English', 'Spanish'],
-            name   : 'language',
-            message: 'Language of your project?',
-            default: 'Spanish'
-        },
-        {
-            type   : 'list',
-            choices: ['E2E', 'API', 'E2E+API'], //None
-            name   : 'typeTest',
-            message: 'Type of project?',
-            default: 'E2E+API'
-        },
-        {
-            type   : 'confirm',
-            name   : 'report',
-            message: 'Do you want to include report?',
-            default: true
-        }
-        // más preguntas según sea necesario
-    ]).then(answers => {
-        init(answers.language, answers.typeTest, answers.report);
-    });
 }
 
 async function insertContent(filePath, marker, content) {
@@ -178,7 +92,120 @@ async function mergeStepDefinitions(language, type) {
         await insertContent(stepDefinitionPath, sectionMarker, content);
     }
 
+    //remane index /pom
+    const indexPomPath       = path.join(cwd, 'cypress', 'pom', `${type}_index.js`);
+    if(fs.existsSync(indexPomPath)) {
+        console.log('si existe: indexPomPath', indexPomPath);
+        await renameFolder(indexPomPath, path.join(cwd, 'cypress', 'pom', `index.js`));
+    }else{
+        console.log('no existe: indexPomPath', indexPomPath);
+    }
     await renameFolder(testsFolderOld, testsFolder);
+}
+
+
+function init(language, typeTest, reports) {
+    const languageDir   = language === 'English' ? 'tests_es'  : 'tests_en' ;
+
+    const filterFunc = (src) => {
+        const basename = path.basename(src);
+
+        if(!reports && basename === 'report-cucumber.js'){
+            return false;
+        }
+
+        //Ignore files
+        if (ignoreFiles.includes(basename)) {
+            return false;
+        }
+
+        //Exclude language [ES / EN]
+        if (basename.includes(languageDir)) {
+            return false;
+        }
+
+        //Exclude type test [E2E / API]
+        if (typeTest !== 'E2E+API') {
+            const testTypePath = (typeTest === 'API') ? 'e2e' : 'api';
+            if (basename.includes(testTypePath)) {
+                return false;
+            }
+        }
+
+        // index POM
+        if(typeTest === 'E2E+API'){
+            if(['API_index.js', 'E2E_index.js'].includes(basename)) {
+                return false;
+            }
+        }
+        else if(typeTest === 'E2E') {
+            if(['API_index.js', 'index.js'].includes(basename)) {
+                return false;
+            }
+        }
+        else if(typeTest === 'API'){
+            if(['E2E_index.js', 'index.js'].includes(basename)) {
+                return false;
+            }
+        }
+
+        return true;
+    };
+    const updateFilter = (src) => {
+        if (updateFiles.includes(path.basename(src))) {
+            return true;
+        }else{
+            return  false;
+        }
+    }
+
+    if (fs.existsSync(cypressDir)) {
+        fs.copy(sourceDir, targetDir, {overwrite: true, filter: updateFilter}, function (err) {
+            if (err) {
+                console.error('Error update files: ', err);
+            }
+        });
+    } else {
+        fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc}, function (err) {
+            if (err) {
+                console.error('Error copying files: ', err);
+            } else {
+                if (fs.existsSync(cypressDir)) {
+                    mergeStepDefinitions(language, typeTest, languageDir);
+                }
+            }
+        });
+    }
+}
+
+async function main() {
+    const inquirer = await import('inquirer');
+    const prompt   = inquirer.default.prompt;
+    prompt([
+        {
+            type   : 'list',
+            choices: ['English', 'Spanish'],
+            name   : 'language',
+            message: 'Language of your project?',
+            default: 'Spanish'
+        },
+        {
+            type   : 'list',
+            choices: ['E2E', 'API', 'E2E+API'], //None
+            name   : 'typeTest',
+            message: 'Type of project?',
+            default: 'E2E+API'
+        },
+        {
+            type   : 'confirm',
+            name   : 'report',
+            message: 'Do you want to include report?',
+            default: true
+        }
+        // más preguntas según sea necesario
+    ]).then(answers => {
+        init(answers.language, answers.typeTest, answers.report);
+    });
 }
 
 function install(){
