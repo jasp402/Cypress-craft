@@ -21,7 +21,7 @@ Característica: Login Page
   Details - Page where the users can login to their accounts
 
   Antecedentes:
-    Dado la configuración del POM ha sido inicializada para "posts"
+    Dado la configuración del POM ha sido inicializada para "login"
     Dado el usuario ingresa a la pagina login
 
   Escenario: Login success
@@ -32,22 +32,19 @@ Característica: Login Page
     Entonces la imagen "shoppingCart" debe "ser visible"
     Entonces el elemento "url" debe "tener la ruta" "https://www.saucedemo.com/inventory.html"
 
-
   Escenario: Login locked
     Cuando el usuario escribe en el campo "usernameInput" con el valor "locked_out_user"
     Cuando el usuario escribe en el campo "passwordInput" con el valor "secret_sauce"
     Cuando el usuario hace clic en el botón "loginBtn"
     Entonces la sección "errorMessage" debe "tiene el texto" "Epic sadface: Sorry, this user has been locked out."
 
-
-
-  Escenario Outline: Login <title>
+  Esquema del escenario: Login <title>
     Cuando el usuario escribe en el campo "usernameInput" con el valor "<username>"
     Cuando el usuario escribe en el campo "passwordInput" con el valor "<password>"
     Cuando el usuario hace clic en el botón "loginBtn"
     Entonces la sección "errorMessage" debe "tiene el texto" "<errorMessage>"
 
-    Examples:
+    Ejemplos:
       | title            | username      | password      | errorMessage                                                              |
       | Failure user     | test-user     | secret_sauce  | Epic sadface: Username and password do not match any user in this service |
       | Failure Password | standard_user | test-password | Epic sadface: Username and password do not match any user in this service |
