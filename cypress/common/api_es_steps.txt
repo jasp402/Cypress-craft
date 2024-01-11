@@ -6,7 +6,7 @@ When('una petición {word} es enviada al endpoint {string}', (method, endPoint, 
     pageObject.sendRequest(method, endPoint, settings);
 });
 
-When(/^se muestre la (petición|respuesta) de "([^"]*)"?$/, (endPoint, type) => {
+When(/^se muestre la (petición|respuesta) de "([^"]*)"?$/, (type, endPoint) => {
     pageObject._showManager(type, endPoint);
 });
 

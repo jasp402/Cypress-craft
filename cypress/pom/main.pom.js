@@ -102,7 +102,7 @@ module.exports = class Main {
     }
 
     _showManager(type, endPoint) {
-        if (!['response', 'request'].includes(type)) {
+        if (!['response', 'request', 'petición', 'respuesta'].includes(type)) {
             throw new Error(`Unknown ${type} type`);
         }
         if (type === 'request') {
