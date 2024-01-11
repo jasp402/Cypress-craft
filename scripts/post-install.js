@@ -128,7 +128,9 @@ function init(language, typeTest, reports) {
         if (typeTest !== 'E2E+API') {
             const testTypePath = (typeTest === 'API') ? 'e2e' : 'api';
             if (basename.includes(testTypePath)) {
-                return false;
+                if(src.indexOf(`cypress\\support\\${testTypePath}.js`)===-1){
+                    return false;
+                }
             }
         }
 
