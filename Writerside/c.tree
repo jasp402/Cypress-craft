@@ -14,5 +14,6 @@
         </toc-element>
         <toc-element topic="test-api.md"/>
         <toc-element topic="test-e2e.md"/>
+        <toc-element topic="Ejecución-E2E.md"/>
     </toc-element>
 </instance-profile>
