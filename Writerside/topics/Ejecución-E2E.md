@@ -1,3 +1,3 @@
-# Ejecución E2E
+# Ejecución E2E and API
 
 Start typing here...
