@@ -1,3 +1,0 @@
-# Ejecución E2E and API
-
-Start typing here...
