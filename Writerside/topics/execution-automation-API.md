@@ -1,6 +1,9 @@
 # Ejecución de automatizaciones API
 
-1. Ejecutar desde la consola del editor el comando
+1. Confirmar en el archivo cypress.config.js el ambiente y entorno de pruebas
+   ![CypresCraft](dynamicvarexecution_1d.png){ width=800 }{border-effect=line}
+
+2. Ejecutar desde la consola del editor el comando
     ```bash
         npm start
     ```
@@ -16,4 +19,11 @@
    ![CypresCraft](execution-automation-api_4.png){ width=800 }{border-effect=line}
 
 5. Corroboramos ejecución exitosa del feature de API
+
+> **Información importante**
+>
+> En caso el navegador se quede cargando y no muestre nada, se debe actualizar (f5), si persiste, se debe eliminar la caché.
+>
+{style="note"}
+
    ![CypresCraft](execution-automation-api_5.png){ width=800 }{border-effect=line}
