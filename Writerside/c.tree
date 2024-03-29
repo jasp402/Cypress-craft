@@ -10,9 +10,16 @@
         <toc-element topic="starter-topic.md"/>
         <toc-element topic="why-cypress-craft.md"/>
         <toc-element topic="install.md"/>
-        <toc-element topic="structure.md">
+        <toc-element topic="how-add-step-definition.md"/>
+        <toc-element topic="test-api.md">
+            <toc-element topic="automation-API.md"/>
+            <toc-element topic="execution-automation-API.md"/>
         </toc-element>
-        <toc-element topic="test-api.md"/>
-        <toc-element topic="test-e2e.md"/>
+        <toc-element topic="test-e2e.md">
+            <toc-element topic="automation-E2E.md"/>
+            <toc-element topic="execution-automation-E2E.md"/>
+        </toc-element>
+        <toc-element topic="dynamic-variables.md"/>
+        <toc-element topic="structure.md"/>
     </toc-element>
 </instance-profile>
