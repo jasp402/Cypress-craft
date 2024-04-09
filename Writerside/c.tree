@@ -20,6 +20,5 @@
             <toc-element topic="execution-automation-E2E.md"/>
         </toc-element>
         <toc-element topic="dynamic-variables.md"/>
-        <toc-element topic="structure.md"/>
     </toc-element>
 </instance-profile>

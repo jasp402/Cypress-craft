@@ -22,4 +22,8 @@
         <description>Created after removal of "Ejecución E2E and API" from CypressCraft</description>
         <accepts>Ejecución-E2E.html</accepts>
     </rule>
+    <rule id="3708f47d">
+        <description>Created after removal of "Sobre la estructura" from CypressCraft</description>
+        <accepts>structure.html</accepts>
+    </rule>
 </rules>
