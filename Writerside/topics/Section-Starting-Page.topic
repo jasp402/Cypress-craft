@@ -16,6 +16,7 @@
         <primary>
             <title>Empezar</title>
             <a href="starter-topic.md" type="container" summary="Todo sobre cypress-craft. Más que una herramienta es todo un cambio de paradigma en el mundo del testing">¿Que es cypressCraft?</a>
+            <a href="overview.md" type="mixed" summary="Guía completa del proyecto, instalación y buenas prácticas">Guía completa</a>
             <a href="why-cypress-craft.md" type="cup" summary="Integración con Cucumber, sistema de multi-ambiente, manejo de data dinamica, simplificación en los steps entre otras mejoras">¿Porque cypressCraft?</a>
             <a href="install.md" type="mixed" summary="Instalación y configuración. Sistema post-instalación con asistente de instalación o mediante parametros">Instalación</a>
             <a href="structure.md" type="start" summary="Cambios en los nombre de archivos y carpetas para una mejor interpretación, con una estrucutra mas acorde a las necesidades">Estructura</a>
