@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.6.2
         with:
           name: docs
 
