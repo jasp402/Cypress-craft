@@ -1,37 +1,18 @@
-# Sobre la estructura
+# Estructura del proyecto
 
-A How-to article is an action-oriented type of document.
-It explains how to perform a specific task or solve a problem, and usually contains a sequence of steps.
-Start with a short introductory paragraph that explains what users will accomplish by following this procedure,
-what they need to perform it for, or define the target audience of the doc.
+Este documento describe la disposición de carpetas generada por `cypress-craft-init`. Mantener esta organización ayuda a localizar fácilmente las pruebas y los archivos de apoyo.
 
-> **Highlight important information**
->
-> You can change the element to *tip* or *warning* by renaming the style attribute below.
->
-{style="note"}
+## Descripción de carpetas
 
-## Before you start
+- `cypress/common/` – Step definitions de Cucumber en inglés y español junto con utilidades compartidas.
+- `cypress/fixtures/` – URLs base y datos de prueba por ambiente. También gestiona variables dinámicas.
+- `cypress/pom/` – Clases del Page Object Model para pruebas API y E2E. `main.pom.js` centraliza validaciones y peticiones HTTP.
+- `cypress/settings/` – Configuración del preprocesador de Cucumber y otros helpers.
+- `cypress/support/` – Comandos personalizados de Cypress que unifican la generación de logs y reportes en HTML.
+- `cypress/tests_en/` y `cypress/tests_es/` – Features de ejemplo en Gherkin para distintos escenarios.
+- `scripts/` – Contiene `post-install.js`, el asistente de configuración inicial.
+- `Writerside/` – Documentación adicional en formato markdown.
 
-It is good practice to list the prerequisites that are required or recommended.
+## Archivos principales
 
-Make sure that:
-- First prerequisite
-- Second prerequisite
-
-## How to perform a task
-
-Some introductory information.
-
-1. Step with a code block
-
-   ```bash
-    run this --that
-   ```
-
-2. Step with a [link](https://www.jetbrains.com)
-
-3. Step with a list.
-   - List item
-   - List item
-   - List item
+Revisa `cypress.config.js` para definir el ambiente de ejecución y la ruta de las pruebas. Cada carpeta incluye ejemplos que puedes modificar según las necesidades de tu proyecto.
