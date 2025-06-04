@@ -23,32 +23,27 @@
 			<a href="test-e2e.md" type="mixed" summary="Toda la potencia de las prueba E2E ahora con CUCUMBER + POM y un definicion de step facil de recordar">Puebas E2E</a>
         </primary>
 
-        <!--    Add several topics that are less important or are relevant only for advanced/experienced users.    -->
         <secondary>
             <title>Explora funciones avanzadas</title>
-            <a href="" summary="Aprende a manejar multiples ambientes [DEV, QA, PROD] para categorizar mejor tus pruebas">Manejo de multi-ambiente</a>
-            <a href="" summary="Aprende a añidir datos dinamicos y reciclar datos y reutilziarlos">Gestión de data dinámica</a>
-            <a href="" summary="Aprende a manejar de forma correcta la definición de pasos. Añade o customiza tus steps">Manejo del StepDefinition</a>
-            <a href="" summary="Aprende a crear funcionalidades y darle potencia a tus pruebas mediante el POM">Manejo del POM (Page Object Model)</a>
+            <a href="dynamic-variables.md" summary="Aprende a añadir datos dinámicos y reciclar datos y reutilizarlos">Gestión de data dinámica</a>
+            <a href="how-add-step-definition.md" summary="Aprende a manejar de forma correcta la definición de pasos. Añade o personaliza tus steps">Manejo del StepDefinition</a>
         </secondary>
 
-        <!--    Optionally add additional cards and links to topics that are not in this section but may be relevant.    -->
-		<misc>
+                <misc>
             <links narrow="true">
                 <group>
                     <title>Mejoras y lanzamientos</title>
-                    <a href="" summary="Archivo de cambios donde se registran de forma historica todos los cambios">Ver CHANGELOG</a>
-                    <a href="" summary="">Release y versiones</a>
+                    <a href="https://github.com/jasp402/Cypress-craft/blob/main/CHANGELOG.md" summary="Archivo de cambios donde se registran de forma historica todos los cambios">Ver CHANGELOG</a>
+                    <a href="https://github.com/jasp402/Cypress-craft/releases" summary="">Release y versiones</a>
                 </group>
                 <group>
                     <title>Errores y requerimientos</title>
-                    <a href="" summary="">Reportar un Bug</a>
-                    <a href="" summary="">Solicitar una funcionalidad</a>
+                    <a href="https://github.com/jasp402/Cypress-craft/issues/new?labels=bug&template=bug_report.md" summary="">Reportar un Bug</a>
+                    <a href="https://github.com/jasp402/Cypress-craft/issues/new?labels=enhancement&template=feature_request.md" summary="">Solicitar una funcionalidad</a>
                 </group>
                 <group>
                     <title>Preguntas frecuentes Q&A</title>
-                    <a href="" summary="">Ver preguntas frecuentes</a>
-                    <a href="" summary="">Crear una discusión</a>
+                    <a href="https://github.com/jasp402/Cypress-craft/discussions" summary="">Crear una discusión</a>
                 </group>
             </links>
         </misc>
