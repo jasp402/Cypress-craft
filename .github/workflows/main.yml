@@ -36,7 +36,7 @@ jobs:
           docker-version: ${{ env.DOCKER_VERSION }}
         
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: docs
           path: |
