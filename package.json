@@ -1,6 +1,6 @@
 {
   "name": "cypress-craft",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "CypressCraft is an innovative extension built on top of Cypress (Cypress + Cucumber + POM)",
   "engines": {
     "node": ">=18"
@@ -12,7 +12,8 @@
     "start": "cypress open",
     "release:patch": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
-    "release:major": "standard-version --release-as major"
+    "release:major": "standard-version --release-as major",
+    "release:publish": "git push --follow-tags origin main && npm publish"
   },
   "repository": {
     "type": "git",
