@@ -7,8 +7,9 @@
 > _We had fun creating this app. So you can have fun trying._
 
 # What is CypressCraft?
-It is a library for **[nodeJS](https://nodejs.org/en)** distributed via **[NPM](https://www.npmjs.com/package/cypress-craft)**. In essence, it is a **[Cypress](https://www.cypress.io/)** extension _(unofficial - created by the community)_. Which concentrates the best practices of E2E testing and API services: multiple libraries, design patterns and code organization.
-This library is characterized by the integration of BDD using Cucumber and Gherkin, advanced design patterns such as Page Object Model (POM) and Factory Pattern, and Singleton Pattern specifically adapted and refined to work with the versatile nature of Cypress.
+It is a library for **[nodeJS](https://nodejs.org/en)** distributed via **[NPM](https://www.npmjs.com/package/cypress-craft)**. In essence, it is an **[Cypress](https://www.cypress.io/)** extension _(unofficial - created by the community)_. It concentrates best practices for E2E and API testing through multiple libraries, design patterns and better code organization.
+This project represents our own enhanced version of Cypress, adding what we felt was missing for very specific needs: **POM**, **Cucumber**, **Gherkin**, built-in reporting, dynamic data management and multi-environment support.
+The library is characterized by the integration of BDD using Cucumber and Gherkin, advanced design patterns like Page Object Model (POM) and Factory Pattern, and a Singleton Pattern specifically adapted to Cypress' versatile nature.
 
 
 It also has the ability to manage multiple environments, dynamic data, and a structure designed specifically for managing APIs. This integration not only improves automated test setup, but also facilitates a more organized and maintainable test code structure. It provides a clear template to follow when building test cases.
@@ -45,22 +46,33 @@ CypressCraft key innovations include:
 CypressCraft is the ideal solution for development and QA teams looking to minimize time and effort in the process of creating automations, while maintaining high standards of quality and efficiency. With the latest version of Cypress as a foundation, CypressCraft represents a significant evolution in the world of test automation.
 
 
-# Table of Contents
-- [Introduction](#Introduction)
-- [Characteristics](#Characteristics)
-- [Requirements](#Requirements)
-- [installation](#installation)
-- Setting
-- Use
-- Implemented Design Patterns
-- Environment Management
-- Data Management
-- Contribute
-- License
-- Contact
-- Introduction
+## Repository Structure
 
-# Introduction
+The project template installed by `cypress-craft-init` follows a clear layout:
+
+- **`cypress/common/`** – Cucumber step definitions in English and Spanish plus shared helpers.
+- **`cypress/fixtures/`** – Centralized URLs and test data per environment with support for dynamic variables.
+- **`cypress/pom/`** – Page Object classes for APIs and E2E tests. `main.pom.js` contains common logic for validations and HTTP requests.
+- **`cypress/settings/`** – Cucumber preprocessor configuration and utilities.
+- **`cypress/support/`** – Custom Cypress commands for unified logging and HTML reports.
+- **`cypress/tests_en/`** and **`cypress/tests_es/`** – Example features in Gherkin for API and E2E scenarios in both languages.
+- **`scripts/`** – Contains `post-install.js` which acts as an installation wizard.
+- **`Writerside/`** – Additional documentation organized in markdown.
+
+
+# Tabla de Contenidos
+- [Introducción](#introducción)
+- [Características](#características)
+- [Requisitos previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Manejo de Datos Dinámicos](#manejo-de-datos-dinámicos)
+- [Añadir Step Definitions](#añadir-step-definitions)
+- [Ejecución de Pruebas](#ejecución-de-pruebas)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
+- [Contacto](#contacto)
+
+# Introducción
 Welcome to CypressCraft, an advanced sub-framework designed to revolutionize the way E2E and API testing is performed using Cypress. Developed by a team with more than four years of experience at Cypress, this sub-framework emerges as a comprehensive solution to overcome common challenges in test automation and maximize efficiency in software development.
 
 CypressCraft extends Cypress' capabilities beyond its primary focus on E2E testing, tailoring it for optimal performance in API testing. With meticulous integration of design patterns such as the Page Object Model (POM) and Factory Pattern, CypressCraft not only simplifies the creation of automated tests but also makes them more maintainable and scalable.
@@ -69,7 +81,7 @@ This sub-framework is specially designed for teams looking for agility and preci
 
 
 
-# Characteristics
+# Características
 CypressCraft está equipado con una serie de características potentes y optimizaciones diseñadas para hacer que tus pruebas sean más eficientes y efectivas. Aquí hay una mirada a las principales características que hacen de CypressCraft una herramienta indispensable para la automatización de pruebas:
 
 Optimización para Pruebas de API con Cypress: A pesar de que Cypress se centra principalmente en pruebas E2E, CypressCraft lo extiende para proporcionar soporte robusto y eficiente para pruebas de API.
@@ -87,7 +99,7 @@ Interfaz de Usuario Intuitiva y Documentación Completa: CypressCraft no solo es
 Compatibilidad con la Última Versión de Cypress: Nos mantenemos al día con las últimas actualizaciones de Cypress, asegurando que los usuarios de CypressCraft siempre tengan acceso a las últimas características y mejoras en seguridad.
 
 
-# Requirements
+# Requisitos previos
 Para aprovechar al máximo las capacidades de CypressCraft, es importante asegurarse de que tu sistema cumpla con los siguientes requisitos previos:
 
 Cypress Versión Compatible: CypressCraft está diseñado para funcionar con las versiones más recientes de Cypress. Asegúrate de tener instalada la última versión de Cypress en tu sistema.
@@ -101,56 +113,51 @@ Entorno de Desarrollo: Un entorno de desarrollo adecuado para JavaScript/TypeScr
 Conocimientos Básicos: Un entendimiento básico de Cypress, pruebas E2E, y pruebas de API es beneficioso para utilizar efectivamente CypressCraft.
 
 
-# installation
+# Instalación
 Sigue estos pasos para instalar CypressCraft en tu proyecto y comenzar a aprovechar sus potentes características para pruebas automatizadas:
 
-Instalar Cypress:
-Antes de instalar CypressCraft, asegúrate de tener Cypress instalado en tu proyecto. Si aún no lo has hecho, puedes instalar Cypress con npm ejecutando el siguiente comando en tu terminal:
+Para comenzar un proyecto realiza lo siguiente:
 
-bash
-Copy code
-npm install cypress --save-dev
-Agregar CypressCraft:
-Una vez que Cypress esté instalado, puedes agregar CypressCraft a tu proyecto. Ejecuta el siguiente comando para instalar CypressCraft:
+1. Inicializa un proyecto Node.js
+   ```bash
+   npm init -y
+   ```
+2. Instala Cypress y CypressCraft
+   ```bash
+   npm install cypress cypress-craft --save-dev
+   ```
+3. Ejecuta el asistente de configuración
+   ```bash
+   npx cypress-craft-init
+   ```
+   Aquí seleccionarás el idioma, el tipo de pruebas (API, E2E o ambos) y si deseas habilitar reportes.
+4. (Opcional) agrega en `package.json` el script:
+   ```json
+   "start": "cypress open"
+   ```
+   Con esto podrás lanzar los ejemplos incluidos mediante `npm start`.
 
-bash
-Copy code
-npm install cypresscraft --save-dev
-Este comando añadirá CypressCraft como una dependencia de desarrollo en tu proyecto.
-
-Verificar la Instalación:
-Tras la instalación, puedes verificar que CypressCraft se haya instalado correctamente revisando tu archivo package.json o ejecutando el siguiente comando:
-
-bash
-Copy code
-npm list --depth=0
-Configuración Inicial:
-Para la configuración inicial, puedes seguir las instrucciones proporcionadas en la sección Configuración de este documento.
-
-bash
-Copy code
-# Ejemplo de comando de instalación
-npm install tu-sub-framework
-Configuración
-Explica cómo configurar el sub-framework después de la instalación. Incluye detalles sobre archivos de configuración, variables de entorno, etc.
+Consulta más detalles en [`Writerside/topics`](Writerside/topics).
 
 # Uso
-Ofrece ejemplos de cómo usar el sub-framework para diferentes casos de uso (E2E, API). Puedes incluir fragmentos de código o enlaces a ejemplos más detallados.
+Revisa los ejemplos en `cypress/tests_en` y `cypress/tests_es`. Ejecuta `npm start` y elige el `feature` que desees para ver la estructura propuesta de pruebas API y E2E.
 
-# Patrones de Diseño Implementados
-Detalla los patrones de diseño utilizados y cómo estos benefician al usuario del sub-framework.
+# Manejo de Datos Dinámicos
+Las variables dinámicas se definen en `cypress/fixtures/data.js` usando los métodos `getDefaultData`, `getEnvironmentSpecificData` y `getTypeSpecificData`. Para utilizarlas en los archivos `feature` se escriben con almohadillas, por ejemplo `#USER_NAME#`. Revisa `cypress.config.js` para confirmar el ambiente activo.
 
-# Manejo de Entornos
-Describe cómo el sub-framework gestiona múltiples entornos de prueba y cualquier configuración relacionada.
+# Añadir Step Definitions
+Los pasos de Gherkin se implementan en `cypress/common/stepDefinition.js`. Si una función se reutiliza en varias clases se recomienda declararla en `main.pom.js` con nombre precedido por guión bajo. Solo se admiten `Given`, `When` y `Then`.
 
-# Manejo de Datos
-Explica cómo se centralizan y gestionan los datos, tanto dinámicos como fijos, dentro del sub-framework.
+# Ejecución de Pruebas
+1. Configura el ambiente en `cypress.config.js`.
+2. Ejecuta `npm start` para abrir Cypress.
+3. Selecciona **E2E testing**, el navegador y el `feature` que deseas ejecutar.
 
 # Contribuir
-Invita a otros a contribuir al proyecto y explica cómo pueden hacerlo. Puedes incluir instrucciones para realizar pull requests, normas de codificación, etc.
+¡Las contribuciones son bienvenidas! Revisa las pautas en [CONTRIBUTING.md](CONTRIBUTING.md) para saber cómo enviar *pull requests* y reportar problemas.
 
 # Licencia
-Indica la licencia bajo la cual se distribuye el sub-framework.
+Este proyecto se distribuye bajo la licencia [ISC](LICENSE).
 
 # Contacto
-Proporciona información de contacto o enlaces a perfiles de redes sociales o profesionales para aquellos que deseen comunicarse contigo.
+Para comentarios o preguntas puedes escribir a [jasp402@gmail.com](mailto:jasp402@gmail.com).
