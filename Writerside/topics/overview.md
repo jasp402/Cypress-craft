@@ -47,6 +47,20 @@ La personalización se realiza editando `cypress.config.js`, donde se indica el 
 - Usar variables dinámicas (`#VAR#`) para datos que cambian según el entorno.
 - Versionar la carpeta `Writerside` para conservar la documentación junto al código.
 
+## Convenciones para archivos `.feature`
+Los archivos que describen los escenarios siguen una nomenclatura consistente para facilitar su identificación:
+
+- `api.XX-descripcion.feature` para servicios REST.
+- `e2e.XX-descripcion.feature` para flujos de interfaz.
+
+Cada feature comienza opcionalmente con la directiva de idioma, por ejemplo:
+
+```bash
+# language: es
+```
+
+Dentro de cada feature se recomienda incluir un `Background` con la inicialización del Page Object Model y escribir escenarios breves que reflejen un objetivo específico.
+
 ## Integración continua
 CypressCraft puede integrarse con cualquier servicio de CI/CD que ejecute Node.js. Asegura instalar las dependencias, ejecutar `cypress-craft-init` en modo no interactivo y usar el reporte HTML para revisar resultados en el pipeline.
 
