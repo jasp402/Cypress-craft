@@ -3,7 +3,7 @@ const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 function webpackOptions(config) {
   return {
     webpackOptions: {
-      plugins: [new NodePolyfillPlugin() ],
+      plugins: [new NodePolyfillPlugin()],
       resolve: {
         extensions: [".ts", ".js"],
         fallback: {
@@ -22,10 +22,21 @@ function webpackOptions(config) {
               },
             ],
           },
+          {
+            test: /\.([jt])s$/, // ← Soporta .js y .ts
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
+            },
+            type: "javascript/auto", // ← Soluciona el error 'sourceType'
+          },
         ],
       },
     },
-  }
+  };
 }
 
 module.exports = { webpackOptions };
