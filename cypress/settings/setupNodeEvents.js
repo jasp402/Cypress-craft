@@ -1,5 +1,5 @@
 const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
-const webpack = require("cypress-webpack-preprocessor-v5");
+const webpack = require("@cypress/webpack-preprocessor");
 const {webpackOptions} = require('../../webpack.config');
 
 const setupNodeEvents = async(on, config) => {
