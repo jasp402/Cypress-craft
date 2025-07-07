@@ -51,5 +51,9 @@
     "inquirer": "^9.2.12",
     "multiple-cucumber-html-reporter": "^3.5.0",
     "node-polyfill-webpack-plugin": "^2.0.1"
+  },
+  "resolutions": {
+    "glob": "^9.0.0",
+    "inflight": "github:npm-deprecate/inflight#fix-memory-leak"
   }
 }
