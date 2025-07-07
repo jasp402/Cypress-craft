@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/jasp402/Cypress-craft/compare/v1.5.1...v1.5.2) (2025-07-07)
+
 ### [1.5.1](https://github.com/jasp402/Cypress-craft/compare/v1.5.0...v1.5.1) (2025-07-07)
 
 ## [1.5.0](https://github.com/jasp402/Cypress-craft/compare/v1.4.7...v1.5.0) (2025-07-07)
