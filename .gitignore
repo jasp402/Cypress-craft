@@ -193,3 +193,6 @@ dist
 /.idea/sonarlint/securityhotspotstore/f/e/fe92e6ce48e00396da04abff6d6de3dcb0b5774a
 /qodana.yaml
 /tsconfig.json
+/buidersTestCase/cypress_craft.db
+/pack-manager/backend/data/packmanager.db
+/buidersTestCase/output/

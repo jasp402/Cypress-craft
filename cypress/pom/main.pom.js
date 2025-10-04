@@ -129,7 +129,6 @@ module.exports = class Main {
         return responseValue;
     }
 
-
     // Functions E2E
     _open(endPoint = null) {
         cy.visit(String(this.urls[endPoint] || this.urls.base));
@@ -145,8 +144,8 @@ module.exports = class Main {
         const expectedValue = content ? (isDynamic(content) ? extractAndSetDynamicValue(content, endPoint, this) : content) : null;
         const chaiAssertion = getChaiAssertion(this.constants.CONDITIONALS_MAP_E2E, condition);
 
-
         assertionE2E(elementType, element, chaiAssertion, expectedValue, endPoint, this);
         cy.logManagerE2E('ASSERTION', {result:elementId, condition, value:expectedValue}, 'assertion');
     }
+
 }
