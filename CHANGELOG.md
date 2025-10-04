@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/jasp402/Cypress-craft/compare/v2.0.0...v2.1.0) (2025-10-04)
+
+
+### Features
+
+* Refactor Dashboard components with improved styling and icon integration ([7c61583](https://github.com/jasp402/Cypress-craft/commit/7c615834cdf2fd35452e35a4f5c3d679a82c9779))
+
 ## [2.0.0](https://github.com/jasp402/Cypress-craft/compare/v1.5.2...v2.0.0) (2025-10-04)
 
 
