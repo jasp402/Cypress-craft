@@ -1,6 +1,6 @@
 {
   "name": "cypress-craft",
-  "version": "1.5.2",
+  "version": "2.0.0",
   "description": "CypressCraft is an innovative extension built on top of Cypress (Cypress + Cucumber + POM)",
   "engines": {
     "node": ">=18"
@@ -56,7 +56,7 @@
     "multiple-cucumber-html-reporter": "^3.5.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "semver": "^7.7.2",
-    "open": "^10.0.0" 
+    "open": "^10.0.0"
   },
   "resolutions": {
     "glob": "^9.0.0",

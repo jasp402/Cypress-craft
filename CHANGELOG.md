@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/jasp402/Cypress-craft/compare/v1.5.2...v2.0.0) (2025-10-04)
+
+
+### Features
+
+* BuildTestCase compoment - initialize Cypress Craft components with React, Vite, and Tailwind CSS ([c509d91](https://github.com/jasp402/Cypress-craft/commit/c509d91cc25dc90330caebb4b42c61880543448b))
+* PackManager component - initialize frontend structure with React, Vite, and Tailwind CSS ([abe58f6](https://github.com/jasp402/Cypress-craft/commit/abe58f6f0f9be74d2c41696e97ce2cf4f0fc1f98))
+* PackManager component - initialize frontend structure with React, Vite, and Tailwind CSS ([f1fc005](https://github.com/jasp402/Cypress-craft/commit/f1fc0051811ca9edba2d65cdfcd916d264367201))
+
 ### [1.5.2](https://github.com/jasp402/Cypress-craft/compare/v1.5.1...v1.5.2) (2025-07-07)
 
 ### [1.5.1](https://github.com/jasp402/Cypress-craft/compare/v1.5.0...v1.5.1) (2025-07-07)
