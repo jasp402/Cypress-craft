@@ -52,7 +52,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^23.2.0",
     "@cypress/webpack-preprocessor": "^7.0.1",
     "node-polyfill-webpack-plugin": "^4.1.0",
-    "cypress-cucumber-report-features": "^1.0.0",
+    "cypress-cucumber-report-features": "^2.1.3",
     "multiple-cucumber-html-reporter": "^3.5.0",
     "chalk": "^5.6.2",
     "cli-table3": "^0.6.5",
