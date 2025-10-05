@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.6](https://github.com/jasp402/Cypress-craft/compare/v2.1.5...v2.1.6) (2025-10-05)
+
+
+### Features
+
+* update cypress-cucumber-report-features to version 2.1.3 and adjust dependencies ([d4c7bed](https://github.com/jasp402/Cypress-craft/commit/d4c7bedaa80fbbfa6c7a52605ff600091b8c45d3))
+
 ### [2.1.5](https://github.com/jasp402/Cypress-craft/compare/v2.1.4...v2.1.5) (2025-10-05)
 
 
