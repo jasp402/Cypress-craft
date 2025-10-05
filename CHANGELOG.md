@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.4](https://github.com/jasp402/Cypress-craft/compare/v2.1.3...v2.1.4) (2025-10-05)
+
+
+### Features
+
+* update package.json scripts and dependencies; enhance webpack configuration with polyfills ([3806662](https://github.com/jasp402/Cypress-craft/commit/380666238cc5ff84c0741f8e229be60bb9895e5d))
+
 ### [2.1.3](https://github.com/jasp402/Cypress-craft/compare/v2.1.2...v2.1.3) (2025-10-04)
 
 ### [2.1.2](https://github.com/jasp402/Cypress-craft/compare/v2.1.1...v2.1.2) (2025-10-04)
