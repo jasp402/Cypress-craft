@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.7](https://github.com/jasp402/Cypress-craft/compare/v2.1.6...v2.1.7) (2025-10-05)
+
+
+### Features
+
+* refactor imports and enhance post-install script for better structure and functionality ([f3d6b52](https://github.com/jasp402/Cypress-craft/commit/f3d6b52e94901822aafc3f1e19f752517295db01))
+
 ### [2.1.6](https://github.com/jasp402/Cypress-craft/compare/v2.1.5...v2.1.6) (2025-10-05)
 
 
