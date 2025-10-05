@@ -58,7 +58,9 @@
     "cypress/**",
     "cypress.config.js",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "webpack.config.js",
+    ".cypress-cucumber-preprocessorrc.json"
   ],
   "workspaces": [
     "buidersTestCase",
