@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import { gt as semverGt } from "semver"
+import gt from "semver/functions/gt"
 import { Search, RefreshCw, Filter, Grid3x3, List } from "lucide-react"
 import DashboardCard from "./DashboardCard"
 import DashboardPackageCard from "./DashboardPackageCard"
@@ -183,7 +183,7 @@ const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             const isInstalled = !!installedPlugin
             const installedVersion = installedPlugin?.installed_version
             const isUpdateAvailable =
-              isInstalled && installedVersion ? semverGt(plugin.version, installedVersion) : false
+              isInstalled && installedVersion ? gt(plugin.version, installedVersion) : false
 
             const cardProps = {
               id: plugin.id,

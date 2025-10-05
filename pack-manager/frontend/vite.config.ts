@@ -14,6 +14,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
+  optimizeDeps: {
+    include: ['semver', 'semver/functions/gt']
+  },
   server: {
     host: true, // allow LAN access and use --host CLI flag
     port: 5173,
