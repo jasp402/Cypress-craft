@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.5](https://github.com/jasp402/Cypress-craft/compare/v2.1.4...v2.1.5) (2025-10-05)
+
+
+### Features
+
+* enhance post-install script with reporting and common step definitions for multiple languages ([497d0c1](https://github.com/jasp402/Cypress-craft/commit/497d0c1e7a590f510038deb6f180f3ef1d6153d8))
+* enhance post-install script with reporting and common step definitions for multiple languages ([4d5a354](https://github.com/jasp402/Cypress-craft/commit/4d5a354a1a7fc85bdb9387198a99776a3b0f2b6a))
+
 ### [2.1.4](https://github.com/jasp402/Cypress-craft/compare/v2.1.3...v2.1.4) (2025-10-05)
 
 
