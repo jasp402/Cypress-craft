@@ -14,7 +14,10 @@
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "release:publish": "git push --follow-tags origin main && npm publish",
-    "cypress-craft": "node cli.js pluginmanager"
+    "pack-manager": "node cli.js pack-manager",
+    "build-feature": "node cli.js build-testcase",
+    "cli": "node cli.js",
+    "generate-report": "node cli.js generate-report"
   },
   "repository": {
     "type": "git",
@@ -45,17 +48,24 @@
   },
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "dependencies": {
+    "cypress": "^15.3.0",
     "@badeball/cypress-cucumber-preprocessor": "^23.2.0",
     "@cypress/webpack-preprocessor": "^7.0.1",
+    "node-polyfill-webpack-plugin": "^4.1.0",
+    "cypress-cucumber-report-features": "^1.0.0",
+    "multiple-cucumber-html-reporter": "^3.5.0",
     "chalk": "^5.6.2",
     "cli-table3": "^0.6.5",
     "commander": "^14.0.1",
-    "cypress": "^15.3.0",
     "fs-extra": "^11.2.0",
     "inquirer": "^12.9.6",
-    "multiple-cucumber-html-reporter": "^3.5.0",
-    "node-polyfill-webpack-plugin": "^4.1.0",
+    "open": "^10.0.0",
+    "process": "^0.11.10",
     "semver": "^7.7.2",
-    "open": "^10.0.0"
+    "buffer": "^6.0.3",
+    "util": "^0.12.5"
+  },
+  "overrides": {
+    "glob": "^11.0.3"
   }
 }

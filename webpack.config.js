@@ -1,14 +1,21 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const webpack = require('webpack');
 
 function webpackOptions(config) {
   return {
     webpackOptions: {
-      plugins: [new NodePolyfillPlugin()],
+      plugins: [
+        new NodePolyfillPlugin(),
+        new webpack.ProvidePlugin({
+          process: 'process/browser',   // ✅ polyfill para process
+          Buffer: ['buffer', 'Buffer'], // opcional si usas Buffer
+        }),
+      ],
       resolve: {
         extensions: [".ts", ".js"],
         fallback: {
-          "util": false,
-          "fs": false,
+          "util": require.resolve("util/"), // ✅ en lugar de false
+          "fs": false,                      // seguimos deshabilitando fs
         }
       },
       module: {
@@ -21,17 +28,6 @@ function webpackOptions(config) {
                 options: config,
               },
             ],
-          },
-          {
-            test: /\.([jt])s$/, // ← Soporta .js y .ts
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader",
-              options: {
-                presets: ["@babel/preset-env"],
-              },
-            },
-            type: "javascript/auto", // ← Soluciona el error 'sourceType'
           },
         ],
       },
