@@ -3,10 +3,19 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const https = require('https');
 const { initDb } = require('./database');
-const { injectCode, removeCode } = require('./fileManager');
+const { injectCode, removeCode, setUserProjectRoot } = require('./fileManager');
 const seedDatabase = require('./seedDatabase');
 
 dotenv.config();
+
+// Determine the user's project root for code injection
+try {
+  const inferredRoot = process.env.CYPRESS_CRAFT_USER_CWD || process.env.INIT_CWD || process.cwd();
+  setUserProjectRoot(inferredRoot);
+  console.log(`PackManager using user project root: ${inferredRoot}`);
+} catch (e) {
+  console.warn('Warning: could not set user project root. Falling back to process.cwd(). Reason:', e.message);
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
