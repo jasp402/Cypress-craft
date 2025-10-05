@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.10](https://github.com/jasp402/Cypress-craft/compare/v2.1.9...v2.1.10) (2025-10-05)
+
+
+### Features
+
+* update frontend URL, optimize pack-manager startup, and enhance post-install script ([6e97562](https://github.com/jasp402/Cypress-craft/commit/6e975620d0a67b1600e17547019399b5799423d7))
+
 ### [2.1.9](https://github.com/jasp402/Cypress-craft/compare/v2.1.8...v2.1.9) (2025-10-05)
 
 
