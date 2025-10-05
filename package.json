@@ -14,6 +14,7 @@
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "release:publish": "git push --follow-tags origin main && npm publish",
+    "prepublishOnly": "npm install --prefix pack-manager --no-audit --no-fund && npm run pm:build --prefix pack-manager",
     "pack-manager": "node cli.js pack-manager",
     "build-feature": "node cli.js build-testcase",
     "cli": "node cli.js",
@@ -48,6 +49,16 @@
     "url": "https://github.com/jasp402/Cypress-craft/issues"
   },
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
+  "files": [
+    "cli.js",
+    "pack-manager/backend/**",
+    "pack-manager/frontend/dist/**",
+    "scripts/**",
+    "cypress/**",
+    "cypress.config.js",
+    "README.md",
+    "LICENSE"
+  ],
   "workspaces": [
     "buidersTestCase",
     "pack-manager"
