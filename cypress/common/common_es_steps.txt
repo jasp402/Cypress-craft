@@ -1,0 +1,8 @@
+/** -------------------------------------------- **/
+/** Steps comunes (compartidos E2E y API) - ES  **/
+/** -------------------------------------------- **/
+
+Given('la configuración del POM ha sido inicializada para {string}', (name) => {
+  pageObject = pom[name];
+  pageObject._loadEndPoint(name);
+});
