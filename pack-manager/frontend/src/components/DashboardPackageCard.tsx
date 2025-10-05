@@ -8,7 +8,6 @@ interface DashboardPackageCardProps {
   name: string
   description: string
   version: string
-  downloads: string
   status: string
   isInstalled: boolean
   installedVersion?: string
@@ -22,7 +21,6 @@ const DashboardPackageCard: React.FC<DashboardPackageCardProps> = ({
   name,
   description,
   version,
-  downloads,
   status,
   isInstalled,
   installedVersion,

@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const https = require('https');
+const path = require('path');
+const fs = require('fs');
 const { initDb } = require('./database');
 const { injectCode, removeCode, setUserProjectRoot } = require('./fileManager');
 const seedDatabase = require('./seedDatabase');
@@ -22,6 +24,20 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static frontend build (production) if available
+const FRONTEND_DIST = path.join(__dirname, '..', '..', 'frontend', 'dist');
+if (fs.existsSync(FRONTEND_DIST)) {
+  app.use(express.static(FRONTEND_DIST));
+  // Root path
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+  });
+  // SPA fallback for non-API routes
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+  });
+}
 
 // --- Funciones de Fetching (sin cambios) ---
 const fetchFromGitHubRaw = (url) => {

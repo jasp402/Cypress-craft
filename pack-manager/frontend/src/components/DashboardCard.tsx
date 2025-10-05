@@ -29,7 +29,7 @@ const colorMap = {
   },
 }
 
-const iconMap: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
+const iconMap: Record<string, React.ElementType> = {
   inventory_2: Package,
   check_circle: CheckCircle,
   download: Download,

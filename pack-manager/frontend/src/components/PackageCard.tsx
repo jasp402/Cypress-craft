@@ -8,7 +8,6 @@ interface PackageCardProps {
   name: string
   description: string
   version: string
-  downloads: string
   status: string
   isInstalled: boolean
   installedVersion?: string
@@ -22,7 +21,6 @@ const PackageCard: React.FC<PackageCardProps> = ({
   name,
   description,
   version,
-  downloads,
   status,
   isInstalled,
   installedVersion,

@@ -17,7 +17,8 @@
     "pack-manager": "node cli.js pack-manager",
     "build-feature": "node cli.js build-testcase",
     "cli": "node cli.js",
-    "generate-report": "node cli.js generate-report"
+    "generate-report": "node cli.js generate-report",
+    "postinstall": "node scripts/postinstall-pack-manager.js"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,10 @@
     "url": "https://github.com/jasp402/Cypress-craft/issues"
   },
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
+  "workspaces": [
+    "buidersTestCase",
+    "pack-manager"
+  ],
   "dependencies": {
     "cypress": "^15.3.0",
     "@badeball/cypress-cucumber-preprocessor": "^23.2.0",

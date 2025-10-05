@@ -77,8 +77,7 @@ async function start() {
      */
     function runPackManager() {
         if (!checkInitialization()) return;
-        const backendPath = path.join(__dirname, 'pack-manager', 'backend');
-        const frontendPath = path.join(__dirname, 'pack-manager', 'frontend');
+        const packManagerRoot = path.join(__dirname, 'pack-manager');
         const frontendUrl = 'http://localhost:5173';
 
         // Ensure the backend/frontend know the user's project root, even when using npm link.
@@ -86,8 +85,9 @@ async function start() {
         const childEnv = { ...process.env, CYPRESS_CRAFT_USER_CWD: userProjectRoot, INIT_CWD: userProjectRoot };
 
         console.log(chalk.blue('Starting Cypress-Craft PackManager...'));
-        spawn('npm', ['start'], { cwd: backendPath, stdio: 'inherit', shell: true, env: childEnv });
-        spawn('npm', ['run', 'dev'], { cwd: frontendPath, stdio: 'inherit', shell: true, env: childEnv });
+        // Use centralized scripts from pack-manager/package.json
+        spawn('npm', ['run', 'pm:backend'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
+        spawn('npm', ['run', 'pm:frontend'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));

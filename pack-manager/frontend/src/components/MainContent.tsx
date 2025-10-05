@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import DashboardOverview from './DashboardOverview';
 import { Plugin, InstalledPlugin } from '../App';
 
