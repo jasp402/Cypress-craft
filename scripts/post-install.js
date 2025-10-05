@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs   = require('fs-extra');
 const path = require('path');
-const logo = require('./logo');
+// const logo = require('./logo'); // Removed logo import
 
 const cwd        = process.cwd();               // Directory YourProject
 const sourceDir  = path.join(__dirname, '../'); // Directory cypress-craft
@@ -27,6 +27,8 @@ const ignoreFiles = [
     'LICENSE',
     'scripts',
     'Writerside',
+    'buidersTestCase',
+    'pack-manager',
     'api_en_steps.txt',
     'api_es_steps.txt',
     'e2e_en_steps.txt',
@@ -45,27 +47,27 @@ async function renameFolder(oldPath, newPath) {
     try {
         await fs.rename(oldPath, newPath);
     } catch (error) {
-        console.error('Error al renombrar la carpeta:', error);
+        console.error('Error renaming folder:', error);
     }
 }
 
 async function insertContent(filePath, marker, content) {
     try {
-        // Lee el contenido actual del archivo
+        // Read current file content
         let fileContent = await fs.readFile(filePath, 'utf-8');
         let regexMap    = {
-            API: /(\/\/add steps API\r?\n)/,
-            E2E: /(\/\/add steps E2E\r?\n)/
+            API: /(\/\/add steps API\\r?\\n)/,
+            E2E: /(\/\/add steps E2E\\r?\\n)/
         }
-        // Construye un patrón regex para encontrar el marcador
+        // Build a regex pattern to find the marker
         const regex     = new RegExp(regexMap[marker], 'm');
-        fileContent     = fileContent.replace(regex, `${content}\n`);
+        fileContent     = fileContent.replace(regex, `${content}\\n`);
 
-        // Escribe el contenido modificado de vuelta en el archivo
+        // Write modified content back to the file
         await fs.writeFile(filePath, fileContent);
-        console.log(`${filePath} actualizado con éxito.`);
+        console.log(`${filePath} updated successfully.`);
     } catch (error) {
-        console.error(`Error al actualizar ${filePath}:`, error);
+        console.error(`Error updating ${filePath}:`, error);
     }
 }
 
@@ -76,7 +78,7 @@ async function mergeStepDefinitions(language, type) {
     const testsFolderOld     = path.join(cwd, 'cypress', `tests_${languageCode}`);
     const testsFolder        = path.join(cwd, 'cypress', `tests`);
 
-    // Define los nombres de los archivos basados en el idioma y tipo
+    // Define file names based on language and type
     let filesToMerge = [];
     if (type === 'API' || type === 'E2E+API') {
         filesToMerge.push(`api_${language === 'Spanish' ? 'es' : 'en'}_steps.txt`);
@@ -84,7 +86,7 @@ async function mergeStepDefinitions(language, type) {
     if (type === 'E2E' || type === 'E2E+API') {
         filesToMerge.push(`e2e_${language === 'Spanish' ? 'es' : 'en'}_steps.txt`);
     }
-    // Lee y combina el contenido de los archivos seleccionados
+    // Read and combine content of selected files
     for (const fileName of filesToMerge) {
         const filePath      = path.join(basePath, fileName);
         const content       = await fs.readFile(filePath, 'utf8');
@@ -92,19 +94,19 @@ async function mergeStepDefinitions(language, type) {
         await insertContent(stepDefinitionPath, sectionMarker, content);
     }
 
-    //remane index /pom
+    // Rename index /pom
     const indexPomPath       = path.join(cwd, 'cypress', 'pom', `${type}_index.js`);
     if(fs.existsSync(indexPomPath)) {
-        console.log('si existe: indexPomPath', indexPomPath);
+        console.log('Exists: indexPomPath', indexPomPath);
         await renameFolder(indexPomPath, path.join(cwd, 'cypress', 'pom', `index.js`));
     }else{
-        console.log('no existe: indexPomPath', indexPomPath);
+        console.log('Does not exist: indexPomPath', indexPomPath);
     }
     await renameFolder(testsFolderOld, testsFolder);
 }
 
 
-function init(language, typeTest, reports) {
+async function init(language, typeTest, reports) {
     const languageDir   = language === 'English' ? 'tests_es'  : 'tests_en' ;
 
     const filterFunc = (src) => {
@@ -164,17 +166,22 @@ function init(language, typeTest, reports) {
     if (fs.existsSync(cypressDir)) {
         fs.copy(sourceDir, targetDir, {overwrite: true, filter: updateFilter}, function (err) {
             if (err) {
-                console.error('Error update files: ', err);
+                console.error('Error updating files: ', err);
+            } else {
+                console.log('\n✨ Cypress-Craft setup complete! ✨');
+                console.log('You are ready to start testing. To open Cypress, run:');
+                console.log('\n  npx cypress open\n');
             }
         });
     } else {
         fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc}, function (err) {
             if (err) {
                 console.error('Error copying files: ', err);
-            } else {
-                if (fs.existsSync(cypressDir)) {
-                    mergeStepDefinitions(language, typeTest, languageDir);
-                }
+            }
+            else {
+                console.log('\n✨ Cypress-Craft setup complete! ✨');
+                console.log('You are ready to start testing. To open Cypress, run:');
+                console.log('\n  npx cypress open\n');
             }
         });
     }
@@ -183,13 +190,20 @@ function init(language, typeTest, reports) {
 async function main() {
     const inquirer = await import('inquirer');
     const prompt   = inquirer.default.prompt;
+
+    console.log('\nWelcome to the Cypress-Craft Project Initialization Wizard!');
+    console.log('This wizard will guide you through setting up a new Cypress project from scratch,');
+    console.log('integrating Cucumber for BDD and a Page Object Model (POM) structure.');
+    console.log("You'll be able to choose your preferred language and test type (E2E, API, or both).");
+    console.log("Let's get your test automation framework ready!\n");
+
     prompt([
         {
             type   : 'list',
             choices: ['English', 'Spanish'],
             name   : 'language',
             message: 'Language of your project?',
-            default: 'Spanish'
+            default: 'English' // Changed default to English
         },
         {
             type   : 'list',
@@ -204,14 +218,14 @@ async function main() {
             message: 'Do you want to include report?',
             default: true
         }
-        // más preguntas según sea necesario
+        // more questions as needed
     ]).then(answers => {
         init(answers.language, answers.typeTest, answers.report);
     });
 }
 
 function install(){
-    console.log(logo)
+    // console.log(logo) // Removed logo display
 
     const args   = process.argv.slice(2);
     let errorParams = false;
@@ -229,7 +243,7 @@ function install(){
     }, {});
 
     if (errorParams){
-        console.log('-- Invalid parameters. Try again with wizard install --');
+        console.log('-- Invalid parameters. Please try again with the wizard install --');
         main();
     }
 
@@ -239,7 +253,7 @@ function install(){
         console.log(params);
         if(['Spanish','ES','es','English', 'EN', 'en'].includes(params[Object.keys(params)[0]])
             && ['E2E', 'e2e', 'API', 'api', 'e2e+api', 'api+e2e', 'E2E+API'].includes(params[Object.keys(params)[1]])
-            && ['true', 'false', 'Y', 'y', 'N', 'n'].includes(params[Object.keys(params)[2]])
+            && ['true', 'false', 'Y', 'y'].includes(params[Object.keys(params)[2]])
         ){
             let language = null;
             let typeTest = null;
@@ -261,18 +275,18 @@ function install(){
             if(['true', 'Y', 'y'].includes(params[Object.keys(params)[2]])){
                 addReport = true;
             }
-            if(['false', 'N', 'n'].includes(params[Object.keys(params)[2]])){
+            if(['false', 'N'].includes(params[Object.keys(params)[2]])){
                 addReport = false;
             }
 
             if (language === null || typeTest === null || addReport === null){
-                console.log('-- Invalid parameters. Try again with wizard install --');
+                console.log('-- Invalid parameters. Please try again with the wizard install --');
                 main();
             }
 
             init(language, typeTest, addReport);
         }else{
-            console.log('-- Invalid parameters. Try again with wizard install --');
+            console.log('-- Invalid parameters. Please try again with the wizard install --');
             main();
         }
 
