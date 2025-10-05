@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.11](https://github.com/jasp402/Cypress-craft/compare/v2.1.10...v2.1.11) (2025-10-05)
+
+
+### Features
+
+* update backend server startup method and reduce browser open delay ([6e4a143](https://github.com/jasp402/Cypress-craft/commit/6e4a143fe245d885385fdbf4e7377c858979d02c))
+
 ### [2.1.10](https://github.com/jasp402/Cypress-craft/compare/v2.1.9...v2.1.10) (2025-10-05)
 
 
