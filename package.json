@@ -51,6 +51,7 @@
   "homepage": "https://github.com/jasp402/Cypress-craft#readme",
   "files": [
     "cli.js",
+    "pack-manager/package.json",
     "pack-manager/backend/**",
     "pack-manager/frontend/dist/**",
     "scripts/**",

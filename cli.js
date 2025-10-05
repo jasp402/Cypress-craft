@@ -85,14 +85,14 @@ async function start() {
         const childEnv = { ...process.env, CYPRESS_CRAFT_USER_CWD: userProjectRoot, INIT_CWD: userProjectRoot };
 
         console.log(chalk.blue('Starting Cypress-Craft PackManager (compiled)...'));
-        // Start backend in production mode; it will serve frontend/dist if present
-        spawn('npm', ['run', 'pm:start:prod'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
+        // Start backend server directly; it serves frontend/dist if present (no reliance on npm scripts)
+        spawn('node', ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
             const open = (await import('open')).default;
             open(frontendUrl);
-        }, 7000);
+        }, 4000);
     }
 
     /**
