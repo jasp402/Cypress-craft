@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.12](https://github.com/jasp402/Cypress-craft/compare/v2.1.11...v2.1.12) (2025-10-05)
+
+
+### Features
+
+* add webpack and Cypress configuration files to project structure ([2bfef16](https://github.com/jasp402/Cypress-craft/commit/2bfef1697813551410db345c95f58c8ac4b9b145))
+
 ### [2.1.11](https://github.com/jasp402/Cypress-craft/compare/v2.1.10...v2.1.11) (2025-10-05)
 
 
