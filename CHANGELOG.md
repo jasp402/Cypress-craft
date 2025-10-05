@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.9](https://github.com/jasp402/Cypress-craft/compare/v2.1.8...v2.1.9) (2025-10-05)
+
+
+### Features
+
+* update semver import to specific gt function and optimize dependencies ([b8e18af](https://github.com/jasp402/Cypress-craft/commit/b8e18afd84d5e145e001543156f53f2d9202f89f))
+
 ### [2.1.8](https://github.com/jasp402/Cypress-craft/compare/v2.1.7...v2.1.8) (2025-10-05)
 
 
