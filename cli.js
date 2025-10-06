@@ -19,6 +19,58 @@ async function start() {
 
     // --- Verification and Utility Functions ---
 
+    const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    const runNpm = (cwd, args, extraEnv = {}) => new Promise((resolve) => {
+        const child = spawn(npmCmd, args, { cwd, stdio: 'inherit', shell: true, env: { ...process.env, ...extraEnv } });
+        child.on('close', (code) => resolve(code));
+    });
+
+    async function ensureGherkinBuilderReady(gherkinBuilderPath) {
+        const nodeModules = path.join(gherkinBuilderPath, 'node_modules');
+        const distDir = path.join(gherkinBuilderPath, 'dist');
+
+        if (!fs.existsSync(nodeModules)) {
+            console.log(chalk.yellow('[cypress-craft] Installing Gherkin Builder dependencies on-demand...'));
+            const code = await runNpm(gherkinBuilderPath, ['install', '--no-audit', '--no-fund']);
+            if (code !== 0) {
+                console.log(chalk.red('[cypress-craft] Failed to install Gherkin Builder dependencies. Please run "npm install" inside GherkinBuilder and retry.'));
+                return false;
+            }
+        }
+        if (!fs.existsSync(distDir)) {
+            console.log(chalk.yellow('[cypress-craft] Building Gherkin Builder frontend (vite build)...'));
+            const code = await runNpm(gherkinBuilderPath, ['run', 'build']);
+            if (code !== 0) {
+                console.log(chalk.red('[cypress-craft] Failed to build Gherkin Builder. Please run "npm run build" inside GherkinBuilder and retry.'));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    async function ensurePackManagerReady(packManagerRoot) {
+        const nodeModules = path.join(packManagerRoot, 'node_modules');
+        const frontendDist = path.join(packManagerRoot, 'frontend', 'dist');
+
+        if (!fs.existsSync(nodeModules)) {
+            console.log(chalk.yellow('[cypress-craft] Installing Pack Manager dependencies on-demand...'));
+            const code = await runNpm(packManagerRoot, ['install', '--no-audit', '--no-fund']);
+            if (code !== 0) {
+                console.log(chalk.red('[cypress-craft] Failed to install Pack Manager dependencies. Please run "npm install" inside pack-manager and retry.'));
+                return false;
+            }
+        }
+        if (!fs.existsSync(frontendDist)) {
+            console.log(chalk.yellow('[cypress-craft] Building Pack Manager frontend (vite build)...'));
+            const code = await runNpm(packManagerRoot, ['run', 'pm:build']);
+            if (code !== 0) {
+                console.log(chalk.red('[cypress-craft] Failed to build Pack Manager frontend. Please run "npm run pm:build" inside pack-manager and retry.'));
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Checks if the project has been initialized by looking for the 'cypress' folder or config files.
      * @returns {boolean}
@@ -53,14 +105,17 @@ async function start() {
     /**
      * Starts the UI for creating test cases (.feature files).
      */
-    function runBuildTestCase() {
+    async function runBuildTestCase() {
         if (!checkInitialization()) return;
         const gherkinBuilderPath = path.join(__dirname, 'GherkinBuilder');
         const frontendUrl = 'http://localhost:3002';
 
+        const ok = await ensureGherkinBuilderReady(gherkinBuilderPath);
+        if (!ok) return;
+
         console.log(chalk.blue("Starting 'Gherkin Builder' tool (compiled)..."));
         // Start backend server directly; it serves dist if present (no reliance on vite)
-        spawn('node', ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: true });
+        spawn(process.execPath, ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: true });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
@@ -76,10 +131,13 @@ async function start() {
     /**
      * Starts the PackManager UI to manage plugins and steps.
      */
-    function runPackManager() {
+    async function runPackManager() {
         if (!checkInitialization()) return;
         const packManagerRoot = path.join(__dirname, 'pack-manager');
         const frontendUrl = 'http://localhost:3001';
+
+        const ok = await ensurePackManagerReady(packManagerRoot);
+        if (!ok) return;
 
         // Ensure the backend knows the user's project root, even when using npm link.
         const userProjectRoot = process.cwd();
@@ -87,7 +145,7 @@ async function start() {
 
         console.log(chalk.blue('Starting Cypress-Craft PackManager (compiled)...'));
         // Start backend server directly; it serves frontend/dist if present (no reliance on npm scripts)
-        spawn('node', ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
+        spawn(process.execPath, ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
