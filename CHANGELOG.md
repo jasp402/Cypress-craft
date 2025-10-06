@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.13](https://github.com/jasp402/Cypress-craft/compare/v2.1.12...v2.1.13) (2025-10-06)
+
+
+### Features
+
+* refactor project structure to GherkinBuilder and update server configuration ([33e5bc0](https://github.com/jasp402/Cypress-craft/commit/33e5bc0d6fe438c0d793b26299a0dcc42c59e19b))
+
 ### [2.1.12](https://github.com/jasp402/Cypress-craft/compare/v2.1.11...v2.1.12) (2025-10-05)
 
 
