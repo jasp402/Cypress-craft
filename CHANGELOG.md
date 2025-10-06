@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.17](https://github.com/jasp402/Cypress-craft/compare/v2.1.16...v2.1.17) (2025-10-06)
+
+
+### Features
+
+* update API URL configuration and enhance development server settings ([11738a7](https://github.com/jasp402/Cypress-craft/commit/11738a7d62b03c04e6447947b83020fae3195b23))
+
 ### [2.1.16](https://github.com/jasp402/Cypress-craft/compare/v2.1.15...v2.1.16) (2025-10-06)
 
 ### [2.1.15](https://github.com/jasp402/Cypress-craft/compare/v2.1.14...v2.1.15) (2025-10-06)
