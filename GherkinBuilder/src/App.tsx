@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import WorkflowEditor from './pages/WorkflowEditor';
 import FeaturesPage from './pages/FeaturesPage';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = (import.meta as any).env?.VITE_API_BASE_URL || '/api';
 
 export interface Scenario {
   id: string;
