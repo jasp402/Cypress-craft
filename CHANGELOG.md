@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.15](https://github.com/jasp402/Cypress-craft/compare/v2.1.14...v2.1.15) (2025-10-06)
+
+
+### Features
+
+* implement on-demand installation and building for GherkinBuilder and PackManager in CLI ([9f572ad](https://github.com/jasp402/Cypress-craft/commit/9f572adbac07812ccac04178a247acfc8af08e02))
+
 ### [2.1.14](https://github.com/jasp402/Cypress-craft/compare/v2.1.13...v2.1.14) (2025-10-06)
 
 
