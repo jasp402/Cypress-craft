@@ -7,6 +7,13 @@ const path = require('path');
   try {
     const pkgRoot = path.join(__dirname, '..');
 
+    // Skip heavy postinstall work in CI/publish environments
+    const isCI = !!process.env.CI || /true/i.test(process.env.GITHUB_ACTIONS || '') || /true/i.test(process.env.GITLAB_CI || '');
+    if (isCI) {
+      console.log('[cypress-craft] Detected CI environment. Skipping postinstall for pack-manager/Gherkin Builder.');
+      return;
+    }
+
     const cmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
     const run = (cwd) => (args, opts = {}) => new Promise((resolve) => {
       const child = spawn(cmd, args, { cwd, stdio: 'inherit', shell: true, ...opts });

@@ -14,7 +14,7 @@
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "release:publish": "git push --follow-tags origin main && npm publish",
-    "prepublishOnly": "npm install --prefix pack-manager --no-audit --no-fund && npm run pm:build --prefix pack-manager",
+    "prepublishOnly": "npm install --prefix pack-manager --no-audit --no-fund && npm run pm:build --prefix pack-manager && npm install --prefix GherkinBuilder --no-audit --no-fund && npm run build --prefix GherkinBuilder",
     "pack-manager": "node cli.js pack-manager",
     "build-feature": "node cli.js build-testcase",
     "cli": "node cli.js",
