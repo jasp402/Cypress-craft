@@ -28,6 +28,7 @@ const ignoreFiles = [
     'scripts',
     'Writerside',
     'buidersTestCase',
+    'GherkinBuilder',
     'pack-manager',
     'api_en_steps.txt',
     'api_es_steps.txt',

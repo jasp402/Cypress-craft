@@ -1,12 +1,31 @@
 import express from 'express';
 import cors from 'cors';
 import db from './database.js';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static frontend build (production) if available (vite outputs to ./dist)
+const FRONTEND_DIST = path.join(__dirname, 'dist');
+if (fs.existsSync(FRONTEND_DIST)) {
+    app.use(express.static(FRONTEND_DIST));
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+    });
+    // SPA fallback for non-API routes
+    app.get(/^(?!\/api).*/, (req, res) => {
+        res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+    });
+}
 
 // --- FEATURES ---
 app.get('/api/features', (req, res) => {

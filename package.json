@@ -54,6 +54,10 @@
     "pack-manager/package.json",
     "pack-manager/backend/**",
     "pack-manager/frontend/dist/**",
+    "GherkinBuilder/package.json",
+    "GherkinBuilder/server.js",
+    "GherkinBuilder/database.js",
+    "GherkinBuilder/dist/**",
     "scripts/**",
     "cypress/**",
     "cypress.config.js",
@@ -63,7 +67,7 @@
     ".cypress-cucumber-preprocessorrc.json"
   ],
   "workspaces": [
-    "buidersTestCase",
+    "GherkinBuilder",
     "pack-manager"
   ],
   "dependencies": {

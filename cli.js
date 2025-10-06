@@ -55,11 +55,12 @@ async function start() {
      */
     function runBuildTestCase() {
         if (!checkInitialization()) return;
-        const buildTestCasePath = path.join(__dirname, 'buidersTestCase');
-        const frontendUrl = 'http://localhost:5174'; // Assumed port for Vite client
+        const gherkinBuilderPath = path.join(__dirname, 'GherkinBuilder');
+        const frontendUrl = 'http://localhost:3002';
 
-        console.log(chalk.blue("Starting 'Build TestCase' tool..."));
-        spawn('npm', ['run', 'dev'], { cwd: buildTestCasePath, stdio: 'inherit', shell: true });
+        console.log(chalk.blue("Starting 'Gherkin Builder' tool (compiled)..."));
+        // Start backend server directly; it serves dist if present (no reliance on vite)
+        spawn('node', ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: true });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
@@ -69,7 +70,7 @@ async function start() {
             } catch (e) {
                 console.error(chalk.red('Could not open browser automatically.'), e);
             }
-        }, 7000);
+        }, 3000);
     }
 
     /**
@@ -124,7 +125,7 @@ async function start() {
                         value: 'init'
                     },
                     {
-                        name: '📝 Create test cases (Build TestCase)',
+                        name: '📝 Create test cases (Gherkin Builder)',
                         value: 'build_test_case'
                     },
                     {
