@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Scenario } from "../App";
-import { motion, Reorder, AnimatePresence } from 'framer-motion';
+import { Reorder, AnimatePresence } from 'framer-motion';
 
 interface ScenariosPanelProps {
   scenarios: Scenario[];

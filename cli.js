@@ -98,7 +98,7 @@ async function start() {
     function runInit() {
         const initScriptPath = path.join(__dirname, 'scripts', 'post-install.js');
         console.log(chalk.blue('Starting Cypress-Craft setup wizard...'));
-        const initProcess = spawn('node', [initScriptPath], { stdio: 'inherit', shell: true });
+        const initProcess = spawn(process.execPath, [initScriptPath], { stdio: 'inherit', shell: false });
         initProcess.on('error', (err) => console.error(chalk.red('Error starting the wizard:'), err));
     }
 
@@ -115,7 +115,7 @@ async function start() {
 
         console.log(chalk.blue("Starting 'Gherkin Builder' tool (compiled)..."));
         // Start backend server directly; it serves dist if present (no reliance on vite)
-        spawn(process.execPath, ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: true });
+        spawn(process.execPath, ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: false });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
@@ -145,7 +145,7 @@ async function start() {
 
         console.log(chalk.blue('Starting Cypress-Craft PackManager (compiled)...'));
         // Start backend server directly; it serves frontend/dist if present (no reliance on npm scripts)
-        spawn(process.execPath, ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: true, env: childEnv });
+        spawn(process.execPath, ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: false, env: childEnv });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));

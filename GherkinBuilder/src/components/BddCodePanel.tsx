@@ -7,7 +7,7 @@ interface BddCodePanelProps {
   selectedScenario: Scenario | null; // Keep for potential future use (e.g., highlighting)
 }
 
-function BddCodePanel({ feature, selectedScenario }: BddCodePanelProps) {
+function BddCodePanel({ feature, selectedScenario: _selectedScenario }: BddCodePanelProps) {
 
   const generateBddCode = () => {
     if (!feature) {

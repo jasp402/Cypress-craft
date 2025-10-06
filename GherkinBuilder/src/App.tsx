@@ -1,7 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import WorkflowEditor from './pages/WorkflowEditor';
 import FeaturesPage from './pages/FeaturesPage';
-import { Node, Edge } from 'react'; // This import is not used, can be removed.
 
 const API_URL = 'http://localhost:3001/api';
 

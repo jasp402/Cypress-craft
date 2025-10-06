@@ -1,4 +1,3 @@
-import { Node } from 'react'; // This import is not used, can be removed.
 
 interface Scenario {
   id: string;
@@ -37,7 +36,7 @@ const generateGherkinLine = (stepData: any, forDisplay: boolean = false): string
       if (forDisplay) {
         line += `\n[Data Table attached]`;
       } else {
-        const indentedTable = dataTableValue.split('\n').map(row => `      ` + row).join('\n');
+        const indentedTable = dataTableValue.split('\n').map((row: string) => `      ` + row).join('\n');
         line += `\n${indentedTable}`;
       }
     }

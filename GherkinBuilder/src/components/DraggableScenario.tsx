@@ -20,12 +20,12 @@ function DraggableScenario({ id, text, index, moveScenario, isSelected }: Dragga
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: 'scenario',
-    collect(monitor) {
+    collect(monitor: any) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: DragItem, monitor) {
+    hover(item: DragItem, monitor: any) {
       if (!ref.current) {
         return;
       }

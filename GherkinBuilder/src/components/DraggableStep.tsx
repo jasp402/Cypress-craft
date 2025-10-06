@@ -12,7 +12,7 @@ function DraggableStep({ step, type }: DraggableStepProps) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'step',
     item: { id: step.id, name: step.name, stepType: type },
-    collect: (monitor) => ({
+    collect: (monitor: any) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
