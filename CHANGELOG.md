@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.14](https://github.com/jasp402/Cypress-craft/compare/v2.1.13...v2.1.14) (2025-10-06)
+
+
+### Features
+
+* enhance prepublish script to include GherkinBuilder installation and build, skip postinstall in CI environments ([7358ff6](https://github.com/jasp402/Cypress-craft/commit/7358ff6d26aee93a183e9e85fcbe6d5eb0f3d3d4))
+
 ### [2.1.13](https://github.com/jasp402/Cypress-craft/compare/v2.1.12...v2.1.13) (2025-10-06)
 
 
