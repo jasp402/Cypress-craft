@@ -50,20 +50,26 @@ export const generateStepDisplayText = (stepData: any): string => {
   return generateGherkinLine(stepData, true);
 }
 
-export const generateFeatureFile = (featureName: string, scenarios: Scenario[]): string => {
-  let featureContent = `Feature: ${featureName}\n\n`;
+import { KEYWORDS, mapStepType } from './keywords';
+
+export const generateFeatureFile = (featureName: string, scenarios: Scenario[], language: 'es' | 'en' = 'es'): string => {
+  const kw = KEYWORDS[language];
+  let featureContent = `# language: ${language}\n${kw.feature}: ${featureName}\n\n`;
 
   scenarios.forEach(scenario => {
-    const scenarioKeyword = scenario.isOutline ? 'Scenario Outline' : 'Scenario';
+    const scenarioKeyword = scenario.isOutline ? kw.scenarioOutline : kw.scenario;
     featureContent += `  ${scenarioKeyword}: ${scenario.text} [${scenario.type}]\n`;
     const sortedNodes = scenario.nodes.sort((a, b) => a.position.y - b.position.y);
 
     sortedNodes.forEach(node => {
-      featureContent += generateGherkinLine(node.data, false) + '\n';
+      // Localize the step keyword (Given/When/Then) based on language
+      const d = node.data || {};
+      const localizedData = { ...d, type: mapStepType(d.type, language) };
+      featureContent += generateGherkinLine({ ...node.data, type: mapStepType(d.type, language) }, false) + '\n';
     });
 
     if (scenario.isOutline && scenario.examples) {
-      featureContent += `\n    Examples:\n`;
+      featureContent += `\n    ${kw.examples}:\n`;
       featureContent += `      ${scenario.examples.replace(/\n/g, '\n      ')}\n`;
     }
 

@@ -13,7 +13,8 @@ const db = new sqlite3.Database(DBSOURCE, (err) => {
     db.serialize(() => {
         db.run(`CREATE TABLE IF NOT EXISTS features (
                                                         id TEXT PRIMARY KEY,
-                                                        name TEXT NOT NULL
+                                                        name TEXT NOT NULL,
+                                                        language TEXT DEFAULT 'es'
                 )`);
 
         db.run(`CREATE TABLE IF NOT EXISTS backgrounds (
@@ -35,6 +36,19 @@ const db = new sqlite3.Database(DBSOURCE, (err) => {
                                                          idx INTEGER,
                                                          FOREIGN KEY (feature_id) REFERENCES features (id) ON DELETE CASCADE
             )`);
+
+        // One-time migration to add `language` column if it didn't exist previously
+        db.run("ALTER TABLE features ADD COLUMN language TEXT DEFAULT 'es'", [], (err) => {
+            if (!err) {
+                // Column added just now -> clean old records to avoid conflicts as requested
+                db.serialize(() => {
+                    db.run('DELETE FROM scenarios');
+                    db.run('DELETE FROM backgrounds');
+                    db.run('DELETE FROM features');
+                    console.log('Migration applied: language column added and old records cleared.');
+                });
+            }
+        });
 
         console.log('Tables are ready.');
     });

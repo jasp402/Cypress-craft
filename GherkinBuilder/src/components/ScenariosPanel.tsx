@@ -51,9 +51,9 @@ function ScenariosPanel({ scenarios, onAddScenario, onSelectScenario, onDeleteSc
   };
 
   return (
-      <aside className="flex w-80 flex-col border-r border-gray-200/10 bg-background-light/50 dark:bg-background-dark/50 p-4">
+      <aside className="flex w-80 flex-col bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark p-4">
         <div className="flex items-center justify-between pb-3 pt-1">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Scenarios</h2>
+          <h2 className="text-xl font-bold text-text-light dark:text-text-dark">Scenarios</h2>
           <button onClick={onAddScenario} className="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white hover:bg-primary/90">
             <span className="material-symbols-outlined text-base">add</span>
             <span>Add Scenario</span>
@@ -88,9 +88,9 @@ function ScenariosPanel({ scenarios, onAddScenario, onSelectScenario, onDeleteSc
                                   autoFocus
                               />
                           ) : (
-                              <p className={`text-gray-900 dark:text-white ${isActive ? 'font-semibold' : 'font-medium'}`}>{`${positionalId}: ${scenario.text} [${scenario.type}]`}</p>
+                              <p className={`text-text-light dark:text-text-dark ${isActive ? 'font-semibold' : 'font-medium'}`}>{`${positionalId}: ${scenario.text} [${scenario.type}]`}</p>
                           )}
-                          <p className={`text-sm ${isActive ? 'text-gray-500 dark:text-gray-400' : 'text-gray-500 dark:text-gray-400'}`}>{isActive ? 'Active Scenario' : 'Inactive'}</p>
+                          <p className={`text-sm ${isActive ? 'text-subtext-light dark:text-subtext-dark' : 'text-subtext-light dark:text-subtext-dark'}`}>{isActive ? 'Active Scenario' : 'Inactive'}</p>
                         </div>
                       </div>
                       <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">

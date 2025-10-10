@@ -19,15 +19,15 @@ const StepNode = ({ data, type }: NodeProps) => {
     const startInfo = typeInfo['start'];
     return (
       <div className="w-72">
-        <div className="relative rounded-xl p-4">
+        <div className="relative rounded-xl p-4 bg-card-light shadow-sm border border-border-light">
           <Handle type="source" position={Position.Right} id="output" />
           <div className="flex items-start gap-3">
             <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${startInfo.bg} ${startInfo.text}`}>
                 <span className="material-symbols-outlined">{startInfo.icon}</span>
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 dark:text-white">Start</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Scenario starting point</p>
+              <h3 className="font-bold text-text-light">Start</h3>
+              <p className="text-sm text-subtext-light">Scenario starting point</p>
             </div>
           </div>
         </div>
@@ -37,15 +37,15 @@ const StepNode = ({ data, type }: NodeProps) => {
 
   return (
     <div className="w-72">
-        <div className="relative rounded-xl p-4">
+        <div className="relative rounded-xl p-4 bg-card-light shadow-sm border border-border-light">
             <Handle type="target" position={Position.Left} id="input" />
             <div className="flex items-start gap-3">
                 <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${info.bg} ${info.text}`}>
                     <span className="material-symbols-outlined">{info.icon}</span>
                 </div>
                 <div>
-                    <h3 className="font-bold text-gray-900 dark:text-white">{stepType}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{stepName}</p>
+                    <h3 className="font-bold text-text-light">{stepType}</h3>
+                    <p className="text-sm text-subtext-light">{stepName}</p>
                 </div>
             </div>
             <Handle type="source" position={Position.Right} id="output" />

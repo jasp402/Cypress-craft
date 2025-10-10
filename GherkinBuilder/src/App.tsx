@@ -23,6 +23,7 @@ export interface Background {
 export interface Feature {
   id: string;
   name: string;
+  language: 'es' | 'en';
   scenarios: Scenario[];
   background: Background | null; // Added background
 }
@@ -46,11 +47,11 @@ function App() {
     setCurrentPage('editor');
   };
 
-  const handleCreateFeature = async (name: string) => {
+  const handleCreateFeature = async (name: string, language: 'es' | 'en') => {
     const newFeatureId = `feature_${Date.now()}`;
     const response = await fetch(`${API_URL}/features`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: newFeatureId, name }),
+      body: JSON.stringify({ id: newFeatureId, name, language }),
     });
     const createdFeature = await response.json();
     setFeatures(prev => [...prev, createdFeature]);
@@ -75,6 +76,10 @@ function App() {
 
   const editingFeature = features.find(f => f.id === editingFeatureId);
 
+  // compute statistics
+  const featuresCount = features.length;
+  const scenariosCount = features.reduce((acc, f) => acc + (f.scenarios?.length || 0), 0);
+
   return (
       <div className="App">
         {currentPage === 'features' && (
@@ -92,6 +97,7 @@ function App() {
                 onNavigateBack={handleNavigateToFeatures}
                 updateFeatureInState={updateFeatureInState}
                 API_URL={API_URL}
+                stats={{ featuresCount, scenariosCount }}
             />
         )}
       </div>

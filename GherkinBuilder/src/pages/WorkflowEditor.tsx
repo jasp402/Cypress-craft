@@ -5,17 +5,19 @@ import { Feature, Scenario } from '../App';
 import { ScenarioColumn } from '../components/ScenarioColumn';
 import BddCodePanel from '../components/BddCodePanel';
 import { AnimatePresence, Reorder } from 'framer-motion';
+import Sidebar from '../components/Sidebar';
 import { ScenarioSettingsPanel } from '../components/ScenarioSettingsPanel';
 
 // --- Main Workflow Editor Component ---
 
 const getUniqueNodeId = () => `step_${Date.now()}_${Math.random()}`;
 
-function WorkflowEditor({ feature, onNavigateBack, updateFeatureInState, API_URL }: { 
+function WorkflowEditor({ feature, onNavigateBack, updateFeatureInState, API_URL, stats }: { 
   feature: Feature; 
   onNavigateBack: () => void; 
   updateFeatureInState: (featureId: string, featureUpdater: (prevFeature: Feature) => Feature) => void;
   API_URL: string;
+  stats: { featuresCount: number; scenariosCount: number };
 }) {
   const [selectedScenarioId, setSelectedScenarioId] = useState<string | null>(null);
   const [editingScenarioId, setEditingScenarioId] = useState<string | null>(null);
@@ -133,7 +135,7 @@ function WorkflowEditor({ feature, onNavigateBack, updateFeatureInState, API_URL
 
   return (
     <div className="flex h-screen w-full flex-col">
-      <header className="flex h-16 shrink-0 items-center justify-between border-b border-gray-200/10 bg-background-light/80 px-6 backdrop-blur-sm dark:bg-background-dark/80">
+      <header className="flex h-16 shrink-0 items-center justify-between border-b border-border-light/10 bg-background-light/80 px-6 backdrop-blur-sm dark:bg-background-dark/80">
         <div className="flex items-center gap-4">
             <button onClick={onNavigateBack} className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-200/50 dark:text-gray-300 dark:hover:bg-gray-700/50">
                 <span className="material-symbols-outlined">arrow_back_ios_new</span>
@@ -145,6 +147,7 @@ function WorkflowEditor({ feature, onNavigateBack, updateFeatureInState, API_URL
       </header>
 
       <div className="flex flex-1 overflow-hidden relative">
+        <Sidebar featuresCount={stats.featuresCount} scenariosCount={stats.scenariosCount} />
         <ScenariosPanel scenarios={feature.scenarios} onAddScenario={handleAddScenario} onSelectScenario={handleSelectScenario} onDeleteScenario={handleDeleteScenario} onUpdateScenario={handleUpdateScenario} onOpenSettings={setEditingScenarioId} onReorderScenarios={handleReorderScenarios} selectedScenarioId={selectedScenarioId} />
         <main className="flex-1 grid grid-rows-[1fr_auto]">
             <div className="overflow-x-auto p-6">
@@ -168,7 +171,7 @@ function WorkflowEditor({ feature, onNavigateBack, updateFeatureInState, API_URL
             </div>
             <BddCodePanel feature={feature} selectedScenario={selectedScenario} />
           </main>
-          <StepLibrary onAddStep={handleAddStep} />
+          <StepLibrary onAddStep={handleAddStep} language={feature.language} />
           <ScenarioSettingsPanel scenario={scenarioToEdit} onClose={() => setEditingScenarioId(null)} onUpdate={handleUpdateScenario} />
         </div>
       </div>

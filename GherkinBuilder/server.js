@@ -33,7 +33,7 @@ app.get('/api/features', (req, res) => {
         const features = {};
         db.all("SELECT * FROM features ORDER BY name", [], (err, rows) => {
             if (err) { return res.status(400).json({ "error": err.message }); }
-            rows.forEach(row => features[row.id] = { ...row, scenarios: [], background: null });
+            rows.forEach(row => features[row.id] = { id: row.id, name: row.name, language: row.language || 'es', scenarios: [], background: null });
         });
 
         db.all("SELECT * FROM backgrounds", [], (err, rows) => {
@@ -63,13 +63,14 @@ app.get('/api/features', (req, res) => {
 });
 
 app.post('/api/features', (req, res) => {
-    const { id, name } = req.body;
-    db.run('INSERT INTO features (id, name) VALUES (?,?)', [id, name], function (err) {
+    const { id, name, language } = req.body;
+    const lang = (language === 'en' || language === 'es') ? language : 'es';
+    db.run('INSERT INTO features (id, name, language) VALUES (?,?,?)', [id, name, lang], function (err) {
         if (err) { return res.status(400).json({ "error": err.message }); }
         const backgroundId = `bg_${id}`;
         db.run('INSERT INTO backgrounds (id, feature_id, nodes) VALUES (?, ?, ?)', [backgroundId, id, '[]'], (bgErr) => {
             if (bgErr) { return res.status(400).json({ "error": bgErr.message }); }
-            res.json({ id, name, scenarios: [], background: { id: backgroundId, feature_id: id, nodes: [] } });
+            res.json({ id, name, language: lang, scenarios: [], background: { id: backgroundId, feature_id: id, nodes: [] } });
         });
     });
 });

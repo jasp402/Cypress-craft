@@ -71,10 +71,13 @@ function DraggableScenario({ id, text, index, moveScenario, isSelected }: Dragga
     <div
       ref={ref}
       style={{ opacity }}
-      className={`p-2 border-b cursor-move ${isSelected ? 'bg-blue-200' : 'bg-white'}`}
+      className={`cursor-move rounded-lg border ${isSelected ? 'border-primary ring-1 ring-primary/30 bg-card-light' : 'border-border-light bg-card-light hover:shadow-md'} shadow-sm px-3 py-2 transition-all`}
       data-handler-id={handlerId}
     >
-      {text}
+      <div className="flex items-center gap-2">
+        <span className="material-symbols-outlined text-gray-400">drag_indicator</span>
+        <span className="text-sm text-text-light">{text}</span>
+      </div>
     </div>
   );
 }
