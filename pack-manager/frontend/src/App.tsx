@@ -30,16 +30,23 @@ function App() {
   const [availablePlugins, setAvailablePlugins] = useState<Plugin[]>([]);
   const [installedPlugins, setInstalledPlugins] = useState<InstalledPlugin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const fetchPlugins = async () => {
-    setLoading(true);
+  const fetchPlugins = async ({ background = false } = {}) => {
+    if (!background) {
+      setLoading(true);
+    }
     setError(null);
     try {
-      const availableRes = await fetch('http://localhost:3001/api/plugins/available');
-      if (!availableRes.ok) throw new Error(`Backend responded with ${availableRes.status}`);
+      const [availableRes, installedRes] = await Promise.all([
+        fetch('http://localhost:3001/api/plugins/available'),
+        fetch('http://localhost:3001/api/plugins/installed')
+      ]);
+
+      if (!availableRes.ok) throw new Error(`Backend responded with ${availableRes.status} on /available`);
       const availableData = await availableRes.json();
       if (availableData.message === 'success') {
         setAvailablePlugins(availableData.data);
@@ -47,8 +54,7 @@ function App() {
         throw new Error(availableData.error || 'Error fetching available plugins');
       }
 
-      const installedRes = await fetch('http://localhost:3001/api/plugins/installed');
-      if (!installedRes.ok) throw new Error(`Backend responded with ${installedRes.status}`);
+      if (!installedRes.ok) throw new Error(`Backend responded with ${installedRes.status} on /installed`);
       const installedData = await installedRes.json();
       if (installedData.message === 'success') {
         setInstalledPlugins(installedData.data);
@@ -58,10 +64,45 @@ function App() {
     } catch (err: any) {
       const errorMessage = `Failed to connect to backend. Is it running on port 3001? Details: ${err.message}`;
       setError(errorMessage);
-      toast.error(errorMessage, { duration: 6000 });
+      if (!background) {
+          toast.error(errorMessage, { duration: 6000 });
+      }
       console.error('Error fetching plugins:', err);
     } finally {
-      setLoading(false);
+      if (!background) {
+        setLoading(false);
+      }
+    }
+  };
+
+  const handleManualRefresh = async () => {
+    if (isRefreshing) return;
+    setIsRefreshing(true);
+
+    const promise = fetch('http://localhost:3001/api/plugins/refresh', {
+      method: 'POST',
+    }).then(async (response) => {
+      const data = await response.json();
+      if (response.ok) {
+        await fetchPlugins({ background: true });
+        return data.message || 'Plugins refreshed successfully';
+      } else {
+        throw new Error(data.error || 'Failed to refresh plugins');
+      }
+    });
+
+    toast.promise(promise, {
+      loading: 'Searching for new items...',
+      success: (message) => `${message}`,
+      error: (err) => `Refresh failed: ${err.message}`,
+    });
+
+    try {
+      await promise;
+    } catch (error) {
+      console.error("Refresh failed:", error);
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
@@ -96,7 +137,9 @@ function App() {
       <MainContent 
         availablePlugins={availablePlugins} 
         installedPlugins={installedPlugins} 
-        onRefresh={fetchPlugins}
+        onRefresh={() => fetchPlugins({ background: true })}
+        onManualRefresh={handleManualRefresh}
+        isRefreshing={isRefreshing}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}

@@ -6,6 +6,8 @@ interface MainContentProps {
   availablePlugins: Plugin[];
   installedPlugins: InstalledPlugin[];
   onRefresh: () => void;
+  onManualRefresh: () => void;
+  isRefreshing: boolean;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   selectedCategory: string;

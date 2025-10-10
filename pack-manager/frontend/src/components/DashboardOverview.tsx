@@ -14,6 +14,8 @@ interface DashboardOverviewProps {
   availablePlugins: Plugin[]
   installedPlugins: InstalledPlugin[]
   onRefresh: () => void
+  onManualRefresh: () => void
+  isRefreshing: boolean
   searchTerm: string
   setSearchTerm: (term: string) => void
   selectedCategory: string
@@ -23,6 +25,8 @@ const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   availablePlugins,
   installedPlugins,
   onRefresh,
+  onManualRefresh,
+  isRefreshing,
   searchTerm,
   setSearchTerm,
   selectedCategory,
@@ -160,11 +164,21 @@ const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </button>
             </div>
             <button
-              className="flex items-center gap-2 px-5 py-3 border border-border-light dark:border-border-dark rounded-xl bg-card-light dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-slate-800 shadow-sm font-light transition-all"
-              onClick={onRefresh}
+              className="flex items-center gap-2 px-5 py-3 border border-border-light dark:border-border-dark rounded-xl bg-card-light dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-slate-800 shadow-sm font-light transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={onManualRefresh}
+              disabled={isRefreshing}
             >
-              <RefreshCw size={18} />
-              Refresh
+              {isRefreshing ? (
+                <>
+                  <RefreshCw size={18} className="animate-spin" />
+                  Searching...
+                </>
+              ) : (
+                <>
+                  <RefreshCw size={18} />
+                  Refresh
+                </>
+              )}
             </button>
             <button className="flex items-center gap-2 px-5 py-3 border border-border-light dark:border-border-dark rounded-xl bg-card-light dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-slate-800 shadow-sm font-light transition-all">
               <Filter size={18} />

@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { useEffect, useState } from "react"
 import { Download, Trash2, RefreshCw, ExternalLink, Copy, CheckCircle, Tag, Check } from "lucide-react"
 
 interface PackageCardProps {
@@ -29,6 +30,28 @@ const PackageCard: React.FC<PackageCardProps> = ({
   onUpdate,
 }) => {
   const isUpdateAvailable = isInstalled && installedVersion ? version > installedVersion : false
+
+  type Snippet = { type: string; target_file: string; content: string }
+  const [snippets, setSnippets] = useState<Snippet[] | null>(null)
+  const [loadingSnippets, setLoadingSnippets] = useState(false)
+  const [errorSnippets, setErrorSnippets] = useState<string | null>(null)
+  // Track expanded/collapsed state per snippet kind for the preview blocks
+  const [expandedSnippets, setExpandedSnippets] = useState<{ [k: string]: boolean }>({})
+
+  useEffect(() => {
+    let cancelled = false
+    setLoadingSnippets(true)
+    fetch(`http://localhost:3001/api/plugins/${id}/snippets`)
+      .then(async (res) => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data?.error || `Failed to load snippets (${res.status})`)
+        return data.data as Snippet[]
+      })
+      .then((snips) => { if (!cancelled) setSnippets(snips) })
+      .catch((err) => { if (!cancelled) setErrorSnippets(err.message) })
+      .finally(() => { if (!cancelled) setLoadingSnippets(false) })
+    return () => { cancelled = true }
+  }, [id])
 
   const ActionButton: React.FC = () => {
     if (isUpdateAvailable) {
@@ -100,11 +123,64 @@ const PackageCard: React.FC<PackageCardProps> = ({
           <ActionButton />
         </div>
       </div>
-      <div className="mt-5 bg-gray-900 dark:bg-black rounded-lg p-4 font-mono text-sm text-gray-300 flex justify-between items-center shadow-inner border border-gray-800">
-        <code className="font-light">npm install {name}</code>
-        <button className="text-gray-400 hover:text-white transition-colors p-1.5 hover:bg-gray-800 rounded">
-          <Copy size={16} />
-        </button>
+      {/* Snippets area (list view only component) */}
+      <div className="mt-4 space-y-3">
+        <h4 className="text-sm font-medium text-text-light dark:text-text-dark">Step definitions snippets Usage:</h4>
+        {loadingSnippets && (
+          <div className="text-xs text-subtext-light dark:text-subtext-dark">Loading snippets…</div>
+        )}
+        {errorSnippets && (
+          <div className="text-xs text-red-600">{errorSnippets}</div>
+        )}
+        {snippets && snippets.length > 0 && (
+          <div className="grid gap-3">
+            {["step_definition", "pom_function"].map((kind) => {
+              const snip = snippets.find((s) => s.type === kind)
+              if (!snip) return null
+              const title = kind === "step_definition" ? "stepDefinition" : "Source code"
+              // Determine if we should truncate based on length or lines
+              const lineCount = snip.content.split('\n').length
+              const needTruncate = lineCount > 12 || snip.content.length > 600
+              const isExpanded = !!expandedSnippets[kind]
+              const toggle = () => setExpandedSnippets((prev) => ({ ...prev, [kind]: !prev[kind] }))
+
+              return (
+                <div key={kind}>
+                  {kind === "pom_function" && (
+                    <h4 className="text-sm font-medium text-text-light dark:text-text-dark">Source code snippets Usage:</h4>
+                  )}
+                  <div className="bg-gray-900 dark:bg-black rounded-lg p-3 border border-gray-800 shadow-inner">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-subtext-light dark:text-subtext-dark">{title} · <span className="font-mono text-gray-300">{snip.target_file}</span></span>
+                      <button className="text-gray-400 hover:text-white transition-colors p-1.5 hover:bg-gray-800 rounded" onClick={() => navigator.clipboard.writeText(snip.content)}>
+                        <Copy size={14} />
+                      </button>
+                    </div>
+                    <div className={`relative ${!isExpanded && needTruncate ? 'max-h-40 overflow-hidden' : ''}`}>
+                      <pre className="whitespace-pre-wrap text-[11px] leading-5 text-gray-200">{snip.content}</pre>
+                      {!isExpanded && needTruncate && (
+                        <div
+                          className="pointer-events-none absolute inset-x-0 bottom-0 h-12"
+                          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))' }}
+                        />
+                      )}
+                    </div>
+                    {needTruncate && (
+                      <div className="mt-2 flex justify-end">
+                        <button
+                          className="text-xs font-medium text-primary hover:underline"
+                          onClick={toggle}
+                        >
+                          {isExpanded ? 'Ver menos' : 'Ver más'}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </div>
   )

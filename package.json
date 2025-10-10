@@ -63,6 +63,8 @@
     "GherkinBuilder/tsconfig.node.json",
     "GherkinBuilder/tailwind.config.js",
     "GherkinBuilder/postcss.config.js",
+    "GherkinBuilder/assets/**",
+    "pack-manager/assets/**",
     "scripts/**",
     "cypress/**",
     "cypress.config.js",

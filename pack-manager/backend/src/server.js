@@ -93,6 +93,22 @@ async function startServer() {
       });
     });
 
+    // New: Return code snippets for a plugin (used to display StepDefinition and POM in list view)
+    app.get('/api/plugins/:plugin_id/snippets', (req, res) => {
+      const { plugin_id } = req.params;
+      if (!plugin_id) return res.status(400).json({ error: 'plugin_id es requerido' });
+      db.all('SELECT type, target_file, content FROM code_snippets WHERE plugin_id = ?', [plugin_id], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        // Normalize expected keys and filter to the two we care about
+        const normalized = rows.map(r => ({
+          type: r.type,
+          target_file: r.target_file,
+          content: r.content
+        }));
+        res.json({ message: 'success', data: normalized });
+      });
+    });
+
     app.get('/api/plugins/installed', (req, res) => {
       const query = `
         SELECT pi.id AS installed_id, pi.installed_version, pi.installed_at, pi.status, pd.id AS plugin_id, pd.name, pd.display_name, pd.version AS available_version, pd.description, pd.category
@@ -181,6 +197,18 @@ async function startServer() {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
+    });
+
+    app.post('/api/plugins/refresh', async (req, res) => {
+      console.log('Iniciando actualización de la lista de plugins disponibles...');
+      try {
+        await seedDatabase(db, fetchFromGitHubRaw, fetchFromGitHubApi);
+        console.log('Actualización de la base de datos completada.');
+        res.status(200).json({ message: 'Plugin list refreshed successfully.' });
+      } catch (error) {
+        console.error('Error al refrescar la lista de plugins:', error);
+        res.status(500).json({ error: 'Failed to refresh plugin list.', details: error.message });
+      }
     });
 
     // Iniciar el servidor
