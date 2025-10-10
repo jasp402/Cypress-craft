@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.18](https://github.com/jasp402/Cypress-craft/compare/v2.1.17...v2.1.18) (2025-10-10)
+
+
+### Features
+
+* add language support for features and enhance UI components ([d0bc02e](https://github.com/jasp402/Cypress-craft/commit/d0bc02e939f5f8c927489d4229c0f59d3b8c699c))
+* implement manual refresh for plugins and add snippet fetching functionality ([3374196](https://github.com/jasp402/Cypress-craft/commit/3374196b944208558d7d279d2b80a57e1d8e4da2))
+
 ### [2.1.17](https://github.com/jasp402/Cypress-craft/compare/v2.1.16...v2.1.17) (2025-10-06)
 
 
