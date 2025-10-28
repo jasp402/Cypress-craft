@@ -23,7 +23,7 @@ Feature: Example test for JSONPlaceholder
   Background:
     Given the Page Object Model configuration for "comments" has been initialized
 
-  Scenario:Successful creation of a comments
+  Scenario: Successful creation of a comments
     When a POST request is sent to the "comments" endpoint
     When I show the "comments" endpoint request
     When I show the "comments" endpoint response

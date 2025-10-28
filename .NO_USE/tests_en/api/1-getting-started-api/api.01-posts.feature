@@ -23,7 +23,7 @@ Feature: Example test for JSONPlaceholder
   Background:
     Given the Page Object Model configuration for "posts" has been initialized
 
-  Scenario:Successful creation of a post
+  Scenario: Successful creation of a post
     When a POST request is sent to the "posts" endpoint
     When I show the "posts" endpoint request
     When I show the "posts" endpoint response

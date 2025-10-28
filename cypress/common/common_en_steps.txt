@@ -1,8 +1,0 @@
-/** -------------------------------------------- **/
-/** Common steps (shared for E2E and API) - EN   **/
-/** -------------------------------------------- **/
-
-Given('the Page Object Model configuration for {string} has been initialized', (name) => {
-  pageObject = pom[name];
-  pageObject._loadEndPoint(name);
-});

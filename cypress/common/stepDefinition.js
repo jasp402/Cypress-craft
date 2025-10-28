@@ -1,7 +1,13 @@
-import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import pom from '../pom';
 let pageObject = null;
 
-//add steps COMMON
-//add steps API
-//add steps E2E
+
+// --- Common Steps (shared across modules) ---
+// Common steps (shared across all modules)
+Given('@COMMON_GIVEN_INIT_POM', (name) => {
+    pageObject = pom[name];
+    pageObject._loadEndPoint(name);
+});
+
+

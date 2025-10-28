@@ -1,33 +1,35 @@
 #!/usr/bin/env node
 
 async function start() {
-    const { Command } = require('commander');
-    const { spawn } = require('child_process');
-    const path = require('path');
-    const fs = require('fs');
+    const {Command} = require('commander');
+    const {spawn}   = require('child_process');
+    const path      = require('path');
+    const fs        = require('fs');
 
     // Dynamically import ESM modules
-    const chalk = (await import('chalk')).default;
-
+    const chalk          = (await import('chalk')).default;
     const inquirerModule = await import('inquirer');
-    const inquirer = inquirerModule.default;
+    const inquirer       = inquirerModule.default;
 
-    const logo = require('./scripts/logo');
-    const packageJson = require('./package.json');
+    //Others imports
+    const logo        = require('./logo');
+    const packageJson = require('../package.json');
 
+    //init Command
     const program = new Command();
 
     // --- Verification and Utility Functions ---
 
     const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
     const runNpm = (cwd, args, extraEnv = {}) => new Promise((resolve) => {
-        const child = spawn(npmCmd, args, { cwd, stdio: 'inherit', shell: true, env: { ...process.env, ...extraEnv } });
+        const child = spawn(npmCmd, args, {cwd, stdio: 'inherit', shell: true, env: {...process.env, ...extraEnv}});
         child.on('close', (code) => resolve(code));
     });
 
+    // --- Initializa Tools GherkinBuild & PackManager ---
     async function ensureGherkinBuilderReady(gherkinBuilderPath) {
         const nodeModules = path.join(gherkinBuilderPath, 'node_modules');
-        const distDir = path.join(gherkinBuilderPath, 'dist');
+        const distDir     = path.join(gherkinBuilderPath, 'dist');
 
         if (!fs.existsSync(nodeModules)) {
             console.log(chalk.yellow('[cypress-craft] Installing Gherkin Builder dependencies on-demand...'));
@@ -47,9 +49,8 @@ async function start() {
         }
         return true;
     }
-
     async function ensurePackManagerReady(packManagerRoot) {
-        const nodeModules = path.join(packManagerRoot, 'node_modules');
+        const nodeModules  = path.join(packManagerRoot, 'node_modules');
         const frontendDist = path.join(packManagerRoot, 'frontend', 'dist');
 
         if (!fs.existsSync(nodeModules)) {
@@ -76,13 +77,12 @@ async function start() {
      * @returns {boolean}
      */
     function isProjectInitialized() {
-        const projectRoot = process.cwd();
-        const cypressDir = path.join(projectRoot, 'cypress');
+        const projectRoot     = process.cwd();
+        const cypressDir      = path.join(projectRoot, 'cypress');
         const cypressConfigJs = path.join(projectRoot, 'cypress.config.js');
         const cypressConfigTs = path.join(projectRoot, 'cypress.config.ts');
         return fs.existsSync(cypressDir) || fs.existsSync(cypressConfigJs) || fs.existsSync(cypressConfigTs);
     }
-
     const checkInitialization = () => {
         if (!isProjectInitialized()) {
             console.log(chalk.red('Error:') + ' This command requires an initialized project.');
@@ -96,9 +96,9 @@ async function start() {
      * Starts the interactive setup wizard for a new project.
      */
     function runInit() {
-        const initScriptPath = path.join(__dirname, 'scripts', 'post-install.js');
-        console.log(chalk.blue('Starting Cypress-Craft setup wizard...'));
-        const initProcess = spawn(process.execPath, [initScriptPath], { stdio: 'inherit', shell: false });
+        const initScriptPath = path.join(__dirname, 'post-install.js');
+        console.log(chalk.blue('\n🧙🏻‍♂️ Starting Cypress-Craft setup wizard...'));
+        const initProcess = spawn(process.execPath, [initScriptPath], {stdio: 'inherit', shell: false});
         initProcess.on('error', (err) => console.error(chalk.red('Error starting the wizard:'), err));
     }
 
@@ -108,14 +108,14 @@ async function start() {
     async function runBuildTestCase() {
         if (!checkInitialization()) return;
         const gherkinBuilderPath = path.join(__dirname, 'GherkinBuilder');
-        const frontendUrl = 'http://localhost:3002';
+        const frontendUrl        = 'http://localhost:3002';
 
         const ok = await ensureGherkinBuilderReady(gherkinBuilderPath);
         if (!ok) return;
 
         console.log(chalk.blue("Starting 'Gherkin Builder' tool (compiled)..."));
         // Start backend server directly; it serves dist if present (no reliance on vite)
-        spawn(process.execPath, ['server.js'], { cwd: gherkinBuilderPath, stdio: 'inherit', shell: false });
+        spawn(process.execPath, ['server.js'], {cwd: gherkinBuilderPath, stdio: 'inherit', shell: false});
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
@@ -134,18 +134,23 @@ async function start() {
     async function runPackManager() {
         if (!checkInitialization()) return;
         const packManagerRoot = path.join(__dirname, 'pack-manager');
-        const frontendUrl = 'http://localhost:3001';
+        const frontendUrl     = 'http://localhost:3001';
 
         const ok = await ensurePackManagerReady(packManagerRoot);
         if (!ok) return;
 
         // Ensure the backend knows the user's project root, even when using npm link.
         const userProjectRoot = process.cwd();
-        const childEnv = { ...process.env, CYPRESS_CRAFT_USER_CWD: userProjectRoot, INIT_CWD: userProjectRoot };
+        const childEnv        = {...process.env, CYPRESS_CRAFT_USER_CWD: userProjectRoot, INIT_CWD: userProjectRoot};
 
         console.log(chalk.blue('Starting Cypress-Craft PackManager (compiled)...'));
         // Start backend server directly; it serves frontend/dist if present (no reliance on npm scripts)
-        spawn(process.execPath, ['backend/src/server.js'], { cwd: packManagerRoot, stdio: 'inherit', shell: false, env: childEnv });
+        spawn(process.execPath, ['backend/src/server.js'], {
+            cwd  : packManagerRoot,
+            stdio: 'inherit',
+            shell: false,
+            env  : childEnv
+        });
 
         setTimeout(async () => {
             console.log(chalk.green(`Opening browser at ${frontendUrl}`));
@@ -160,7 +165,7 @@ async function start() {
     function runReporter() {
         if (!checkInitialization()) return;
         console.log(chalk.blue('Generating HTML test report...'));
-        const reporterProcess = spawn('npx', ['cypress-cucumber-report-features'], { stdio: 'inherit', shell: true });
+        const reporterProcess = spawn('npx', ['cypress-cucumber-report-features'], {stdio: 'inherit', shell: true});
         reporterProcess.on('error', (err) => console.error(chalk.red('Error generating report:'), err));
     }
 
@@ -172,31 +177,31 @@ async function start() {
         console.log(chalk.white('  Cypress-Craft is a set of tools to enhance your E2E and API tests.'));
         console.log(chalk.white('  Choose an option to begin:'), '\n');
 
-        const { choice } = await inquirer.prompt([
+        const {choice} = await inquirer.prompt([
             {
-                type: 'list',
-                name: 'choice',
+                type   : 'list',
+                name   : 'choice',
                 message: 'What would you like to do?',
                 choices: [
                     {
-                        name: '✨ Initialize a new project (or update an existing one)',
+                        name : '✨ Initialize a new project (or update an existing one)',
                         value: 'init'
                     },
                     {
-                        name: '📝 Create test cases (Gherkin Builder)',
+                        name : '📝 Create test cases (Gherkin Builder)',
                         value: 'build_test_case'
                     },
                     {
-                        name: '📦 Manage plugins and steps (Pack Manager)',
+                        name : '📦 Manage plugins and steps (Pack Manager)',
                         value: 'pack_manager'
                     },
                     {
-                        name: '📊 Generate an HTML test report',
+                        name : '📊 Generate an HTML test report',
                         value: 'reporter'
                     },
                     new inquirer.Separator(),
                     {
-                        name: '🚪 Exit',
+                        name : '🚪 Exit',
                         value: 'exit'
                     }
                 ]
