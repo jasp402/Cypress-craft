@@ -231,7 +231,7 @@ async function ensurePackageScripts() {
         pkg.scripts = pkg.scripts || {};
 
         const desired = [
-            { key: 'start', value: 'cypress open' },
+            { key: 'start', value: 'npx cypress open' },
             { key: 'cypress-craft', value: 'cypress-craft' }
         ];
 
@@ -250,80 +250,7 @@ async function ensurePackageScripts() {
     }
 }
 
-async function init(language, typeTest, reports) {
-    const languageDir   = language === 'English' ? 'tests_es'  : 'tests_en' ;
 
-    const filterFunc = (src) => {
-        const basename = path.basename(src);
-
-        if(!reports && basename === 'report-cucumber.js'){
-            return false;
-        }
-
-        //Si no esta en la lista de archivos a tranferir | return false.
-        if (!includeFile.includes(basename)) {
-            return false;
-        }
-
-        //Exclude language [ES / EN]
-        if (basename.includes(languageDir)) {
-            return false;
-        }
-
-        //Exclude type test [E2E / API]
-        if (typeTest !== 'E2E+API') {
-            const testTypePath = (typeTest === 'API') ? 'e2e' : 'api';
-            if (basename.includes(testTypePath)) {
-                if(src.indexOf(`cypress\\support\\${testTypePath}.js`)===-1){
-                    return false;
-                }
-            }
-        }
-
-        // index POM
-        if(typeTest === 'E2E+API'){
-            if(['API_index.js', 'E2E_index.js'].includes(basename)) {
-                return false;
-            }
-        }
-        else if(typeTest === 'E2E') {
-            if(['API_index.js', 'index.js'].includes(basename)) {
-                return false;
-            }
-        }
-        else if(typeTest === 'API'){
-            if(['E2E_index.js', 'index.js'].includes(basename)) {
-                return false;
-            }
-        }
-
-        return true;
-    };
-    const updateFilter = (src) => {
-        if (updateFiles.includes(path.basename(src))) {
-            return true;
-        }else{
-            return  false;
-        }
-    }
-
-    try {
-        if (fs.existsSync(cypressDir)) {
-            await fs.copy(sourceDir, targetDir, {overwrite: true, filter: updateFilter});
-            console.log('\n✨ Cypress-Craft files updated! ✨');
-        } else {
-            await fs.copy(sourceDir, targetDir, {overwrite: true, filter: filterFunc});
-            await mergeStepDefinitions(language, typeTest);
-            console.log('\n✨ Cypress-Craft setup complete! ✨');
-            console.log('You are ready to start testing. To open Cypress, run:');
-            console.log('\n  npx cypress open\n');
-        }
-        await ensurePackageScripts();
-        printReport();
-    } catch (err) {
-        console.error('Error during initialization: ', err);
-    }
-}
 
 
 

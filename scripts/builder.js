@@ -24,7 +24,8 @@ const TEST_MODULES = {
     BD: {
         name: 'BD',
         stepsTemplate: 'steps/bd_steps.tpl.js',
-        featureDir: 'features/bd',
+        featureDir: 'features/db', // Corregido a 'db' para consistencia
+        commandsTemplate: 'support/db_commands.tpl.js', // Nuevo: template para comandos de BD
         destFeatureDir: 'cypress/test/bd', // Ruta de destino en .build
         supportFile: 'cypress/support/bd.js'
     },
@@ -59,9 +60,24 @@ try {
 
 function translateContent(content, dictionary) {
     if (!dictionary) return content;
-    return content.replace(/@\w+/g, (key) => {
-        return dictionary[key] || key;
-    });
+
+    // Itera sobre cada clave del diccionario (ej: '@USER_ACTION_INTO_ELEMENT')
+    for (const key in dictionary) {
+        const value = dictionary[key];
+
+        if (value instanceof RegExp) {
+            // Si el valor es una RegExp, busca el marcador CON comillas y lo reemplaza por el RegExp literal.
+            // Esto convierte "'@KEY'" o '"@KEY"' en /.../
+            const regexWithQuotes = new RegExp(`(['"])${key}\\1`, 'g');
+            content = content.replace(regexWithQuotes, value.toString());
+        } else {
+            // Si es un string, busca el marcador sin comillas y lo reemplaza.
+            // Esto convierte @KEY en '...' (asumiendo que las comillas ya están en el diccionario).
+            const regexSimple = new RegExp(key, 'g');
+            content = content.replace(regexSimple, value);
+        }
+    }
+    return content;
 }
 
 async function buildProject(language, selectedTypes, {addReport, relPath }) {
@@ -104,6 +120,15 @@ async function buildProject(language, selectedTypes, {addReport, relPath }) {
     //------------------------------------
 
     let allStepsContent = '';
+    let allCommandsContent = ''; // Acumulador para los custom commands
+
+    // --- Commands: Procesar y acumular (COMMON) ---
+    const commonCommandsTemplatePath = path.join(templatesDir, 'support/common_commands.tpl.js'); // Asumiendo que puede existir un archivo de comandos comunes
+    if (fs.existsSync(commonCommandsTemplatePath)) {
+        const commandContent = await fs.readFile(commonCommandsTemplatePath, 'utf8');
+        allCommandsContent += `\n// --- Common Commands (shared across modules) ---\n` + commandContent + '\n';
+        addReport('success', 'Processed common commands template', relPath(commonCommandsTemplatePath));
+    }
 
     // --- Steps: Procesar, traducir y acumular (COMMON) ---
     // Se procesa primero para que los pasos comunes estén disponibles para todos los módulos.
@@ -155,6 +180,28 @@ async function buildProject(language, selectedTypes, {addReport, relPath }) {
             const finalContent = translateContent(templateContent, stepDictionary); // Usa el diccionario de steps
             allStepsContent += `\n// --- Steps for ${type} ---\n` + finalContent + '\n';
             addReport('success', 'Processed steps template', relPath(stepsTemplatePath));
+        }
+
+        // --- Commands: Acumular comandos específicos del módulo (como BD) ---
+        if (module.commandsTemplate) {
+            const commandsTemplatePath = path.join(templatesDir, module.commandsTemplate);
+            if (fs.existsSync(commandsTemplatePath)) {
+                const commandContent = await fs.readFile(commandsTemplatePath, 'utf8');
+                allCommandsContent += `\n// --- Commands for ${type} ---\n` + commandContent + '\n';
+                addReport('success', 'Processed commands template', relPath(commandsTemplatePath));
+            }
+        }
+
+        // --- Settings: Copiar archivos de configuración específicos del módulo (como db-settings.js para BD) ---
+        if (type === 'BD') {
+            const dbSettingsSourcePath = path.join(templatesDir, 'settings/db-settings.js');
+            const dbSettingsDestPath = path.join(buildDir, 'cypress/settings/db-settings.js');
+            if (fs.existsSync(dbSettingsSourcePath)) {
+                await fs.copy(dbSettingsSourcePath, dbSettingsDestPath);
+                addReport('success', 'Copied DB settings file', relPath(dbSettingsDestPath));
+            } else {
+                addReport('warning', 'Missing DB settings template', relPath(dbSettingsSourcePath));
+            }
         }
     }
 
@@ -215,6 +262,42 @@ ${pomExports}`;
         addReport('success', 'Generated final stepDefinition.js', relPath(destPath));
     } else {
         addReport('error', 'Missing main template', relPath(stepDefTemplatePath));
+    }
+
+    // --- Commands: Generar el archivo commands.js final ---
+    const commandsTemplatePath = path.join(templatesDir, 'support/commands.tpl.js'); // Un template base para commands.js
+    if (fs.existsSync(commandsTemplatePath)) {
+        const commandsTemplate = await fs.readFile(commandsTemplatePath, 'utf8');
+        const finalCommandsContent = commandsTemplate.replace('// @INJECT_COMMANDS_HERE', allCommandsContent);
+        const destPath = path.join(buildDir, 'cypress/support/commands.js');
+        await fs.outputFile(destPath, finalCommandsContent);
+        addReport('success', 'Generated final commands.js', relPath(destPath));
+    } else {
+        addReport('error', 'Missing commands template', relPath(commandsTemplatePath));
+    }
+
+    // --- Settings: Generar el archivo setupNodeEvents.js final ---
+    const setupNodeEventsTemplatePath = path.join(templatesDir, 'settings/setupNodeEvents.tpl.js');
+    if (fs.existsSync(setupNodeEventsTemplatePath)) {
+        let setupNodeEventsTemplate = await fs.readFile(setupNodeEventsTemplatePath, 'utf8');
+        let dbTaskInjection = '';
+        if (selectedTypes.includes('BD')) {
+            dbTaskInjection = `
+  const { queryDatabase } = require('./db-settings');
+
+  on('task', {
+    queryDb: (query) => {
+      return queryDatabase(query, config.env.db);
+    },
+  });
+`;
+        }
+        setupNodeEventsTemplate = setupNodeEventsTemplate.replace('// @INJECT_DB_TASKS_HERE', dbTaskInjection);
+        const destPath = path.join(buildDir, 'cypress/settings/setupNodeEvents.js');
+        await fs.outputFile(destPath, setupNodeEventsTemplate);
+        addReport('success', 'Generated final setupNodeEvents.js', relPath(destPath));
+    } else {
+        addReport('error', 'Missing setupNodeEvents template', relPath(setupNodeEventsTemplatePath));
     }
 
     console.log(chalk.green('✔ Project structure built successfully.'));

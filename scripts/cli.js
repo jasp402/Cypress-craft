@@ -20,10 +20,19 @@ async function start() {
 
     // --- Verification and Utility Functions ---
 
-    const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-    const runNpm = (cwd, args, extraEnv = {}) => new Promise((resolve) => {
-        const child = spawn(npmCmd, args, {cwd, stdio: 'inherit', shell: true, env: {...process.env, ...extraEnv}});
+    const runNpm = (cwd, args, extraEnv = {}) => new Promise((resolve, reject) => {
+        const isWindows = process.platform === 'win32';
+        const command = isWindows ? 'npm.cmd' : 'npm';
+        const fullCommand = [command, ...args].join(' ');
+
+        const child = spawn(fullCommand, [], {
+            cwd,
+            stdio: 'inherit',
+            shell: true, // Usar el shell del sistema es más robusto para encontrar `npm`
+            env: {...process.env, ...extraEnv}
+        });
         child.on('close', (code) => resolve(code));
+        child.on('error', (err) => reject(err)); // Usar reject para un mejor manejo de errores
     });
 
     // --- Initializa Tools GherkinBuild & PackManager ---
@@ -32,6 +41,7 @@ async function start() {
         const distDir     = path.join(gherkinBuilderPath, 'dist');
 
         if (!fs.existsSync(nodeModules)) {
+            console.log('[debug]:' + nodeModules)
             console.log(chalk.yellow('[cypress-craft] Installing Gherkin Builder dependencies on-demand...'));
             const code = await runNpm(gherkinBuilderPath, ['install', '--no-audit', '--no-fund']);
             if (code !== 0) {
@@ -107,7 +117,7 @@ async function start() {
      */
     async function runBuildTestCase() {
         if (!checkInitialization()) return;
-        const gherkinBuilderPath = path.join(__dirname, 'GherkinBuilder');
+        const gherkinBuilderPath = path.join(__dirname, '..', 'tools', '_gherkin-builder');
         const frontendUrl        = 'http://localhost:3002';
 
         const ok = await ensureGherkinBuilderReady(gherkinBuilderPath);
@@ -133,7 +143,7 @@ async function start() {
      */
     async function runPackManager() {
         if (!checkInitialization()) return;
-        const packManagerRoot = path.join(__dirname, 'pack-manager');
+        const packManagerRoot = path.join(__dirname, '..', 'tools', '_pack-manager');
         const frontendUrl     = 'http://localhost:3001';
 
         const ok = await ensurePackManagerReady(packManagerRoot);

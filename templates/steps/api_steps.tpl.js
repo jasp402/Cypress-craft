@@ -4,7 +4,7 @@ When('@API_WHEN_REQUEST_SENT', (method, endPoint, settings) => {
 });
 
 //When a request response show logs...
-When(@API_SHOW_REQUEST_OR_RESPONSE, (endPoint, type) => {
+When('@API_SHOW_REQUEST_OR_RESPONSE', (endPoint, type) => {
     pageObject._showManager(type, endPoint);
 });
 
