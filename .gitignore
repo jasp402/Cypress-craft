@@ -149,5 +149,7 @@ GherkinBuilder/output/
 # Package manager locks
 package-lock.json
 pack-manager/package-lock.json
+!tools/_pack-manager/frontend/package-lock.json
+!tools/_gherkin-builder/package-lock.json
 /CLAUDE.md
 /.NO_USE/
